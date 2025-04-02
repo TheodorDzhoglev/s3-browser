@@ -1,0 +1,80 @@
+.dialog{
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-color: transparent;
+    border: none;
+    padding: 0;
+}
+
+.dialog::backdrop{
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.modal_box{
+    z-index: 10;
+    padding: var(--pd-box);
+    border: var(--border-box);
+    border-radius: var(--border-radius-box);
+    background-color: var(--bg-main);
+    color: var(--color-gray);
+    position: relative;
+}
+
+.modal_header {
+    font-size: var(--fs-large);
+    text-align: center;
+}
+
+.modal_content{
+    margin:  var(--gap-md) 0 var(--gap-bg);
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-md);
+}
+
+.form button{
+    margin-top: var(--gap-md);
+}
+
+.close_btn{
+    position: absolute;
+    right: .5rem;
+    top: .5rem;
+    width: 3rem;
+    height: 3rem;
+    border-radius: .8rem;
+    border: none;
+    background-color: transparent;
+}
+
+.close_btn:focus-visible{
+    outline: var(--outline-focus);
+}
+
+.close_btn::after, .close_btn::before{
+    content: '';
+    position: absolute;
+    width: 2px;
+    height: 70%;
+    left: 14px;
+    top: 5px;
+    background-color: var(--color-gray);
+    border-radius: 2px;
+    transition: background-color var(--transition-duration);
+} 
+
+.close_btn::after{
+    transform: rotate(45deg);
+}
+
+.close_btn::before{
+    transform: rotate(-45deg);
+}
+
+.close_btn:hover::after, .close_btn:hover::before{
+    background-color: var(--bg-btn-hover);
+}

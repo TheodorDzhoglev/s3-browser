@@ -1,0 +1,46 @@
+.icon_li, .icon_container{
+    width: 100%;
+}
+
+.icon_container{
+    display: flex;
+    align-items: center;
+    gap: var(--gap-dir-row);
+    background-color: var(--bg-input);
+    border-radius: var(--border-radius-sm);
+    padding: var(--pd-dir-row);
+    border: none;
+    color: inherit;
+}
+
+.icon_container:focus-visible, .icon_container:hover {
+    outline: var(--outline-focus);
+    outline-offset: -2px;
+}
+
+.icon_container p{
+    text-align: start;
+}
+
+.icon_container > * {
+    padding: var(--pd-row-item);
+}
+
+.icon_svg{
+    width: var(--dor-col-width-1)
+}
+
+.icon_svg svg {
+    height: var(--dir-icon-height);
+    fill: var(--color-gray);
+    stroke: var(--color-gray);
+}
+
+.icon_title{
+    flex: 1;
+}
+
+.icon_date{
+    font-size: var(--fs-sm);
+    width: var(--dor-col-width-3)
+}

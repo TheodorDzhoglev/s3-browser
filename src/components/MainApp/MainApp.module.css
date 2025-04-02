@@ -1,0 +1,18 @@
+.app_container{
+    display: flex;
+    height: calc(100% - var(--header-hight));
+    border-top: var(--border-box);
+}
+
+.tree_view, .current_directory{
+    padding: var(--pd-sm) 0;
+}
+
+.tree_view{
+    flex: 0 0 30rem;
+}
+
+.current_directory{
+    flex: 1 1 auto;
+    padding-right: var(--pd-sm);
+}

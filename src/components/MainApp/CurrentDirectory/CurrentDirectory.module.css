@@ -1,0 +1,37 @@
+.main_container{
+    background-color: var(--bg-current-dir);
+    border-radius: var(--border-radius-box);
+    border: var(--border-box);
+    padding: var(--pd-box);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.directory_header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.current_directory{
+}
+.btn_container{
+    display: flex;
+    gap: 1rem;
+}
+
+.btn_container button{
+    display: flex;
+    gap: 1rem;
+    font-weight: var(--fw-bold);
+}
+
+.btn_container button svg{
+    width: 2rem;
+}
+
+.btn_container button:last-child svg{
+    fill: #fff;
+    stroke: #fff;
+    zoom: 1.2;
+}

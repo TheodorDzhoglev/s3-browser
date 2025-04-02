@@ -1,0 +1,63 @@
+:root {
+
+    /* COLORS */
+    --color-gray: #EAEAEC;
+    --color-main: #e0ff9f;
+
+    /* background-color */
+    --bg-main: #18171C;
+    --bg-current-dir: #212024;
+    --bg-input: #32313b;
+    --bg-btn-hover: #403f4f;
+
+    /* padding */
+    --pd-sm: .8rem;
+    --pd-square-btn: .8rem;
+    --pd-box: 3.2rem;
+    --pd-input: 1.2rem 1.6rem;
+    --pd-btn: .8rem 1.6rem;
+    --pd-dir-row: .8rem 3rem .8rem 2rem;
+    --pd-row-item: 0 .8rem 0 .8rem;
+
+    /* border */
+    --border-box: 1px solid #403f4f;
+    --border-btn: 1px solid #fff;
+
+    /* border-radius */
+    --border-radius-sm: 1.2rem;
+    --border-radius-box: 1.6rem;
+    --border-radius-btn: 3.2rem;
+
+    /* font-size */
+    --fs-sm: 1.4rem;
+    --fs-regular: 1.6rem;
+    --fs-big: 1.8rem;
+    --fs-large: 2.4rem;
+
+    /* font-wight */
+    --fw-regular: 400;
+    --fw-bold: 700;
+
+    /* button-box-shadow */
+    --btn-box-shadow: 0 0 0 1px var(--color-gray) inset;
+
+    /* gap */
+    --gap-sm: .8rem;
+    --gap-md: 1.6rem;
+    --gap-bg: 2.4rem;
+    --gap-dir-row: 4rem;
+
+    /* transition */
+    --transition-duration: 250ms;
+
+    /* outline */
+    --outline-focus: 2px solid var(--color-main);
+
+    /* header-hight */
+    --header-hight: 5rem;
+
+    /* directory-icons */
+    --dir-icon-height: 4rem;
+    --dor-col-width-1: 6rem;
+    --dor-col-width-3: 16rem;
+}

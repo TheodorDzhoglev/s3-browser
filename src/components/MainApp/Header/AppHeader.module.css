@@ -1,0 +1,38 @@
+.app_header{
+    padding: .8rem 3.2rem;
+    height: var(--header-hight);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header_content{
+    font-size: var(--fs-big);
+    font-weight: var(--fw-bold);
+}
+
+.header_logout{
+    border: none;
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    color: var(--color-gray);
+    padding: var(--pd-square-btn);
+    font-size: var(--fs-sm);
+    border-radius: var(--border-radius-sm);
+    transition: background-color var(--transition-duration);
+    height: 100%;
+}
+
+.header_logout:hover{
+    background-color: var(--bg-btn-hover);
+}
+
+.header_logout:focus-visible{
+    outline: var(--outline-focus);
+}
+
+.header_logout svg{
+    width: 2rem;
+    color: var(--color-gray);
+}

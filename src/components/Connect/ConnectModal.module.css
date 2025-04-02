@@ -1,0 +1,12 @@
+.form_overlay {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.form_container {
+    padding: var(--pd-box);
+    border: var(--border-box);
+    border-radius: var(--border-radius-box);
+}
