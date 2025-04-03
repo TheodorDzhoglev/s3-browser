@@ -4,6 +4,8 @@ import { Fragment } from 'react/jsx-runtime'
 import { FormEvent, MouseEvent, useState } from 'react'
 import { createObject } from '../../utils/s3API'
 import { useAppContext } from '../../context/context'
+import { useQueryClient } from '@tanstack/react-query'
+import { useDirContext } from '../../context/dirContext'
 
 const {
     button,
@@ -20,11 +22,18 @@ const {
 const NewFileModal = () => {
     const [name, setName] = useState('')
     const [text, setText] = useState('')
+    const queryClient = useQueryClient()
     const { s3client, credentials } = useAppContext()
+    const {currentDir, setCurrentDirItems, dirMap} = useDirContext()
 
     const createNewFile = async (e: FormEvent) => {
         e.preventDefault();
         await createObject(s3client!, text.trim(), name, credentials!.bucket)
+        queryClient.invalidateQueries({
+            queryKey: ['list'],
+            refetchType: 'active',
+          },)
+        setCurrentDirItems(dirMap[currentDir])
     }
 
     const onCLickHandler = (e: MouseEvent<HTMLButtonElement>) => {

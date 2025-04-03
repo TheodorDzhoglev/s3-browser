@@ -38,17 +38,9 @@ const CurrentDirectoryHeader = () => {
     }
 
     const onBackClickHandler = () => {
-        console.log(findParentDir(currentDir))
-        const currentDirArr = currentDir.split('/')
-        currentDirArr.pop()
-        const parentDir = currentDirArr.join('/')
-        if(!parentDir){
-            setCurrentDirItems(dirMap['/'])
-        }
-        else{
-            setCurrentDir(parentDir)
-            setCurrentDirItems(dirMap[parentDir])
-        }
+        const parentDir = findParentDir(currentDir)
+        setCurrentDir(parentDir)
+        setCurrentDirItems(dirMap[parentDir])
     }
 
     return (

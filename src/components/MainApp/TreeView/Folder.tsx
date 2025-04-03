@@ -29,19 +29,23 @@ const Folder = ({ currentDir = '', content, root, parent }: Props) => {
 
     const [showFolders, setShowFolders] = useState(false)
     const [clicked, setClicked] = useState(false)
-    const { setCurrentDir, setCurrentDirItems, setParentDir, setDirMap } = useDirContext()
+    const { setCurrentDir, setCurrentDirItems, setParentDir, setDirMap, currentDir: currDir } = useDirContext()
     const dirContent = useAdaptData(content, currentDir)
     const { foldersInDirectory, shouldRender } = useRemoveFiles(dirContent)
 
     useEffect(() => {
         const key = root ? '/' : currentDir
-        setDirMap( prevState => {
+        setDirMap(prevState => {
             return {
                 ...prevState,
                 [key]: dirContent
             }
         })
-    }, [setDirMap, currentDir, root, dirContent])
+        if (root && !currDir) {
+            setCurrentDir(currentDir)
+            setCurrentDirItems(dirContent)
+        }
+    }, [setDirMap, currentDir, root, dirContent, setCurrentDir, setCurrentDirItems, currDir])
 
     const onCLickHandler = (e: MouseEvent<HTMLButtonElement>) => {
         e.stopPropagation()
