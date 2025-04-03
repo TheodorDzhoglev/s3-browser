@@ -1,11 +1,12 @@
 import classes from './Icon.module.css'
-import { folderIcon, fileIcon } from '../../../utils/svgIcons'
+import { folderIcon } from '../../../utils/svgIcons'
 import { BucketItemType } from '../../../utils/types'
+import { findCurrentDir } from '../../../utils/dataTransformUtls'
+import { useDirContext } from '../../../context/dirContext'
 
 type Props = {
     name: string | undefined,
     lastModified?: Date | undefined,
-    type: 'file' | 'folder',
     content: BucketItemType[] | undefined
 }
 
@@ -17,25 +18,24 @@ const {
     icon_li
 } = classes
 
-const Icon = ({ name, lastModified, type}: Props) => {
+const FolderRow = ({ name, lastModified, content}: Props) => {
+
+    const {setCurrentDirItems, setCurrentDir, dirMap} = useDirContext()
 
     if(!name) return
 
     const onDoubleClickHandler = () => {
+        setCurrentDir(name)
+        setCurrentDirItems(dirMap[name])
     }
-
     return (
         <li className={icon_li}>
             <button className={icon_container} type='button' onDoubleClick={onDoubleClickHandler}>
                 <div className={icon_svg}>
-                    {
-                        type === 'folder'
-                        ? folderIcon
-                        : fileIcon
-                    }
+                    {folderIcon}
                 </div>
                 <p className={icon_title}>
-                    {name}
+                    {findCurrentDir(name)}
                 </p>
                 <p className={icon_date}>{lastModified ? `${lastModified.toLocaleDateString()} ${lastModified.toLocaleTimeString()}` : ''}</p>
             </button>
@@ -43,4 +43,4 @@ const Icon = ({ name, lastModified, type}: Props) => {
     )
 }
 
-export default Icon
+export default FolderRow

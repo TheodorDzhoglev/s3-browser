@@ -60,4 +60,7 @@
     --dir-icon-height: 4rem;
     --dor-col-width-1: 6rem;
     --dor-col-width-3: 16rem;
+
+    /* folder-tree */
+    --tree-line-hight: .2rem
 }

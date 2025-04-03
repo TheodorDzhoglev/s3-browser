@@ -12,3 +12,6 @@ body{
     color: var(--color-gray);
 }
 
+button{
+    cursor: pointer;
+}

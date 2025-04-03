@@ -39,3 +39,12 @@ export const folderIcon = (
         <path d="m39.805 19.902c0.35156-0.70703 1.0742-1.1523 1.8633-1.1523h38.539c5.7539 0 10.418 4.6641 10.418 10.418v4.1641c0 1.1523-0.93359 2.0859-2.082 2.0859h-33.336c-3.2773 0-6.3633-1.5469-8.332-4.168l-6.875-9.168c-0.47266-0.62891-0.55078-1.4727-0.19531-2.1797zm6.0273 3.0156 4.375 5.832c1.1836 1.5742 3.0352 2.5 5 2.5h31.25v-2.082c0-3.4531-2.7969-6.25-6.25-6.25z" fillRule="evenodd" />
     </svg>
 )
+
+export const darkFolderIcon = (
+    <svg xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" xmlSpace="preserve" version="1.1" style={{shapeRendering:'geometricPrecision', textRendering:'geometricPrecision', imageRendering: 'auto'}} viewBox="0 0 100 100" x="0px" y="0px" fillRule="evenodd" clipRule="evenodd">
+        <g>
+            <path
+                d="M48 29l37 0c3,0 5,3 5,6l0 41c0,3 -2,5 -5,5l-70 0c-3,0 -5,-2 -5,-5l0 -16 0 -1 0 -24 0 -14c0,-1 1,-2 3,-2l26 0c2,0 2,1 3,2l6 8z" />
+        </g>
+    </svg>
+)

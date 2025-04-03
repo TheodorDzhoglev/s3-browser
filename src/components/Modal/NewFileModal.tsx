@@ -24,8 +24,7 @@ const NewFileModal = () => {
 
     const createNewFile = async (e: FormEvent) => {
         e.preventDefault();
-        const newFile = await createObject(s3client!, text.trim(), name, credentials!.bucket)
-        console.log(newFile)
+        await createObject(s3client!, text.trim(), name, credentials!.bucket)
     }
 
     const onCLickHandler = (e: MouseEvent<HTMLButtonElement>) => {

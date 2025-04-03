@@ -1,8 +1,9 @@
-import { useQueryClient } from '@tanstack/react-query'
 import classes from './Directory.module.css'
-import { ListObjectsV2Output } from '@aws-sdk/client-s3'
 import Icon from './Icon'
 import { useSort } from '../../../utils/hooks'
+import { useDirContext } from '../../../context/dirContext'
+import { useCachedList } from '../../../utils/customQueryHooks'
+import FolderRow from './FolderRow'
 
 const {
     directory_grid_container,
@@ -14,15 +15,17 @@ const {
 
 const Directory = () => {
 
-    const queryClient = useQueryClient()
-    const { Contents } = queryClient.getQueryData(['list']) as ListObjectsV2Output
+    const rootContent = useCachedList()
+    const { currentDirItems } = useDirContext()
+
 
     const {
-        sortedContent,
+        // sortedContent,
         sortByType,
         sortByName,
         sortByDate
-    } = useSort(Contents)
+    } = useSort(rootContent)
+
 
 
     return (
@@ -40,9 +43,29 @@ const Directory = () => {
             </div>
             <div className={directory_grid_container}>
                 <ul className={directory_grid}>
-                    {sortedContent?.map(c =>
-                        <Icon name={c.Key} key={c.Key} lastModified={c.LastModified} />
-                    )}
+                    {currentDirItems && Object.keys(currentDirItems).map(key => {
+                        if (currentDirItems[key] instanceof Date) {
+                            return (
+                                <Icon
+                                    name={key}
+                                    key={key}
+                                    lastModified={currentDirItems[key] instanceof Date ? currentDirItems[key] : undefined}
+                                    type={'file'}
+                                    content={currentDirItems[key] instanceof Date ? undefined : currentDirItems[key]}
+                                />
+                            )
+                        }
+                        else {
+                            return (
+                                <FolderRow
+                                    name={key}
+                                    key={key}
+                                    lastModified={undefined}
+                                    content={currentDirItems[key] instanceof Date ? undefined : currentDirItems[key]}
+                                />
+                            )
+                        }
+                    })}
                 </ul>
             </div>
         </div>

@@ -1,5 +1,7 @@
 import { useMemo, useState } from "react"
 import { _Object } from '@aws-sdk/client-s3'
+import { BucketItemType } from "./types";
+import { adaptData, removeFiles } from "./dataTransformUtls";
 
 type useSortType = (content: _Object[] | undefined) => {
     sortedContent: _Object[] | undefined;
@@ -21,7 +23,6 @@ const defaultFlags: flagsType= {
 }
 
 export const useSort: useSortType = (content) => {
-
     const [sortedContent, setSortedContent] = useState(content);
     const [flags, setFlags] = useState(defaultFlags);
 
@@ -107,3 +108,17 @@ export const useSort: useSortType = (content) => {
     }
 
 }
+
+export const useAdaptData = (contents: _Object[] | BucketItemType[] | undefined, dir: string) => {
+    return useMemo(() => adaptData(contents, dir), [contents, dir])
+}
+
+export const useRemoveFiles = (data: Record<string, Date | BucketItemType[] | undefined> | undefined) => {
+    const foldersInDirectory =  useMemo(() => removeFiles(data), [data])
+    const shouldRender = foldersInDirectory ? !!Object.keys(foldersInDirectory).length : false
+
+    return {
+        foldersInDirectory,
+        shouldRender
+    }
+}   

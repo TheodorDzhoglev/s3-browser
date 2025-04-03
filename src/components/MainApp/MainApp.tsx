@@ -3,9 +3,8 @@ import TreeView from "./TreeView/TreeView"
 import classes from "./MainApp.module.css"
 import { Fragment } from "react/jsx-runtime"
 import AppHeader from "./Header/AppHeader"
-import { listBucket } from "../../utils/s3API"
-import { useQuery } from "@tanstack/react-query"
-import { useAppContext } from "../../context/context"
+import { useFetchList } from "../../utils/customQueryHooks"
+import DirectoryContext from "../../context/DirectoryContext"
 
 const {
     app_container,
@@ -14,29 +13,21 @@ const {
 } = classes
 
 const MainApp = () => {
-
-    const { credentials, s3client } = useAppContext()
-    const { bucket } = credentials!
-
-    const { isLoading, error, data } = useQuery({
-        queryKey: ['list'],
-        queryFn: () => listBucket(s3client!, bucket),
-    })
+    const { isLoading, error, data } = useFetchList()
 
 
     if (isLoading) return <h1>Loading</h1>
 
-    if(error) return <h1>An Error occurred {error.message}</h1>
-
-    console.log(data)
-    console.log(data?.Contents)
+    if (error) return <h1>An Error occurred {error.message}</h1>
 
     return (
         <Fragment>
             <AppHeader />
             <div className={app_container}>
-                <TreeView className={tree_view} />
-                <CurrentDirectory className={current_directory} />
+                <DirectoryContext>
+                    <TreeView className={tree_view} content={data?.Contents}/>
+                    <CurrentDirectory className={current_directory} />
+                </DirectoryContext>
             </div>
         </Fragment>
     )

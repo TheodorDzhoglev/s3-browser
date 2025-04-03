@@ -13,8 +13,8 @@ export const createS3Client = (credentials: s3DataType) => {
     return s3
 }
 
-export const listBucket = async (client: S3Client, bucket: string) => {    
-    const command = new ListObjectsV2Command({ Bucket: bucket })
+export const listBucket = async (client: S3Client, bucket: string, dir: string = '') => {    
+    const command = new ListObjectsV2Command({ Bucket: bucket, Prefix: dir })
     return await client.send(command)
 }
 
