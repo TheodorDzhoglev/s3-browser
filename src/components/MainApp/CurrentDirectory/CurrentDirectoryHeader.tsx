@@ -7,6 +7,7 @@ import Dialog from '../../Modal/Dialog'
 import { useDirContext } from '../../../context/dirContext'
 import { findCurrentDir, findParentDir } from '../../../utils/dataTransformUtls'
 import NewFolderModal from '../../Modal/NewFolderModal'
+import DeleteModal from '../../Modal/DeleteModal'
 
 const { 
     directory_header,
@@ -18,11 +19,16 @@ const {
     button
 } = uiClasses
 
-const CurrentDirectoryHeader = () => {
+type Props = {
+    selectedFile: { name: string, type: 'file' | 'folder' } | undefined
+}
+
+const CurrentDirectoryHeader = ({ selectedFile }: Props) => {
 
     const dialogRef = useRef<HTMLDialogElement>(null)
     const [modalElement, setModalElement] = useState<ReactNode>()
     const { setCurrentDirItems, dirMap, currentDir, setCurrentDir } = useDirContext()
+
     const toggleDialog = () => {
         if(!dialogRef.current) return;
         if(dialogRef.current.hasAttribute('open')){
@@ -43,6 +49,11 @@ const CurrentDirectoryHeader = () => {
         setModalElement(<NewFolderModal key={Math.random()}/>)
     }
 
+    const onOpenDeleteHandler = () => {
+        toggleDialog()
+        setModalElement(<DeleteModal key={Math.random()} selectedFile={selectedFile}/>)
+    }
+
     const onBackClickHandler = () => {
         const parentDir = findParentDir(currentDir)
         setCurrentDir(parentDir)
@@ -57,7 +68,7 @@ const CurrentDirectoryHeader = () => {
             <div className={btn_container}>
                 <button className={button} onClick={onOpenAddNewFileHandler}>{plusIcon}Add File</button>
                 <button className={button} onClick={onOpenAddNewFolderHandler}>{plusIcon}Add Folder</button>
-                <button className={button}>{binIcon}Delete</button>
+                <button className={button} onClick={onOpenDeleteHandler}>{binIcon}Delete</button>
                 <button className={button} onClick={onBackClickHandler}>{binIcon}Back</button>
             </div>
             <Dialog ref={dialogRef} toggleDialog={toggleDialog}>{modalElement}</Dialog>

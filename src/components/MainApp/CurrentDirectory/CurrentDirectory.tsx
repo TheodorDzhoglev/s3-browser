@@ -3,6 +3,7 @@ import CurrentDirectoryHeader from "./CurrentDirectoryHeader"
 import Directory from "./Directory"
 import { useDirContext } from "../../../context/dirContext"
 import { useState } from "react"
+import { SelectItemType } from "../../../utils/types"
 
 
 type Props = {
@@ -15,13 +16,13 @@ const {
 
 const CurrentDirectory = ({ className }: Props) => {
 
-    const [selectedFile, setSelectedFile] = useState('')
+    const [selectedFile, setSelectedFile] = useState<SelectItemType>()
     const {dirMap, currentDir} = useDirContext()
 
     return (
         <div className={className}>
             <div className={main_container}>
-                <CurrentDirectoryHeader />
+                <CurrentDirectoryHeader selectedFile={selectedFile}/>
                 <Directory 
                     dirContent={dirMap[currentDir]}
                     selectedFile={selectedFile}

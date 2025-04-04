@@ -27,10 +27,12 @@ const NewFolderModal = () => {
     const { currentDir } = useDirContext()
     const currentFolder = findCurrentDir(currentDir)
 
+    if(!credentials || !s3client) return 
+
     const createNewFolder = async (e: FormEvent) => {
         e.preventDefault();
         const fullName = currentDir === '/' ? name+'/' : `${currentDir}/${name}/`
-        await createObject(s3client!, '', fullName, credentials!.bucket)
+        await createObject(s3client, '', fullName, credentials.bucket)
         queryClient.invalidateQueries({
             queryKey: ['list'],
             refetchType: 'active',
@@ -60,7 +62,7 @@ const NewFolderModal = () => {
                         required
                     />
                 </div>
-                <button className={button} onClick={onCLickHandler}>Create new file</button>
+                <button className={button} onClick={onCLickHandler}>Create new folder</button>
             </form>
         </Fragment>
     )

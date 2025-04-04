@@ -1,12 +1,12 @@
 import classes from './Directory.module.css'
 import FolderRow from './FolderRow'
-import { BucketItemType } from '../../../utils/types'
+import { BucketItemType, SelectItemType } from '../../../utils/types'
 import FileRow from './FileRow'
 
 type Props = {
     dirContent: Record<string, BucketItemType[] | Date | undefined> | undefined;
-    selectedFile: string;
-    setSelectedFile: React.Dispatch<React.SetStateAction<string>>;
+    selectedFile: SelectItemType | undefined;
+    setSelectedFile: React.Dispatch<React.SetStateAction<SelectItemType | undefined>>;
 }
 
 const {
@@ -19,10 +19,13 @@ const {
 
 const Directory = ({ dirContent, selectedFile, setSelectedFile }: Props) => {
 
-    const onCLickHandler = (name: string) => {
-        setSelectedFile(name === selectedFile ? '' : name)
+    const onCLickHandler = (name: string, type: 'file' | 'folder') => {
+        setSelectedFile({
+            name: name === selectedFile?.name ? '' : name,
+            type: type
+        })
     }
-    console.log(dirContent)
+
     return (
         <div className={directory_container}>
             <div className={directory_nav}>
@@ -46,7 +49,7 @@ const Directory = ({ dirContent, selectedFile, setSelectedFile }: Props) => {
                                     key={key}
                                     lastModified={dirContent[key] instanceof Date ? dirContent[key] : undefined}
                                     content={dirContent[key] instanceof Date ? undefined : dirContent[key]}
-                                    selected={selectedFile === key}
+                                    selected={selectedFile?.name === key}
                                     onCLickHandler={onCLickHandler}
                                 />
                             )
@@ -58,7 +61,7 @@ const Directory = ({ dirContent, selectedFile, setSelectedFile }: Props) => {
                                     key={key}
                                     lastModified={dirContent[key] ? dirContent[key][0].LastModified : undefined}
                                     content={dirContent[key] instanceof Date ? undefined : dirContent[key]}
-                                    selected={selectedFile === key}
+                                    selected={selectedFile?.name === key}
                                     onCLickHandler={onCLickHandler}
                                 />
                             )

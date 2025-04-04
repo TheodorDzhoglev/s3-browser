@@ -12,3 +12,8 @@ export type BucketItemType = {
 export type Dir = Record<string, BucketItemType[] | Date | undefined>
 
 export type DirMap = Record<string, Record<string, BucketItemType[] | Date | undefined> | undefined>
+
+export type SelectItemType = { 
+    name: string, 
+    type: 'file' | 'folder' 
+}

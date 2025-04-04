@@ -12,6 +12,7 @@ export const useFetchList = () => {
     const { isLoading, error, data } = useQuery({
         queryKey: ['list'],
         queryFn: () => listBucket(s3client, bucket),
+        
     })
 
     return {

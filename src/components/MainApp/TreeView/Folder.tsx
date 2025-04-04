@@ -35,6 +35,7 @@ const Folder = ({ currentDir = '', content, root }: Props) => {
         currentDir: openedDir
     } = useDirContext()
 
+    
     const dirContent = useAdaptData(content, currentDir)
     const { foldersInDirectory, shouldRender } = useRemoveFiles(dirContent)
 
@@ -60,7 +61,6 @@ const Folder = ({ currentDir = '', content, root }: Props) => {
 
     const onDirClickHandler = (e: MouseEvent<HTMLButtonElement>) => {
         e.stopPropagation()
-        console.log(dirContent)
         // setShowFolders(prevState => !prevState)
     }
 

@@ -10,7 +10,7 @@ type Props = {
     lastModified?: Date | undefined,
     content: BucketItemType[] | undefined
     selected: boolean;
-    onCLickHandler: (name: string) => void
+    onCLickHandler: (name: string, type: 'file' | 'folder') => void
 }
 
 const {
@@ -39,7 +39,7 @@ const FolderRow = ({ name, lastModified, selected, onCLickHandler }: Props) => {
                 className={`${icon_container} ${selected ? selected_file : ''}`}
                 type='button' 
                 onDoubleClick={onDoubleClickHandler}
-                onClick={() => onCLickHandler(name)}
+                onClick={() => onCLickHandler(name, 'folder')}
             >
                 <div className={icon_svg}>
                     {folderIcon}

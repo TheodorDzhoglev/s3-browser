@@ -7,6 +7,7 @@ import { useAppContext } from '../../context/context'
 import { useQueryClient } from '@tanstack/react-query'
 import { useDirContext } from '../../context/dirContext'
 import { findCurrentDir } from '../../utils/dataTransformUtls'
+import { ListObjectsV2Output } from '@aws-sdk/client-s3'
 
 const {
     button,
@@ -28,14 +29,20 @@ const NewFileModal = () => {
     const { currentDir } = useDirContext()
     const currentFolder = findCurrentDir(currentDir)
 
+    if(!credentials || !s3client) return 
+
     const createNewFile = async (e: FormEvent) => {
         e.preventDefault();
         const fullName = currentDir === '/' ? name+'.txt' : `${currentDir}/${name}.txt`
-        await createObject(s3client!, text.trim(), fullName, credentials!.bucket)
-        queryClient.invalidateQueries({
-            queryKey: ['list'],
-            refetchType: 'active',
-          },)
+        console.log(fullName)
+        const newObj = await createObject(s3client, text.trim(), fullName, credentials.bucket)
+        console.log(newObj)
+        queryClient.setQueryData(['list'], (data: ListObjectsV2Output) => {
+            return {
+                ...data,
+                Contents: [...(data.Contents || []), { Key: fullName, LastModified: new Date, ChecksumType: "FULL_OBJECT" }],
+            }
+        })
     }
 
     const onCLickHandler = (e: MouseEvent<HTMLButtonElement>) => {
