@@ -78,3 +78,9 @@
 .close_btn:hover::after, .close_btn:hover::before{
     background-color: var(--bg-btn-hover);
 }
+
+.read_file_module{
+    height: 60vh;
+    min-width: 48rem;
+    overflow-y: scroll;
+}

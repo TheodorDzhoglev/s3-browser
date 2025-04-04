@@ -31,6 +31,10 @@
     background-color: transparent;
     width: 2rem;
     height: 2rem;
+    border-radius: 6px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .triangle{
@@ -59,13 +63,18 @@
     border: none;
 }
 
+.folder_name:focus-visible, .folder_name:hover, .show_btn:focus-visible{
+    outline: var(--outline-focus);
+    outline-offset: -2px;
+}
+
 .collapsable .folder_name{
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
 }
 
 .clicked_btn{
-    background-color: green;
+    background-color: var(--color-gray-select);
 }
 
 .folder_icon{
@@ -92,8 +101,4 @@
     top: 50%;
     left: 0rem;
     background-color: var(--color-gray);
-}
-
-.folder_name:hover{
-    background-color: var(--bg-btn-hover);
 }

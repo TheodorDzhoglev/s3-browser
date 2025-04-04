@@ -17,7 +17,12 @@ const TreeView = ({ className, content }: TreeViewType) => {
         <div className={className}>
             <div className={main_container}>
                 <ul className={folder_tree}>
-                    <Folder key={'root'} content={content} currentDir="/" root={true}/>
+                    <Folder 
+                        key={'root'} 
+                        content={content} 
+                        currentDir="/" 
+                        root={true}
+                    />
                 </ul>
             </div>
         </div>

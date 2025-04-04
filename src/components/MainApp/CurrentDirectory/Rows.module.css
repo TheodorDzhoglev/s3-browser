@@ -44,3 +44,7 @@
     font-size: var(--fs-sm);
     width: var(--dor-col-width-3)
 }
+
+.selected_file{
+    background-color:  var(--color-gray-select);
+}

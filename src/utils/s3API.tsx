@@ -22,7 +22,7 @@ export const createObject = async (client: S3Client, body: string, key: string, 
     const command = new PutObjectCommand({
         Body: body,
         Bucket: bucket,
-        Key: `${key}.txt`
+        Key: key
     })
     return client.send(command)
 }

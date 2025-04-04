@@ -1,4 +1,4 @@
-import { useState, memo, MouseEvent, useEffect } from 'react'
+import { useState, memo, MouseEvent, useEffect, useMemo } from 'react'
 import classes from './Folder.module.css'
 import { darkFolderIcon } from '../../../utils/svgIcons'
 import NestedFolders from './NestedFolders'
@@ -9,7 +9,6 @@ import { _Object } from '@aws-sdk/client-s3'
 
 type Props = {
     content: BucketItemType[] | _Object[] | undefined;
-    parent?: Record<string, BucketItemType[] | Date | undefined> | undefined;
     currentDir?: string;
     root?: boolean;
 }
@@ -25,11 +24,17 @@ const {
     clicked_btn
 } = classes
 
-const Folder = ({ currentDir = '', content, root, parent }: Props) => {
+const Folder = ({ currentDir = '', content, root }: Props) => {
 
-    const [showFolders, setShowFolders] = useState(false)
-    const [clicked, setClicked] = useState(false)
-    const { setCurrentDir, setCurrentDirItems, setParentDir, setDirMap, currentDir: currDir } = useDirContext()
+    const [showFolders, setShowFolders] = useState(root ? true : false)
+
+    const {
+        setCurrentDir,
+        setCurrentDirItems,
+        setDirMap,
+        currentDir: openedDir
+    } = useDirContext()
+
     const dirContent = useAdaptData(content, currentDir)
     const { foldersInDirectory, shouldRender } = useRemoveFiles(dirContent)
 
@@ -41,21 +46,26 @@ const Folder = ({ currentDir = '', content, root, parent }: Props) => {
                 [key]: dirContent
             }
         })
-        if (root && !currDir) {
+        if (root && !openedDir) {
             setCurrentDir(currentDir)
             setCurrentDirItems(dirContent)
         }
-    }, [setDirMap, currentDir, root, dirContent, setCurrentDir, setCurrentDirItems, currDir])
 
-    const onCLickHandler = (e: MouseEvent<HTMLButtonElement>) => {
+    }, [openedDir, currentDir, root, dirContent, setCurrentDir, setCurrentDirItems, setDirMap])
+
+    const onCLickTriangleHandler = (e: MouseEvent<HTMLButtonElement>) => {
         e.stopPropagation()
         setShowFolders(prevState => !prevState)
     }
 
+    const onDirClickHandler = (e: MouseEvent<HTMLButtonElement>) => {
+        e.stopPropagation()
+        console.log(dirContent)
+        // setShowFolders(prevState => !prevState)
+    }
+
     const onDoubleClickHandler = () => {
-        setParentDir(parent)
         setCurrentDir(currentDir)
-        setCurrentDirItems(dirContent)
     }
 
     const currentDirArr = currentDir.split('/')
@@ -68,8 +78,8 @@ const Folder = ({ currentDir = '', content, root, parent }: Props) => {
                     {darkFolderIcon}
                 </div>
                 <button
-                    className={`${folder_name} ${clicked ? clicked_btn : ''}`}
-                    onClick={() => setClicked(prevState => !prevState)}
+                    className={`${folder_name} ${currentDir === openedDir ? clicked_btn : ''}`}
+                    onClick={onDirClickHandler}
                     onDoubleClick={onDoubleClickHandler}
                 >
                     {root ? 'root' : currentDirName}
@@ -78,7 +88,7 @@ const Folder = ({ currentDir = '', content, root, parent }: Props) => {
                     shouldRender
                         ? <button
                             className={show_btn}
-                            onClick={onCLickHandler}>
+                            onClick={onCLickTriangleHandler}>
                             <div
                                 className={
                                     `${triangle} ${showFolders
@@ -94,7 +104,6 @@ const Folder = ({ currentDir = '', content, root, parent }: Props) => {
                 folderObject={foldersInDirectory}
                 showFolders={showFolders}
                 shouldRender={shouldRender}
-                parent={dirContent}
             />
         </li>
     )

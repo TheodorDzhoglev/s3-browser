@@ -3,6 +3,8 @@
     /* COLORS */
     --color-gray: #EAEAEC;
     --color-main: #e0ff9f;
+    /* --color-gray-select: #5E5E5E; */
+    --color-gray-select: #706f76;
 
     /* background-color */
     --bg-main: #18171C;
@@ -59,8 +61,8 @@
     /* directory-icons */
     --dir-icon-height: 4rem;
     --dor-col-width-1: 6rem;
-    --dor-col-width-3: 16rem;
+    --dor-col-width-3: 17rem;
 
     /* folder-tree */
-    --tree-line-hight: .2rem
+    --tree-line-hight: .1rem
 }

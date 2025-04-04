@@ -1,13 +1,16 @@
-import classes from './Icon.module.css'
+import classes from './Rows.module.css'
 import { folderIcon } from '../../../utils/svgIcons'
 import { BucketItemType } from '../../../utils/types'
 import { findCurrentDir } from '../../../utils/dataTransformUtls'
 import { useDirContext } from '../../../context/dirContext'
+import { memo } from 'react'
 
 type Props = {
     name: string | undefined,
     lastModified?: Date | undefined,
     content: BucketItemType[] | undefined
+    selected: boolean;
+    onCLickHandler: (name: string) => void
 }
 
 const {
@@ -15,10 +18,11 @@ const {
     icon_svg,
     icon_title,
     icon_date,
-    icon_li
+    icon_li,
+    selected_file
 } = classes
 
-const FolderRow = ({ name, lastModified, content}: Props) => {
+const FolderRow = ({ name, lastModified, selected, onCLickHandler }: Props) => {
 
     const {setCurrentDirItems, setCurrentDir, dirMap} = useDirContext()
 
@@ -28,9 +32,15 @@ const FolderRow = ({ name, lastModified, content}: Props) => {
         setCurrentDir(name)
         setCurrentDirItems(dirMap[name])
     }
+
     return (
         <li className={icon_li}>
-            <button className={icon_container} type='button' onDoubleClick={onDoubleClickHandler}>
+            <button 
+                className={`${icon_container} ${selected ? selected_file : ''}`}
+                type='button' 
+                onDoubleClick={onDoubleClickHandler}
+                onClick={() => onCLickHandler(name)}
+            >
                 <div className={icon_svg}>
                     {folderIcon}
                 </div>
@@ -43,4 +53,4 @@ const FolderRow = ({ name, lastModified, content}: Props) => {
     )
 }
 
-export default FolderRow
+export default memo(FolderRow)

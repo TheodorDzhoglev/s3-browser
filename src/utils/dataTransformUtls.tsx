@@ -19,7 +19,7 @@ export const adaptData = (contents: _Object[] | BucketItemType[] | undefined, di
         if (pathArr.length > 1) {
             const cloneArr = structuredClone(pathArr)
             const folderKey = cloneArr.shift()
-            const fullPath = dir === '/' ? `/${folderKey}` : `${dir}/${folderKey}`
+            const fullPath = dir === '/' ? `${folderKey}` : `${dir}/${folderKey}`
             if (folderKey && !(obj[fullPath] instanceof Date)) {
                 if (obj[fullPath]) {
                     obj[fullPath].push({ Key: cloneArr, LastModified: c.LastModified })

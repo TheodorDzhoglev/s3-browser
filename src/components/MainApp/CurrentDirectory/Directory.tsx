@@ -1,9 +1,13 @@
 import classes from './Directory.module.css'
-import Icon from './Icon'
-import { useSort } from '../../../utils/hooks'
-import { useDirContext } from '../../../context/dirContext'
-import { useCachedList } from '../../../utils/customQueryHooks'
 import FolderRow from './FolderRow'
+import { BucketItemType } from '../../../utils/types'
+import FileRow from './FileRow'
+
+type Props = {
+    dirContent: Record<string, BucketItemType[] | Date | undefined> | undefined;
+    selectedFile: string;
+    setSelectedFile: React.Dispatch<React.SetStateAction<string>>;
+}
 
 const {
     directory_grid_container,
@@ -13,45 +17,37 @@ const {
     button_container
 } = classes
 
-const Directory = () => {
+const Directory = ({ dirContent, selectedFile, setSelectedFile }: Props) => {
 
-    const rootContent = useCachedList()
-    const { currentDirItems } = useDirContext()
-
-
-    const {
-        // sortedContent,
-        sortByType,
-        sortByName,
-        sortByDate
-    } = useSort(rootContent)
-
-
-
+    const onCLickHandler = (name: string) => {
+        setSelectedFile(name === selectedFile ? '' : name)
+    }
+    console.log(dirContent)
     return (
         <div className={directory_container}>
             <div className={directory_nav}>
                 <div className={button_container}>
-                    <button onClick={sortByType}>Type</button>
+                    <button onClick={()=>{}}>Type</button>
                 </div>
                 <div className={button_container}>
-                    <button onClick={sortByName}>Name</button>
+                    <button onClick={()=>{}}>Name</button>
                 </div>
                 <div className={button_container}>
-                    <button onClick={sortByDate}>Date</button>
+                    <button onClick={()=>{}}>Date</button>
                 </div>
             </div>
             <div className={directory_grid_container}>
                 <ul className={directory_grid}>
-                    {currentDirItems && Object.keys(currentDirItems).map(key => {
-                        if (currentDirItems[key] instanceof Date) {
+                    {dirContent && Object.keys(dirContent).map(key => {
+                        if (dirContent[key] instanceof Date) {
                             return (
-                                <Icon
+                                <FileRow
                                     name={key}
                                     key={key}
-                                    lastModified={currentDirItems[key] instanceof Date ? currentDirItems[key] : undefined}
-                                    type={'file'}
-                                    content={currentDirItems[key] instanceof Date ? undefined : currentDirItems[key]}
+                                    lastModified={dirContent[key] instanceof Date ? dirContent[key] : undefined}
+                                    content={dirContent[key] instanceof Date ? undefined : dirContent[key]}
+                                    selected={selectedFile === key}
+                                    onCLickHandler={onCLickHandler}
                                 />
                             )
                         }
@@ -60,8 +56,10 @@ const Directory = () => {
                                 <FolderRow
                                     name={key}
                                     key={key}
-                                    lastModified={undefined}
-                                    content={currentDirItems[key] instanceof Date ? undefined : currentDirItems[key]}
+                                    lastModified={dirContent[key] ? dirContent[key][0].LastModified : undefined}
+                                    content={dirContent[key] instanceof Date ? undefined : dirContent[key]}
+                                    selected={selectedFile === key}
+                                    onCLickHandler={onCLickHandler}
                                 />
                             )
                         }

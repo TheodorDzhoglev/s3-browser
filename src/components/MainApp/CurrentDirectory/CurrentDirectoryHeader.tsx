@@ -6,6 +6,7 @@ import NewFileModal from '../../Modal/NewFileModal'
 import Dialog from '../../Modal/Dialog'
 import { useDirContext } from '../../../context/dirContext'
 import { findCurrentDir, findParentDir } from '../../../utils/dataTransformUtls'
+import NewFolderModal from '../../Modal/NewFolderModal'
 
 const { 
     directory_header,
@@ -32,9 +33,14 @@ const CurrentDirectoryHeader = () => {
         }
     }
 
-    const onOpenAddNewModalHandler = () => {
+    const onOpenAddNewFileHandler = () => {
         toggleDialog()
         setModalElement(<NewFileModal key={Math.random()}/>)
+    }
+
+    const onOpenAddNewFolderHandler = () => {
+        toggleDialog()
+        setModalElement(<NewFolderModal key={Math.random()}/>)
     }
 
     const onBackClickHandler = () => {
@@ -49,8 +55,8 @@ const CurrentDirectoryHeader = () => {
                 Current Directory: {findCurrentDir(currentDir)}
             </h3>
             <div className={btn_container}>
-                <button className={button} onClick={onOpenAddNewModalHandler}>{plusIcon}Add File</button>
-                <button className={button} onClick={onOpenAddNewModalHandler}>{plusIcon}Add Folder</button>
+                <button className={button} onClick={onOpenAddNewFileHandler}>{plusIcon}Add File</button>
+                <button className={button} onClick={onOpenAddNewFolderHandler}>{plusIcon}Add Folder</button>
                 <button className={button}>{binIcon}Delete</button>
                 <button className={button} onClick={onBackClickHandler}>{binIcon}Back</button>
             </div>

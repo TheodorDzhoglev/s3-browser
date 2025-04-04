@@ -20,18 +20,17 @@ const {
     modal_content,
 } = modalClasses
 
-const NewFileModal = () => {
+const NewFolderModal = () => {
     const [name, setName] = useState('')
-    const [text, setText] = useState('')
     const queryClient = useQueryClient()
     const { s3client, credentials } = useAppContext()
     const { currentDir } = useDirContext()
     const currentFolder = findCurrentDir(currentDir)
 
-    const createNewFile = async (e: FormEvent) => {
+    const createNewFolder = async (e: FormEvent) => {
         e.preventDefault();
-        const fullName = currentDir === '/' ? name+'.txt' : `${currentDir}/${name}.txt`
-        await createObject(s3client!, text.trim(), fullName, credentials!.bucket)
+        const fullName = currentDir === '/' ? name+'/' : `${currentDir}/${name}/`
+        await createObject(s3client!, '', fullName, credentials!.bucket)
         queryClient.invalidateQueries({
             queryKey: ['list'],
             refetchType: 'active',
@@ -39,7 +38,7 @@ const NewFileModal = () => {
     }
 
     const onCLickHandler = (e: MouseEvent<HTMLButtonElement>) => {
-        if (!name || !text) {
+        if (!name) {
             e.stopPropagation()
         }
     }
@@ -47,9 +46,9 @@ const NewFileModal = () => {
 
     return (
         <Fragment>
-            <h1 className={modal_header}>Create a new file</h1>
-            <p className={modal_content}>Create file in {currentFolder ? currentFolder : 'root'}</p>
-            <form className={form} onSubmit={createNewFile}>
+            <h1 className={modal_header}>Create a new folder</h1>
+            <p className={modal_content}>Create new folder in {currentFolder ? currentFolder : 'root'}</p>
+            <form className={form} onSubmit={createNewFolder}>
                 <div className={input_container}>
                     <label htmlFor="new-file-name">Name</label>
                     <input
@@ -61,22 +60,10 @@ const NewFileModal = () => {
                         required
                     />
                 </div>
-                <div className={input_container}>
-                    <label htmlFor="new-file-text">Content</label>
-                    <textarea
-                        className={input}
-                        value={text}
-                        onChange={(e) => setText(e.target.value)}
-                        name="text"
-                        id="new-file-text"
-                        rows={10}
-                        required
-                    />
-                </div>
                 <button className={button} onClick={onCLickHandler}>Create new file</button>
             </form>
         </Fragment>
     )
 }
 
-export default NewFileModal
+export default NewFolderModal
