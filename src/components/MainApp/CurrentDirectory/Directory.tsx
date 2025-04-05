@@ -1,7 +1,8 @@
 import classes from './Directory.module.css'
 import FolderRow from './FolderRow'
-import { BucketItemType, SelectItemType } from '../../../utils/types'
+import { BucketItemType, SelectItemType, ObjectType } from '../../../utils/types'
 import FileRow from './FileRow'
+import { useSort } from '../../../utils/hooks'
 
 type Props = {
     dirContent: Record<string, BucketItemType[] | Date | undefined> | undefined;
@@ -26,41 +27,49 @@ const Directory = ({ dirContent, selectedFile, setSelectedFile }: Props) => {
         })
     }
 
+    const {
+        sortedContent,
+        sortByType,
+        sortByName,
+        sortByDate
+    } = useSort(dirContent)
     
+    console.log(sortedContent)
+    if (!sortedContent) return
 
     return (
         <div className={directory_container}>
             <div className={directory_nav}>
                 <div className={button_container}>
-                    <button onClick={() => { }}>Type</button>
+                    <button onClick={sortByType}>Type</button>
                 </div>
                 <div className={button_container}>
-                    <button onClick={() => { }}>Name</button>
+                    <button onClick={sortByName}>Name</button>
                 </div>
                 <div className={button_container}>
-                    <button onClick={() => { }}>Date</button>
+                    <button onClick={sortByDate}>Date</button>
                 </div>
             </div>
             <div className={directory_grid_container}>
                 <ul className={directory_grid}>
-                    {dirContent && Object.keys(dirContent).map(key => {
-                        return dirContent[key] instanceof Date
+                    {sortedContent.map(({ key, data, LastModified, type }) =>
+                        type === 'file'
                             ? <FileRow
                                 name={key}
                                 key={key}
-                                lastModified={dirContent[key]}
+                                lastModified={LastModified}
                                 selected={selectedFile?.name === key}
                                 onCLickHandler={onCLickHandler}
                             />
                             : <FolderRow
                                 name={key}
                                 key={key}
-                                lastModified={dirContent[key] ? dirContent[key][0].LastModified : undefined}
-                                content={dirContent[key]}
+                                lastModified={LastModified}
                                 selected={selectedFile?.name === key}
+                                content={data}
                                 onCLickHandler={onCLickHandler}
                             />
-                    })}
+                    )}
                 </ul>
             </div>
         </div>
