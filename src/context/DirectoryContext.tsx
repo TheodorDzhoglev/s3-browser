@@ -9,6 +9,7 @@ const DirectoryContext = ({ children }: PropsWithChildren) => {
     const [parentDir, setParentDir] = useState<Dir>()
     const [dirMap, setDirMap] = useState<DirMap>({})
     const [currentDir, setCurrentDir] = useState('')
+    const [loadingObj, setLoadingObj] = useState<string[]>([])
 
     const value = {
         currentDirItems,
@@ -18,7 +19,9 @@ const DirectoryContext = ({ children }: PropsWithChildren) => {
         parentDir,
         setParentDir,
         dirMap,
-        setDirMap
+        setDirMap,
+        loadingObj,
+        setLoadingObj,
     }
 
     return (

@@ -48,3 +48,13 @@
 .selected_file{
     background-color:  var(--color-gray-select);
 }
+
+@keyframes animate-row {
+    0% {
+        background-color: var(--color-gray-select);
+    }
+
+    100% {
+        background-color: #a9a9ad;
+    }
+}

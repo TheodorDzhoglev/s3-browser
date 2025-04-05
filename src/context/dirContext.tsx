@@ -12,6 +12,8 @@ type ContextType = {
     setDirMap: React.Dispatch<React.SetStateAction<DirMap | Record<string, never>>>;
     currentDir: string;
     setCurrentDir:  React.Dispatch<React.SetStateAction<string>>;
+    loadingObj: string[];
+    setLoadingObj:  React.Dispatch<React.SetStateAction<string[]>>;
 }
 
 export const DirContext = createContext<ContextType | null>(null)

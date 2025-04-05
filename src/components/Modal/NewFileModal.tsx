@@ -26,7 +26,7 @@ const NewFileModal = () => {
     const [text, setText] = useState('')
     const queryClient = useQueryClient()
     const { s3client, credentials } = useAppContext()
-    const { currentDir } = useDirContext()
+    const { currentDir, setLoadingObj } = useDirContext()
     const currentFolder = findCurrentDir(currentDir)
 
     if(!credentials || !s3client) return 
@@ -34,9 +34,9 @@ const NewFileModal = () => {
     const createNewFile = async (e: FormEvent) => {
         e.preventDefault();
         const fullName = currentDir === '/' ? name+'.txt' : `${currentDir}/${name}.txt`
-        console.log(fullName)
-        const newObj = await createObject(s3client, text.trim(), fullName, credentials.bucket)
-        console.log(newObj)
+        setLoadingObj(prevState => [...prevState, fullName])
+        await createObject(s3client, text.trim(), fullName, credentials.bucket)
+        setLoadingObj(prevState => prevState.filter( name => name !== fullName))
         queryClient.setQueryData(['list'], (data: ListObjectsV2Output) => {
             return {
                 ...data,

@@ -30,42 +30,34 @@ const Directory = ({ dirContent, selectedFile, setSelectedFile }: Props) => {
         <div className={directory_container}>
             <div className={directory_nav}>
                 <div className={button_container}>
-                    <button onClick={()=>{}}>Type</button>
+                    <button onClick={() => { }}>Type</button>
                 </div>
                 <div className={button_container}>
-                    <button onClick={()=>{}}>Name</button>
+                    <button onClick={() => { }}>Name</button>
                 </div>
                 <div className={button_container}>
-                    <button onClick={()=>{}}>Date</button>
+                    <button onClick={() => { }}>Date</button>
                 </div>
             </div>
             <div className={directory_grid_container}>
                 <ul className={directory_grid}>
                     {dirContent && Object.keys(dirContent).map(key => {
-                        if (dirContent[key] instanceof Date) {
-                            return (
-                                <FileRow
-                                    name={key}
-                                    key={key}
-                                    lastModified={dirContent[key] instanceof Date ? dirContent[key] : undefined}
-                                    content={dirContent[key] instanceof Date ? undefined : dirContent[key]}
-                                    selected={selectedFile?.name === key}
-                                    onCLickHandler={onCLickHandler}
-                                />
-                            )
-                        }
-                        else {
-                            return (
-                                <FolderRow
-                                    name={key}
-                                    key={key}
-                                    lastModified={dirContent[key] ? dirContent[key][0].LastModified : undefined}
-                                    content={dirContent[key] instanceof Date ? undefined : dirContent[key]}
-                                    selected={selectedFile?.name === key}
-                                    onCLickHandler={onCLickHandler}
-                                />
-                            )
-                        }
+                        return dirContent[key] instanceof Date
+                            ? <FileRow
+                                name={key}
+                                key={key}
+                                lastModified={dirContent[key]}
+                                selected={selectedFile?.name === key}
+                                onCLickHandler={onCLickHandler}
+                            />
+                            : <FolderRow
+                                name={key}
+                                key={key}
+                                lastModified={dirContent[key] ? dirContent[key][0].LastModified : undefined}
+                                content={dirContent[key]}
+                                selected={selectedFile?.name === key}
+                                onCLickHandler={onCLickHandler}
+                            />
                     })}
                 </ul>
             </div>

@@ -1,7 +1,6 @@
 import uiClasses from '../../assets/styles/uiElements.module.css'
 import modalClasses from '../../assets/styles/Modal.module.css'
 import { Fragment } from 'react/jsx-runtime'
-import { MouseEvent } from 'react'
 import { useAppContext } from '../../context/context'
 import { useQueryClient } from '@tanstack/react-query'
 import { useDirContext } from '../../context/dirContext'
@@ -26,17 +25,18 @@ type Props = {
 const DeleteModal = ({ selectedFile }: Props) => {
 
     const { s3client, credentials } = useAppContext()
-    const { currentDir } = useDirContext()
+    const { currentDir, setLoadingObj } = useDirContext()
     const queryClient = useQueryClient()
     const { Contents } = queryClient.getQueryData(['list']) as ListObjectsV2Output
 
     if (!credentials || !s3client) return
 
 
-    const onCLickHandler = async (e: MouseEvent<HTMLButtonElement>) => {
+    const onCLickHandler = async () => {
         if (!selectedFile?.name || !Contents) return
 
         let deletedName = selectedFile?.name + '/'
+        
         let removeObjArr: { Key: string | undefined }[] = []
 
         if (selectedFile.type === 'file') {
@@ -47,7 +47,8 @@ const DeleteModal = ({ selectedFile }: Props) => {
             removeObjArr = Contents.filter(obj => obj.Key?.startsWith(deletedName)).map(obj => { return { Key: obj.Key } })
         }
         
-        const data = await deleteObjects(s3client, removeObjArr, 'asdasddw')
+        setLoadingObj(prevState => [...prevState, deletedName])
+        const data = await deleteObjects(s3client, removeObjArr, credentials.bucket)
 
         if(data?.$metadata.httpStatusCode === 200){
             queryClient.setQueryData(['list'], (data: ListObjectsV2Output) => {
@@ -58,7 +59,9 @@ const DeleteModal = ({ selectedFile }: Props) => {
                 }
             })
         }
-        console.log(data)
+        else{
+            setLoadingObj(prevState => prevState.filter( name => name !== deletedName))
+        }
     }
 
 

@@ -22,6 +22,7 @@ const TreeView = ({ className, content }: TreeViewType) => {
                         content={content} 
                         currentDir="/" 
                         root={true}
+                        renderChild={true}
                     />
                 </ul>
             </div>

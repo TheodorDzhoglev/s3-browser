@@ -19,13 +19,14 @@ const MainApp = () => {
 
     if (error) return <h1>An Error occurred {error.message}</h1>
 
-    console.log(data)
+    if(!data?.Contents) return
+
     return (
         <Fragment>
             <AppHeader />
             <div className={app_container}>
                 <DirectoryContext>
-                    <TreeView className={tree_view} content={data?.Contents}/>
+                    <TreeView className={tree_view} content={data.Contents}/>
                     <CurrentDirectory className={current_directory} />
                 </DirectoryContext>
             </div>

@@ -48,7 +48,7 @@ export const removeFiles = (data: Record<string, Date | BucketItemType[] | undef
 export const findParentDir = (dir: string) => {
     const dirArr = dir.split('/')
     dirArr.pop()
-    const parentDir = dirArr.length !== 1 ? dirArr.join('/') : '/'
+    const parentDir = dirArr.length > 0 ? dirArr.join('/') : '/'
     return parentDir
 }
 

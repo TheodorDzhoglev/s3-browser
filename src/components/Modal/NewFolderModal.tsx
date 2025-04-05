@@ -7,6 +7,7 @@ import { useAppContext } from '../../context/context'
 import { useQueryClient } from '@tanstack/react-query'
 import { useDirContext } from '../../context/dirContext'
 import { findCurrentDir } from '../../utils/dataTransformUtls'
+import { ListObjectsV2Output } from '@aws-sdk/client-s3'
 
 const {
     button,
@@ -24,7 +25,7 @@ const NewFolderModal = () => {
     const [name, setName] = useState('')
     const queryClient = useQueryClient()
     const { s3client, credentials } = useAppContext()
-    const { currentDir } = useDirContext()
+    const { currentDir, setLoadingObj } = useDirContext()
     const currentFolder = findCurrentDir(currentDir)
 
     if(!credentials || !s3client) return 
@@ -32,11 +33,15 @@ const NewFolderModal = () => {
     const createNewFolder = async (e: FormEvent) => {
         e.preventDefault();
         const fullName = currentDir === '/' ? name+'/' : `${currentDir}/${name}/`
+        setLoadingObj(prevState => [...prevState, fullName])
         await createObject(s3client, '', fullName, credentials.bucket)
-        queryClient.invalidateQueries({
-            queryKey: ['list'],
-            refetchType: 'active',
-          },)
+        setLoadingObj(prevState => prevState.filter( name => name !== fullName))
+        queryClient.setQueryData(['list'], (data: ListObjectsV2Output) => {
+            return {
+                ...data,
+                Contents: [...(data.Contents || []), { Key: fullName, LastModified: new Date, ChecksumType: "FULL_OBJECT" }],
+            }
+        })
     }
 
     const onCLickHandler = (e: MouseEvent<HTMLButtonElement>) => {

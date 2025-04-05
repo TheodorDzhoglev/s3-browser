@@ -7,6 +7,7 @@ type Props = {
     folderObject: Record<string, BucketItemType[] | undefined>;
     showFolders: boolean;
     shouldRender: boolean;
+    renderChild: boolean
 }
 
 const {
@@ -15,7 +16,7 @@ const {
     show_collapsable,
 } = classes
 
-const NestedFolders = ({ folderObject, showFolders, shouldRender }: Props) => {
+const NestedFolders = ({ folderObject, showFolders, shouldRender, renderChild }: Props) => {
 
     if (!shouldRender) return []
     return (
@@ -27,6 +28,7 @@ const NestedFolders = ({ folderObject, showFolders, shouldRender }: Props) => {
                             key={key}
                             currentDir={key}
                             content={folderObject[key]}
+                            renderChild={renderChild}
                         />)
                 }
             </ul>

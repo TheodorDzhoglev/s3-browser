@@ -24,22 +24,25 @@ const {
 
 const FolderRow = ({ name, lastModified, selected, onCLickHandler }: Props) => {
 
-    const {setCurrentDirItems, setCurrentDir, dirMap} = useDirContext()
+    const { setCurrentDirItems, setCurrentDir, dirMap } = useDirContext()
+    const { loadingObj } = useDirContext()
 
-    if(!name) return
+    if (!name) return
 
     const onDoubleClickHandler = () => {
         setCurrentDir(name)
         setCurrentDirItems(dirMap[name])
     }
+    const loading = loadingObj.some(loadName => loadName === name+'/')
 
     return (
         <li className={icon_li}>
-            <button 
-                className={`${icon_container} ${selected ? selected_file : ''}`}
-                type='button' 
+            <button
+                className={`${icon_container} ${selected ? selected_file : ''} ${loading ? 'animate_bg' : ''}`}
+                type='button'
                 onDoubleClick={onDoubleClickHandler}
                 onClick={() => onCLickHandler(name, 'folder')}
+                disabled={loading}
             >
                 <div className={icon_svg}>
                     {folderIcon}
