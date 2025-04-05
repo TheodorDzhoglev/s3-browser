@@ -1,6 +1,6 @@
 import classes from './Directory.module.css'
 import FolderRow from './FolderRow'
-import { BucketItemType, SelectItemType, ObjectType } from '../../../utils/types'
+import { BucketItemType, SelectItemType } from '../../../utils/types'
 import FileRow from './FileRow'
 import { useSort } from '../../../utils/hooks'
 
@@ -34,7 +34,6 @@ const Directory = ({ dirContent, selectedFile, setSelectedFile }: Props) => {
         sortByDate
     } = useSort(dirContent)
     
-    console.log(sortedContent)
     if (!sortedContent) return
 
     return (

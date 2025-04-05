@@ -3,10 +3,10 @@ import { _Object } from '@aws-sdk/client-s3'
 import { adaptData, removeFiles } from "./dataTransformUtls";
 import { BucketItemType, Dir } from "./types";
 
-type flagsType = {
-    type: 'folders' | 'files';
-    name: 'asc' | 'desc';
-    date: 'asc' | 'desc';
+type FlagsType = {
+    type: boolean;
+    name: boolean;
+    date: boolean;
 }
 
 type ObjectType = {
@@ -23,11 +23,45 @@ type useSortType = (content: Dir | undefined) => {
     sortByDate: () => void;
 }
 
-const defaultFlags: flagsType = {
-    type: 'folders',
-    name: 'desc',
-    date: 'asc'
+const defaultFlags: FlagsType = {
+    type: false,
+    name: false,
+    date: false
 }
+
+const sortType = (type: boolean, fol: ObjectType[], fil:ObjectType[]) => {
+    return type  ? [...fil, ...fol] : [...fol, ...fil]
+}
+
+const sortName = (type: boolean, data: ObjectType[]) => {
+    if (type) {
+        return data.sort((a, b) => a.key > b.key ? 1 : -1)
+    }
+    else {
+        return data.sort((a, b) => a.key > b.key ? -1 : 1)
+    }
+}
+
+const sortDate = (type: boolean, data: ObjectType[]) => {
+    if (type) {
+        return data.sort((a, b) => {
+            if (a.LastModified && b.LastModified) {
+                return a.LastModified.getTime() - b.LastModified.getTime()
+            }
+            return 1
+        })
+    }
+    else {
+        return data.sort((a, b) => {
+            if (a.LastModified && b.LastModified) {
+                return b.LastModified.getTime() - a.LastModified.getTime()
+            }
+            return -1
+        })
+    }
+}
+
+
 
 export const useSort: useSortType = (content) => {
 
@@ -47,8 +81,8 @@ export const useSort: useSortType = (content) => {
                         type: 'file',
                         LastModified: content[objKey]
                     }
-                    files.push(file)
-                    return file
+                    files.push(file);
+                    return file;
                 }
                 else {
                     const folder: ObjectType = {
@@ -57,83 +91,77 @@ export const useSort: useSortType = (content) => {
                         LastModified: content[objKey] ? content[objKey][0]['LastModified'] : undefined,
                         data: content[objKey] ? content[objKey] : undefined
                     }
-                    folders.push(folder)
-                    return folder
+                    folders.push(folder);
+                    return folder;
                 }
             })
         }
 
-        setSortedContent(refactoredRows)
+        if(flags.type) setSortedContent(sortType(!flags.type, folders, files))
+        if(flags.name) setSortedContent(sortName(!flags.name, refactoredRows))
+        if(flags.date) setSortedContent(sortDate(!flags.date, refactoredRows))
+        if(!flags.type && !flags.date && !flags.name) setSortedContent(refactoredRows)
+
         return { folders, files };
     }, [content]);
 
     const sortByType = () => {
-        if (flags.type === 'folders') {
+        if (flags.type) {
             setSortedContent([...folders, ...files])
-            setFlags(prevState => { return { ...prevState, type: 'files' } })
+            setFlags({ name: false, date: false, type: false } )
         }
         else {
             setSortedContent([...files, ...folders])
-            setFlags(prevState => { return { ...prevState, type: 'folders' } })
+            setFlags({ name: false, date: false, type: true })
         }
 
     };
 
     const sortByName = () => {
-        if (flags.name === 'asc') {
+        if (flags.name) {
             setSortedContent(prevState => {
                 if (prevState) {
                     const newState = [...prevState]
-                    return newState.sort((a, b) => a.key > b.key ? 1 : -1)
+                    return sortName(true, newState)
                 }
                 return prevState
             })
-            setFlags(prevState => { return { ...prevState, name: 'desc' } })
+            setFlags({ type: false, date: false, name: false })
         }
         else {
             setSortedContent(prevState => {
                 if (prevState) {
                     const newState = [...prevState]
-                    return newState.sort((a, b) => a.key > b.key ? -1 : 1)
+                    return sortName(false, newState)
                 }
                 return prevState
             })
-            setFlags(prevState => { return { ...prevState, name: 'asc' } })
+            setFlags({ type: false, date: false, name: true })
         }
     };
 
     const sortByDate = () => {
-        if (flags.date === 'asc') {
+        if (flags.date) {
             setSortedContent(prevState => {
                 if (prevState) {
                     const newState = [...prevState]
-                    return newState.sort((a, b) => {
-                        if (a.LastModified && b.LastModified) {
-                            return a.LastModified.getTime() - b.LastModified.getTime()
-                        }
-                        return 1
-                    })
+                    return sortDate(true, newState)
                 }
                 return prevState
 
             })
-            setFlags(prevState => { return { ...prevState, date: 'desc' } })
+            setFlags({ type: false, name: false, date: false })
         }
         else {
             setSortedContent(prevState => {
                 if (prevState) {
                     const newState = [...prevState]
-                    return newState.sort((a, b) => {
-                        if (a.LastModified && b.LastModified) {
-                            return b.LastModified.getTime() - a.LastModified.getTime()
-                        }
-                        return 1
-                    })
+                    return sortDate(false, newState)
                 }
                 return prevState
 
             })
-            setFlags(prevState => { return { ...prevState, date: 'asc' } })
+            setFlags({ type: false, name: false, date: true })
         }
     }
 
