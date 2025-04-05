@@ -41,10 +41,24 @@ export const folderIcon = (
 )
 
 export const darkFolderIcon = (
-    <svg xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" xmlSpace="preserve" version="1.1" style={{shapeRendering:'geometricPrecision', textRendering:'geometricPrecision', imageRendering: 'auto'}} viewBox="0 0 100 100" x="0px" y="0px" fillRule="evenodd" clipRule="evenodd">
+    <svg xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" xmlSpace="preserve" version="1.1" style={{ shapeRendering: 'geometricPrecision', textRendering: 'geometricPrecision', imageRendering: 'auto' }} viewBox="0 0 100 100" x="0px" y="0px" fillRule="evenodd" clipRule="evenodd">
         <g>
             <path
                 d="M48 29l37 0c3,0 5,3 5,6l0 41c0,3 -2,5 -5,5l-70 0c-3,0 -5,-2 -5,-5l0 -16 0 -1 0 -24 0 -14c0,-1 1,-2 3,-2l26 0c2,0 2,1 3,2l6 8z" />
         </g>
+    </svg>
+)
+
+export const newFolderIcon = (
+    <svg xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px"
+        viewBox="0 0 95 85" xmlSpace="preserve">
+        <path
+            d="M71.88,42.73v-18.1c0-4.66-3.79-8.45-8.45-8.45H45.01l-2.06-3.5c-1.56-2.64-4.21-4.16-7.28-4.16H11.72  c-4.66,0-8.45,3.79-8.45,8.45v41.2c0,4.66,3.79,8.45,8.45,8.45h36.27c1.05,11.12,10.43,19.85,21.82,19.85  c12.09,0,21.92-9.83,21.92-21.92C91.73,53.16,83,43.78,71.88,42.73z M11.72,12.67h23.95c1.58,0,2.9,0.75,3.71,2.12l2.66,4.52  c0.37,0.63,1.05,1.02,1.79,1.02h19.61c2.37,0,4.3,1.93,4.3,4.3v4.6H7.42V16.98C7.42,14.6,9.35,12.67,11.72,12.67z M7.42,58.17v-24.8  h60.32v9.36c-10.44,0.98-18.76,9.31-19.75,19.75H11.72C9.35,62.48,7.42,60.55,7.42,58.17z M69.81,82.33  c-9.8,0-17.77-7.97-17.77-17.78c0-9.8,7.97-17.77,17.77-17.77c9.8,0,17.78,7.97,17.78,17.77C87.58,74.35,79.61,82.33,69.81,82.33z   M81.35,64.55c0,1.15-0.93,2.07-2.07,2.07h-7.4v7.4c0,1.15-0.93,2.07-2.07,2.07s-2.07-0.93-2.07-2.07v-7.4h-7.4  c-1.15,0-2.07-0.93-2.07-2.07s0.93-2.07,2.07-2.07h7.4v-7.4c0-1.15,0.93-2.07,2.07-2.07s2.07,0.93,2.07,2.07v7.4h7.4  C80.42,62.48,81.35,63.4,81.35,64.55z" />
+    </svg>
+)
+
+export const backIcon = (
+    <svg xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 32 32" xmlSpace="preserve">
+        <path d="M18.8,8h-11c-0.6,0-1,0.4-1,1s0.4,1,1,1h11c2.5,0,4.5,2,4.5,4.5s-2,4.5-4.5,4.5h-4.1l2.3-2.3c0.4-0.4,0.4-1,0-1.4  s-1-0.4-1.4,0l-4,4c-0.2,0.2-0.3,0.5-0.3,0.8c0,0.3,0.2,0.6,0.4,0.7l4,3c0.2,0.1,0.4,0.2,0.6,0.2c0.3,0,0.6-0.1,0.8-0.4  c0.3-0.4,0.2-1.1-0.2-1.4L15.3,21h3.5c3.6,0,6.5-2.9,6.5-6.5S22.3,8,18.8,8z" />
     </svg>
 )

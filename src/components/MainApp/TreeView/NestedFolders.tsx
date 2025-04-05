@@ -20,7 +20,7 @@ const NestedFolders = ({ folderObject, showFolders, shouldRender, renderChild }:
 
     if (!shouldRender) return []
     return (
-        <div className={`${nested_folders} ${showFolders? show_collapsable : ''}`}>
+        <div className={`${nested_folders} ${showFolders? show_collapsable : ''}`} inert={!showFolders}>
             <ul className={collapsable}>
                 {folderObject
                     && Object.keys(folderObject).map(key =>

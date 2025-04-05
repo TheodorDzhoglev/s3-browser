@@ -4,7 +4,7 @@ import Dialog from '../../Modal/Dialog'
 import { getObject } from '../../../utils/s3API'
 import { useAppContext } from '../../../context/context'
 import { useDirContext } from '../../../context/dirContext'
-import { useRef, useState, memo } from 'react'
+import { useRef, useState, memo, ReactNode } from 'react'
 import ReadFileModal from '../../Modal/ReadFileModal'
 
 type Props = {
@@ -27,8 +27,8 @@ const FileRow = ({ name, lastModified, selected, onCLickHandler }: Props) => {
 
     const { s3client, credentials } = useAppContext()
     const { currentDir, loadingObj } = useDirContext()
-    const [fileData, setFileData] = useState()
     const dialogRef = useRef<HTMLDialogElement>(null)
+    const [modal, setModal] = useState<ReactNode>()
     
     if (!credentials) return
     const { bucket, key } = credentials
@@ -48,9 +48,8 @@ const FileRow = ({ name, lastModified, selected, onCLickHandler }: Props) => {
     }
 
     const onDoubleClickHandler = async () => {
-        const object = await getObject(s3client, keyName, bucket)
-        setFileData(object)
         toggleDialog()
+        setModal(<ReadFileModal keyName={keyName}/>)
     }
 
     const loading = loadingObj.some( name => name === keyName)
@@ -72,7 +71,7 @@ const FileRow = ({ name, lastModified, selected, onCLickHandler }: Props) => {
                 </p>
                 <p className={icon_date}>{lastModified ? `${lastModified.toLocaleDateString()} ${lastModified.toLocaleTimeString()}` : ''}</p>
             </button>
-            <Dialog ref={dialogRef} toggleDialog={toggleDialog}><ReadFileModal text={fileData} /></Dialog>
+            <Dialog ref={dialogRef} toggleDialog={toggleDialog}>{modal}</Dialog>
         </li>
     )
 }

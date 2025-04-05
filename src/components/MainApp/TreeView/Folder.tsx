@@ -1,4 +1,4 @@
-import { useState, memo, MouseEvent, useEffect } from 'react'
+import { useState, memo, MouseEvent, useEffect, KeyboardEvent } from 'react'
 import classes from './Folder.module.css'
 import { darkFolderIcon } from '../../../utils/svgIcons'
 import NestedFolders from './NestedFolders'
@@ -6,7 +6,7 @@ import { useAdaptData, useRemoveFiles } from '../../../utils/hooks'
 import { BucketItemType } from '../../../utils/types'
 import { useDirContext } from '../../../context/dirContext'
 import { _Object } from '@aws-sdk/client-s3'
-import { findParentDir } from '../../../utils/dataTransformUtls'
+
 
 type Props = {
     content: BucketItemType[] | _Object[] | undefined;
@@ -61,9 +61,10 @@ const Folder = ({ currentDir, content, root, renderChild }: Props) => {
         setShowFolders(prevState => !prevState)
     }
 
-    const onDirClickHandler = (e: MouseEvent<HTMLButtonElement>) => {
-        e.stopPropagation()
-        // setShowFolders(prevState => !prevState)
+    const onEnterPress = (e: KeyboardEvent) => {
+        if(e.key === 'Enter'){
+            setCurrentDir(currentDir)
+        }
     }
 
     const onDoubleClickHandler = () => {
@@ -96,24 +97,17 @@ const Folder = ({ currentDir, content, root, renderChild }: Props) => {
                 </div>
                 <button
                     className={`${folder_name} ${currentDir === openedDir ? clicked_btn : ''}`}
-                    onClick={onDirClickHandler}
+                    onClick={onCLickTriangleHandler}
                     onDoubleClick={onDoubleClickHandler}
+                    onKeyDown={onEnterPress}
                 >
                     {root ? 'root' : currentDirName}
-                </button>
                 {
                     shouldRender
-                        ? <button
-                            className={show_btn}
-                            onClick={onCLickTriangleHandler}>
-                            <div
-                                className={
-                                    `${triangle} ${showFolders || isChildOpen  ? rotate_btn : ''}`}
-                            >
-                            </div>
-                        </button>
+                        ? <div className={show_btn}><div className={`${triangle} ${showFolders || isChildOpen  ? rotate_btn : ''}`}></div></div>
                         : []
                 }
+                </button>
             </div>
             {renderChild
                 && <NestedFolders

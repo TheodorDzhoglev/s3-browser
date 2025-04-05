@@ -29,7 +29,6 @@
 .show_btn{
     border: none;
     background-color: transparent;
-    width: 2rem;
     height: 2rem;
     border-radius: 6px;
     display: flex;
@@ -56,6 +55,8 @@
 .folder_name{
     padding: 3px 1rem;
     border-radius: 8px;
+    display: flex;
+    gap: 1rem;
     position: relative;
     font-weight: var(--fw-bold);
     color: inherit;

@@ -26,6 +26,8 @@ const Directory = ({ dirContent, selectedFile, setSelectedFile }: Props) => {
         })
     }
 
+    
+
     return (
         <div className={directory_container}>
             <div className={directory_nav}>
