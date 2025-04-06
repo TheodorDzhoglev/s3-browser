@@ -17,3 +17,10 @@ export type SelectItemType = {
     name: string, 
     type: 'file' | 'folder' 
 }
+
+export type ObjectType = {
+    key: string,
+    type: 'folder' | 'file',
+    LastModified: Date | undefined,
+    data?: BucketItemType[] | undefined
+}

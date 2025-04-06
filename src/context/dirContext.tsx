@@ -6,8 +6,6 @@ type StateSetter<T> = React.Dispatch<React.SetStateAction<T | undefined>>;
 type ContextType = {
     currentDirItems: Dir | undefined;
     setCurrentDirItems: StateSetter<Dir>;
-    parentDir: Dir | undefined;
-    setParentDir: StateSetter<Dir>;
     dirMap: DirMap | Record<string, never>;
     setDirMap: React.Dispatch<React.SetStateAction<DirMap | Record<string, never>>>;
     currentDir: string;

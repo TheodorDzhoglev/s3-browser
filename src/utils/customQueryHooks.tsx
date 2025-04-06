@@ -1,6 +1,11 @@
-import { useQuery } from "@tanstack/react-query"
-import { getObject, listBucket } from "./s3API"
+import { useQuery, useQueryClient } from "@tanstack/react-query"
+import { createObject, getObject, listBucket } from "./s3API"
 import { useAppContext } from "../context/context"
+import { useDirContext } from "../context/dirContext"
+import { ListObjectsV2Output } from "@aws-sdk/client-s3"
+import { FormEvent } from 'react'
+import { openDialog, useCurrDirContext } from "../context/currDirContext"
+import ErrorModal from "../components/Modal/ErrorModal"
 
 export const useFetchList = () => {
 
@@ -36,5 +41,46 @@ export const useFetchObj = (keyName: string) => {
         isLoading,
         error,
         data
+    }
+}
+
+export const useAddObject = () => {
+    
+    const queryClient = useQueryClient()
+    const { s3client, credentials } = useAppContext()
+    const { setLoadingObj } = useDirContext()
+    const { dialogRef, setModalElement } = useCurrDirContext()
+
+    if (!credentials || !s3client) return { createNewObject: () => { } }
+
+    const createNewObject = async (e: FormEvent, name: string, fullName: string, text: string) => {
+        e.preventDefault();
+
+        queryClient.setQueryData(['list'], (data: ListObjectsV2Output) => {
+            return {
+                ...data,
+                Contents: [...(data.Contents || []), { Key: fullName, LastModified: new Date, ChecksumType: "FULL_OBJECT" }],
+            }
+        })
+
+        setLoadingObj(prevState => [...prevState, fullName])
+        const data = await createObject(s3client, text.trim(), fullName, credentials.bucket)
+        setLoadingObj(prevState => prevState.filter( name => name !== fullName))
+
+        if(data instanceof Error) {
+            setModalElement(<ErrorModal key={Math.random()} text={`Something went wrong while creating '${name}'.`}/>)
+            openDialog(dialogRef)
+            queryClient.setQueryData(['list'], (data: ListObjectsV2Output) => {
+                return {
+                    ...data,
+                    Contents: data.Contents?.filter( obj => obj.Key !== fullName),
+                }
+            })
+            
+        }
+    }
+
+    return {
+        createNewObject,
     }
 }

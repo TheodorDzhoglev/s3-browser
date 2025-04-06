@@ -1,7 +1,6 @@
 import classes from './Rows.module.css'
 import { fileIcon } from '../../../utils/svgIcons'
 import Dialog from '../../Modal/Dialog'
-import { getObject } from '../../../utils/s3API'
 import { useAppContext } from '../../../context/context'
 import { useDirContext } from '../../../context/dirContext'
 import { useRef, useState, memo, ReactNode } from 'react'

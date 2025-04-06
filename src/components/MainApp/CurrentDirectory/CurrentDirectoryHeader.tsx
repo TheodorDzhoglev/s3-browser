@@ -1,6 +1,5 @@
 import classes from './CurrentDirectory.module.css'
 import uiClasses from '../../../assets/styles/uiElements.module.css'
-import { ReactNode, useRef, useState } from 'react'
 import { binIcon, plusIcon, newFolderIcon, backIcon } from '../../../utils/svgIcons'
 import NewFileModal from '../../Modal/NewFileModal'
 import Dialog from '../../Modal/Dialog'
@@ -8,6 +7,7 @@ import { useDirContext } from '../../../context/dirContext'
 import { findCurrentDir, findParentDir } from '../../../utils/dataTransformUtls'
 import NewFolderModal from '../../Modal/NewFolderModal'
 import DeleteModal from '../../Modal/DeleteModal'
+import { toggleDialog, useCurrDirContext } from '../../../context/currDirContext'
 
 const {
     directory_header,
@@ -27,38 +27,28 @@ type Props = {
 
 const CurrentDirectoryHeader = ({ selectedFile }: Props) => {
 
-    const dialogRef = useRef<HTMLDialogElement>(null)
-    const [modalElement, setModalElement] = useState<ReactNode>()
     const { setCurrentDirItems, dirMap, currentDir, setCurrentDir } = useDirContext()
+    const { dialogRef, setModalElement, modalElement } = useCurrDirContext()
 
-    const toggleDialog = () => {
-        if (!dialogRef.current) return;
-        if (dialogRef.current.hasAttribute('open')) {
-            dialogRef.current.close()
-        }
-        else {
-            dialogRef.current.showModal()
-        }
-    }
 
     const onOpenAddNewFileHandler = () => {
-        toggleDialog()
+        toggleDialog(dialogRef)
         setModalElement(<NewFileModal key={Math.random()} />)
     }
 
     const onOpenAddNewFolderHandler = () => {
-        toggleDialog()
+        toggleDialog(dialogRef)
         setModalElement(<NewFolderModal key={Math.random()} />)
     }
 
     const onOpenDeleteHandler = () => {
-        toggleDialog()
+        toggleDialog(dialogRef)
         setModalElement(<DeleteModal key={Math.random()} selectedFile={selectedFile} />)
     }
 
     const onBackClickHandler = () => {
         const parentDir = findParentDir(currentDir)
-        if(parentDir){
+        if (parentDir) {
             setCurrentDir(parentDir)
             setCurrentDirItems(dirMap[parentDir])
         }
@@ -92,7 +82,7 @@ const CurrentDirectoryHeader = ({ selectedFile }: Props) => {
                     Delete
                 </button>
             </div>
-            <Dialog ref={dialogRef} toggleDialog={toggleDialog}>{modalElement}</Dialog>
+            <Dialog ref={dialogRef} toggleDialog={() => toggleDialog(dialogRef)}>{modalElement}</Dialog>
         </div>
     )
 }

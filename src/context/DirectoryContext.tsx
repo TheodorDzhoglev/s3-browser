@@ -6,7 +6,6 @@ import { DirMap, Dir } from "../utils/types"
 const DirectoryContext = ({ children }: PropsWithChildren) => {
 
     const [currentDirItems, setCurrentDirItems] = useState<Dir>()
-    const [parentDir, setParentDir] = useState<Dir>()
     const [dirMap, setDirMap] = useState<DirMap>({})
     const [currentDir, setCurrentDir] = useState('')
     const [loadingObj, setLoadingObj] = useState<string[]>([])
@@ -16,8 +15,6 @@ const DirectoryContext = ({ children }: PropsWithChildren) => {
         setCurrentDirItems,
         currentDir,
         setCurrentDir,
-        parentDir,
-        setParentDir,
         dirMap,
         setDirMap,
         loadingObj,

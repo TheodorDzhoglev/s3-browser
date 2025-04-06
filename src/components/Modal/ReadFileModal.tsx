@@ -1,5 +1,6 @@
 import classes from '../../assets/styles/Modal.module.css'
 import { useFetchObj } from '../../utils/customQueryHooks'
+import ErrorModal from './ErrorModal'
 
 type Props = {
     keyName: string;
@@ -14,9 +15,9 @@ const ReadFileModal = ({ keyName }: Props) => {
     const {isLoading, data, error} = useFetchObj(keyName)
 
 
-    if(isLoading) return <div className={read_file_module}>Loading</div>
+    if(isLoading) return <div className={read_file_module}>Your file is on its way!</div>
 
-    if(error) return <div className={read_file_module}>An error occurred</div>
+    if(error) return <ErrorModal text="Something went wrong while opening the file."/>
 
     return (<div className={read_file_module}>{data}</div>)
 }

@@ -5,6 +5,7 @@ import { Fragment } from "react/jsx-runtime"
 import AppHeader from "./Header/AppHeader"
 import { useFetchList } from "../../utils/customQueryHooks"
 import DirectoryContext from "../../context/DirectoryContext"
+import MainAppError from "../Modal/MainAppError"
 
 const {
     app_container,
@@ -17,8 +18,8 @@ const MainApp = () => {
 
     if (isLoading) return <h1>Loading</h1>
 
-    if (error) return <h1>An Error occurred {error.message}</h1>
-
+    if (error) return  <MainAppError/>
+    
     if(!data?.Contents) return
 
     return (

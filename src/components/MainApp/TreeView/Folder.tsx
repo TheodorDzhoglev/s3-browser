@@ -34,9 +34,9 @@ const Folder = ({ currentDir, content, root, renderChild }: Props) => {
         setCurrentDir,
         setCurrentDirItems,
         setDirMap,
+        loadingObj,
         currentDir: openedDir
     } = useDirContext()
-
 
     const dirContent = useAdaptData(content, currentDir)
     const { foldersInDirectory, shouldRender } = useRemoveFiles(dirContent)

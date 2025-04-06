@@ -34,6 +34,7 @@ export const createObject = async (client: S3Client, body: string, key: string, 
     }
     catch(error){
         console.log(error)
+        return error
     }
 }
 

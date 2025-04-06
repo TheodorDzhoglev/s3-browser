@@ -1,5 +1,5 @@
 import { _Object } from "@aws-sdk/client-s3";
-import { BucketItemType } from "./types";
+import { BucketItemType, ObjectType } from "./types";
 
 
 export const adaptData = (contents: _Object[] | BucketItemType[] | undefined, dir: string) => {
@@ -55,4 +55,36 @@ export const findParentDir = (dir: string) => {
 export const findCurrentDir = (dir: string) => {
     const dirArr = dir.split('/')
     return dirArr.pop()
+}
+
+export const sortType = (type: boolean, fol: ObjectType[], fil:ObjectType[]) => {
+    return type  ? [...fil, ...fol] : [...fol, ...fil]
+}
+
+export const sortName = (type: boolean, data: ObjectType[]) => {
+    if (type) {
+        return data.sort((a, b) => a.key.toLocaleLowerCase() > b.key.toLocaleLowerCase() ? 1 : -1)
+    }
+    else {
+        return data.sort((a, b) => a.key.toLocaleLowerCase() > b.key.toLocaleLowerCase() ? -1 : 1)
+    }
+}
+
+export const sortDate = (type: boolean, data: ObjectType[]) => {
+    if (type) {
+        return data.sort((a, b) => {
+            if (a.LastModified && b.LastModified) {
+                return a.LastModified.getTime() - b.LastModified.getTime()
+            }
+            return 1
+        })
+    }
+    else {
+        return data.sort((a, b) => {
+            if (a.LastModified && b.LastModified) {
+                return b.LastModified.getTime() - a.LastModified.getTime()
+            }
+            return -1
+        })
+    }
 }
