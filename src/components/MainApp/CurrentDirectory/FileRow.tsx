@@ -61,6 +61,7 @@ const FileRow = ({ name, lastModified, selected, onCLickHandler }: Props) => {
                 onClick={() => onCLickHandler(name, 'file')}
                 type='button'
                 disabled={loading}
+                inert={loading}
             >
                 <div className={icon_svg}>
                     {fileIcon}

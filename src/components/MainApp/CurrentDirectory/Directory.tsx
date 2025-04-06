@@ -36,6 +36,8 @@ const Directory = ({ dirContent, selectedFile, setSelectedFile }: Props) => {
     
     if (!sortedContent) return
 
+    console.log(sortedContent)
+
     return (
         <div className={directory_container}>
             <div className={directory_nav}>

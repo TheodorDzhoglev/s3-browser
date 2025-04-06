@@ -16,7 +16,7 @@ export const useFetchList = () => {
     const { isLoading, error, data } = useQuery({
         queryKey: ['list'],
         queryFn: () => listBucket(s3client, bucket),
-        
+
     })
 
     return {
@@ -45,7 +45,7 @@ export const useFetchObj = (keyName: string) => {
 }
 
 export const useAddObject = () => {
-    
+
     const queryClient = useQueryClient()
     const { s3client, credentials } = useAppContext()
     const { setLoadingObj } = useDirContext()
@@ -59,24 +59,28 @@ export const useAddObject = () => {
         queryClient.setQueryData(['list'], (data: ListObjectsV2Output) => {
             return {
                 ...data,
-                Contents: [...(data.Contents || []), { Key: fullName, LastModified: new Date, ChecksumType: "FULL_OBJECT" }],
+                Contents: [
+                    ...(data.Contents || []), 
+                    { Key: fullName, LastModified: new Date, ChecksumType: "FULL_OBJECT" }
+                ].sort((a, b) => a.Key && b.Key && a.Key > b.Key ? 1 : -1),
+                    
             }
         })
 
         setLoadingObj(prevState => [...prevState, fullName])
         const data = await createObject(s3client, text.trim(), fullName, credentials.bucket)
-        setLoadingObj(prevState => prevState.filter( name => name !== fullName))
+        setLoadingObj(prevState => prevState.filter(name => name !== fullName))
 
-        if(data instanceof Error) {
-            setModalElement(<ErrorModal key={Math.random()} text={`Something went wrong while creating '${name}'.`}/>)
+        if (data instanceof Error) {
+            setModalElement(<ErrorModal key={Math.random()} text={`Something went wrong while creating '${name}'.`} />)
             openDialog(dialogRef)
             queryClient.setQueryData(['list'], (data: ListObjectsV2Output) => {
                 return {
                     ...data,
-                    Contents: data.Contents?.filter( obj => obj.Key !== fullName),
+                    Contents: data.Contents?.filter(obj => obj.Key !== fullName),
                 }
             })
-            
+
         }
     }
 

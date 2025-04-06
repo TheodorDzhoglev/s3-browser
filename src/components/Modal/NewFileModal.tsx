@@ -44,7 +44,7 @@ const NewFileModal = () => {
                     <input
                         className={input}
                         value={name}
-                        onChange={(e) => setName((e.target.value).trim())}
+                        onChange={(e) => setName((e.target.value))}
                         name="name"
                         id="new-file-name"
                         required

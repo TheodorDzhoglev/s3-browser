@@ -3,6 +3,7 @@ import { _Object } from '@aws-sdk/client-s3'
 import { adaptData, removeFiles, } from "./dataTransformUtls";
 import { BucketItemType, Dir, ObjectType } from "./types";
 import { sortDate, sortName, sortType } from "./dataTransformUtls";
+import { useDirContext } from "../context/dirContext";
 
 type FlagsType = {
     type: 'file' | 'folder' | '';
@@ -136,3 +137,18 @@ export const useRemoveFiles = (data: Record<string, Date | BucketItemType[] | un
         shouldRender
     }
 }   
+
+export const useFindOpenDirParents = (foldersInDirectory: Record<string, BucketItemType[] | undefined>) => {
+    const { currentDir } = useDirContext()
+
+    const isParentOfOpenDir = useMemo(() => {
+        const childKeysArr = Object.keys(foldersInDirectory)
+        const currentLevel = childKeysArr[0] ? childKeysArr[0].split('/').length : 0
+        const openDirArr = currentDir.split('/')
+        openDirArr.splice(currentLevel)
+        const openDirSection = openDirArr.join('/')
+        return childKeysArr.some( dir => dir === openDirSection)
+    }, [foldersInDirectory, currentDir])
+
+    return isParentOfOpenDir
+}

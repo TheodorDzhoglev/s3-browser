@@ -43,6 +43,7 @@ const FolderRow = ({ name, lastModified, selected, onCLickHandler }: Props) => {
                 onDoubleClick={onDoubleClickHandler}
                 onClick={() => onCLickHandler(name, 'folder')}
                 disabled={loading}
+                inert={loading}
             >
                 <div className={icon_svg}>
                     {folderIcon}

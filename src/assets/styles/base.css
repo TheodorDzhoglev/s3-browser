@@ -17,11 +17,16 @@ button{
 }
 
 .animate_bg{
-    background-image: linear-gradient( 90deg, var(--color-gray-select) 0%, #a9a9ad 4%, var(--color-gray-select) 5%);
+    background-image: linear-gradient( 90deg, transparent 0%, #a9a9ad 4%, transparent 5%);
     background-size: 300%;
     background-position: 100% 0;
     animation: shimmer 1.7s linear infinite ;
     opacity: .5;   
+    cursor: auto;
+}
+
+.animate_bg:hover{
+    outline: none;
 }
 
 @keyframes shimmer {

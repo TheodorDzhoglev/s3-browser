@@ -16,19 +16,15 @@ const {
 const MainApp = () => {
     const { isLoading, error, data } = useFetchList()
 
-    if (isLoading) return <h1>Loading</h1>
-
     if (error) return  <MainAppError/>
-    
-    if(!data?.Contents) return
 
     return (
         <Fragment>
             <AppHeader />
             <div className={app_container}>
                 <DirectoryContext>
-                    <TreeView className={tree_view} content={data.Contents}/>
-                    <CurrentDirectory className={current_directory} />
+                    <TreeView className={tree_view} content={data?.Contents} isLoading={isLoading}/>
+                    <CurrentDirectory className={current_directory} isLoading={isLoading}/>
                 </DirectoryContext>
             </div>
         </Fragment>

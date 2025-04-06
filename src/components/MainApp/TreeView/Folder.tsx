@@ -2,7 +2,7 @@ import { useState, memo, MouseEvent, useEffect, KeyboardEvent } from 'react'
 import classes from './Folder.module.css'
 import { darkFolderIcon } from '../../../utils/svgIcons'
 import NestedFolders from './NestedFolders'
-import { useAdaptData, useRemoveFiles } from '../../../utils/hooks'
+import { useAdaptData, useFindOpenDirParents, useRemoveFiles } from '../../../utils/hooks'
 import { BucketItemType } from '../../../utils/types'
 import { useDirContext } from '../../../context/dirContext'
 import { _Object } from '@aws-sdk/client-s3'
@@ -23,7 +23,8 @@ const {
     rotate_btn,
     triangle,
     folder_icon,
-    clicked_btn
+    clicked_btn,
+    loading_btn
 } = classes
 
 const Folder = ({ currentDir, content, root, renderChild }: Props) => {
@@ -74,12 +75,16 @@ const Folder = ({ currentDir, content, root, renderChild }: Props) => {
     const currentDirArr = currentDir.split('/')
     const currentDirName = currentDirArr.length > 1 ? currentDirArr[currentDirArr.length - 1] : currentDir
     
-    const childKeysArr = Object.keys(foldersInDirectory)
-    const currentLevel = childKeysArr[0] ? childKeysArr[0].split('/').length : 0
-    const openDirArr = openedDir.split('/')
-    openDirArr.splice(currentLevel)
-    const openDirSection = openDirArr.join('/')
-    const isParentOfOpenDir = childKeysArr.some( dir => dir === openDirSection)
+    
+    const loading = loadingObj.some( name => name === currentDir+'/')
+
+    if(currentDir === 'qwe'){
+        console.log(loading)
+        console.log(loadingObj)
+        console.log(currentDir)
+    }
+
+    const isParentOfOpenDir = useFindOpenDirParents(foldersInDirectory)
     
     const isChildOpen = 
         root 
@@ -96,10 +101,12 @@ const Folder = ({ currentDir, content, root, renderChild }: Props) => {
                     {darkFolderIcon}
                 </div>
                 <button
-                    className={`${folder_name} ${currentDir === openedDir ? clicked_btn : ''}`}
+                    className={`${folder_name} ${currentDir === openedDir ? clicked_btn : ''} ${loading ? loading_btn : ''}`}
                     onClick={onCLickTriangleHandler}
                     onDoubleClick={onDoubleClickHandler}
                     onKeyDown={onEnterPress}
+                    disabled={loading}
+                    inert={loading}
                 >
                     {root ? 'root' : currentDirName}
                 {

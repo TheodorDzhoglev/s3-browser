@@ -103,3 +103,12 @@
     left: 0rem;
     background-color: var(--color-gray);
 }
+
+.loading_btn{
+    opacity: .7;
+    cursor: auto;
+}
+
+.loading_btn:hover{
+    outline: none;
+}
