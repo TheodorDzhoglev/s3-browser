@@ -10,9 +10,11 @@
     overflow-y: scroll;
     border-radius: var(--border-radius-box);
     padding: var(--pd-sm) 0;
+    height: 100%;
 }
 
 .directory_grid{
+    height: 100%;
     display: flex;
     flex-direction: column;
     gap: var(--gap-sm);

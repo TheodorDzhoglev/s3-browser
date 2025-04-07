@@ -1,6 +1,6 @@
 import classes from './CurrentDirectory.module.css'
 import uiClasses from '../../../assets/styles/uiElements.module.css'
-import { binIcon, plusIcon, newFolderIcon, backIcon } from '../../../utils/svgIcons'
+import { binIcon, plusIcon, newFolderIcon, backIcon, filterIcon } from '../../../utils/svgIcons'
 import NewFileModal from '../../Modal/NewFileModal'
 import Dialog from '../../Modal/Dialog'
 import { useDirContext } from '../../../context/dirContext'
@@ -9,13 +9,15 @@ import NewFolderModal from '../../Modal/NewFolderModal'
 import DeleteModal from '../../Modal/DeleteModal'
 import { toggleDialog, useCurrDirContext } from '../../../context/currDirContext'
 import { SelectItemType } from '../../../utils/types'
+import SearchModal from '../../Modal/SearchModal'
 
 const {
     directory_header,
     current_directory,
     btn_container,
     svg_icon,
-    back_btn
+    header_icon,
+    header_icon_container
 } = classes
 
 const {
@@ -47,6 +49,11 @@ const CurrentDirectoryHeader = ({ selectedFile }: Props) => {
         setModalElement(<DeleteModal key={Math.random()} selectedFile={selectedFile} />)
     }
 
+    const onOpenSearchHandler = () => {
+        toggleDialog(dialogRef)
+        setModalElement(<SearchModal key={Math.random()}  />)
+    }
+
     const onBackClickHandler = () => {
         const parentDir = findParentDir(currentDir)
         if (parentDir) {
@@ -54,16 +61,21 @@ const CurrentDirectoryHeader = ({ selectedFile }: Props) => {
             setCurrentDirItems(dirMap[parentDir])
         }
     }
-    console.log(currentDir)
+    
     return (
         <div className={directory_header}>
             <h2 className={current_directory}>
                 Current Directory: {findCurrentDir(currentDir)}
             </h2>
             <div className={btn_container}>
-                <button className={back_btn} onClick={onBackClickHandler} aria-label='previous directory' title='previous directory' disabled={currentDir === '/'}>
-                    {backIcon}
-                </button>
+                <div className={header_icon_container}>
+                    <button className={header_icon} onClick={onBackClickHandler} aria-label='previous directory' title='previous directory' disabled={currentDir === '/'}>
+                        {backIcon}
+                    </button>
+                    <button className={header_icon} onClick={onOpenSearchHandler} aria-label='search' title='search'>
+                        {filterIcon}
+                    </button>
+                </div>
                 <button className={button} onClick={onOpenAddNewFileHandler} aria-label='Add file'>
                     <div className={svg_icon}>
                         {plusIcon}

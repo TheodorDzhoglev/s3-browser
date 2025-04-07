@@ -14,7 +14,7 @@
     padding-inline-start: 0;
     margin-left: 1rem;
     overflow: hidden;
-    grid-row: 1 / span 2
+    grid-row: 1 / span 2;
 }
 
 .show_collapsable{

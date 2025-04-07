@@ -47,7 +47,6 @@ const FileRow = ({ name, lastModified, selected, onCLickHandler }: Props) => {
     }
 
     const onDoubleClickHandler = async () => {
-        console.log('DOUBLE PRESS')
         toggleDialog()
         setModal(<ReadFileModal keyName={keyName} />)
     }

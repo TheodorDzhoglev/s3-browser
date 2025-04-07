@@ -1,5 +1,6 @@
 .icon_li, .icon_container{
     width: 100%;
+    margin-bottom: var(--gap-sm);
 }
 
 .icon_container{

@@ -8,22 +8,25 @@ type Props = {
 
 const {
     dialog,
-    close_btn
+    close_btn,
+    dialog_container
 } = modalClasses
 
-const Dialog = forwardRef<HTMLDialogElement, Props>(({ toggleDialog, children}, ref) => {
-    
-     const onCloseModalHandler = (e: MouseEvent<HTMLDialogElement>) => {
-         if ((e.target === e.currentTarget || e.target instanceof HTMLButtonElement)){
-             toggleDialog()
-         }
-     }
+const Dialog = forwardRef<HTMLDialogElement, Props>(({ toggleDialog, children }, ref) => {
+
+    const onCloseModalHandler = (e: MouseEvent<HTMLDialogElement>) => {
+        if (((e.target === e.currentTarget) || e.target instanceof HTMLButtonElement)) {
+            toggleDialog()
+        }
+    }
 
 
     return (
-        <dialog className={dialog} ref={ref} onClick={onCloseModalHandler} >
-            <button className={close_btn} type="button" title="close modal" aria-label="close-modal"></button>
-            {children}
+        <dialog className={dialog_container} ref={ref} onClick={onCloseModalHandler} >
+            <div className={dialog}>
+                <button className={close_btn} type="button" title="close modal" aria-label="close-modal"></button>
+                {children}
+            </div>
         </dialog>
     )
 })

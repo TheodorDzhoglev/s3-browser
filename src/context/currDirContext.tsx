@@ -1,13 +1,15 @@
 import { createContext, ReactNode, useContext, RefObject } from "react";
+import { Dir } from "../utils/types";
 
 type StateSetter<T> = React.Dispatch<React.SetStateAction<T | undefined>>;
 
 type ContextType = {
     modalElement: ReactNode;
     setModalElement: StateSetter<ReactNode>;
-    dialogRef: RefObject<HTMLDialogElement | null>
+    dialogRef: RefObject<HTMLDialogElement | null>;
+    filteredContent: Dir | undefined;
+    setFilteredContent: StateSetter<Dir>;
 }
-
 export const CurrDirContext = createContext<ContextType | null>(null)
 
 export const useCurrDirContext = () => {
