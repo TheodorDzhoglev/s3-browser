@@ -62,6 +62,7 @@ const NewFolderModal = () => {
                         id="new-file-name"
                         required
                         placeholder={placeholder}
+                        autoFocus
                     />
                 </div>
                 <button className={button} onClick={onCLickHandler} aria-label='create new folder'>Create new folder</button>

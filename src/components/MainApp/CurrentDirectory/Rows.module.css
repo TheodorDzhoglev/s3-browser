@@ -14,8 +14,8 @@
 }
 
 .icon_container:focus-visible, .icon_container:hover {
-    outline: var(--outline-focus);
-    outline-offset: -2px;
+    box-shadow: var(--outline-box-shadow);
+    outline: none;
 }
 
 .icon_container p{

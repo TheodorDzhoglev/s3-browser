@@ -62,6 +62,7 @@ const NewFileModal = () => {
                         name="name"
                         id="new-file-name"
                         required
+                        autoFocus
                         placeholder={placeholder}
                     />
                 </div>

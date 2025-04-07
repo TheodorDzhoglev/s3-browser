@@ -45,10 +45,11 @@ export const getObject = async (client: S3Client, key: string, bucket: string) =
             Key: key
         })
         const response = await client.send(command)
-        return response.Body.transformToString();
+        return response.Body ? response.Body.transformToString() : '';
     }
     catch(error){
         console.log(error)
+        return error
     }
 }
 export const deleteObjects = async (client: S3Client, items: { Key: string | undefined }[], bucket: string) => {

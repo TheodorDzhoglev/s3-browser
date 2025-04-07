@@ -28,6 +28,9 @@
     padding: var(--pd-btn);
     border-radius: var(--border-radius-btn);
     transition: background-color var(--transition-duration);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 
@@ -50,5 +53,6 @@
 
 .input:focus-visible,
 .button:focus-visible{
-    outline: var(--outline-focus);
+    box-shadow: var(--outline-box-shadow);
+    outline: none;
 }

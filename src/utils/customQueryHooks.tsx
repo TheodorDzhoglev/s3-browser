@@ -41,7 +41,7 @@ export const useFetchObj = (keyName: string) => {
     return {
         isLoading,
         error,
-        data
+        data: typeof data === 'string' ? data : ''
     }
 }
 

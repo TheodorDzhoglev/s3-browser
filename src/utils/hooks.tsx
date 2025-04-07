@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react"
+import { useMemo, useState, useRef, useEffect, MouseEvent } from "react"
 import { _Object } from '@aws-sdk/client-s3'
 import { adaptData, removeFiles, } from "./dataTransformUtls";
 import { BucketItemType, Dir, ObjectType } from "./types";
@@ -152,3 +152,62 @@ export const useFindOpenDirParents = (foldersInDirectory: Record<string, BucketI
 
     return isParentOfOpenDir
 }
+
+//Request 
+
+const noop = () => {};
+
+type RequestTimeoutFnType = (e?: MouseEvent<HTMLButtonElement>) => void
+
+type requestTimeoutType = (fn: RequestTimeoutFnType, delay: number, registerCancel: (fn:()=>void)=> void) => void
+type useClickPreventionType = (onClick: RequestTimeoutFnType, onDoubleClick: ()=>void, delay: number) => {handleClick: (()=>void), handleDoubleClick: (()=>void)}
+
+const requestTimeout: requestTimeoutType = (fn, delay, registerCancel)  => {
+  const start = new Date().getTime();
+
+  const loop = () => {
+    const delta = new Date().getTime() - start;
+
+    if (delta >= delay) {
+      fn();
+      registerCancel(noop);
+      return;
+    }
+
+    const raf = requestAnimationFrame(loop);
+    registerCancel(() => cancelAnimationFrame(raf));
+  };
+
+  const raf = requestAnimationFrame(loop);
+  registerCancel(() => cancelAnimationFrame(raf));
+};
+
+const newNoop = () => {}
+
+const useCancelableScheduledWork = () => {
+  const cancelCallback = useRef(newNoop);
+  const registerCancel = (fn: ()=>void) => (cancelCallback.current = fn);
+  const cancelScheduledWork = () => cancelCallback.current();
+
+  useEffect(() => {
+    return cancelScheduledWork;
+  }, []);
+
+  return {registerCancel, cancelScheduledWork};
+};
+
+export const useClickPrevention: useClickPreventionType = ( onClick, onDoubleClick, delay = 300 ) => {
+  const {registerCancel, cancelScheduledWork} = useCancelableScheduledWork();
+
+  const handleClick = () => {
+    cancelScheduledWork();
+    requestTimeout(onClick, delay, registerCancel);
+  };
+
+  const handleDoubleClick = () => {
+    cancelScheduledWork();
+    onDoubleClick();
+  };
+
+  return {handleClick, handleDoubleClick};
+};

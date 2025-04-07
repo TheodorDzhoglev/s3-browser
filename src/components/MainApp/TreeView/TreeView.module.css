@@ -8,5 +8,9 @@
     padding-inline-start: 0;
     display: flex;
     flex-direction: column;
-    gap: .4rem
+    gap: .4rem;
+    width: 25rem;
+    overflow: scroll;
+    padding-bottom: 2rem;
+    height: 100%;
 }

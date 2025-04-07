@@ -41,6 +41,7 @@ const ConnectForm = () => {
                     required
                     onChange={(e) => setBucket(e.target.value)}
                     value={bucket}
+                    autoFocus
                 />
             </div>
             <div className={input_container}>

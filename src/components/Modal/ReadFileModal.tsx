@@ -2,6 +2,7 @@ import { Fragment } from 'react/jsx-runtime';
 import classes from '../../assets/styles/Modal.module.css'
 import { useFetchObj } from '../../utils/customQueryHooks'
 import ErrorModal from './ErrorModal'
+import { findCurrentDir } from '../../utils/dataTransformUtls';
 
 type Props = {
     keyName: string;
@@ -22,7 +23,7 @@ const ReadFileModal = ({ keyName }: Props) => {
 
     return (
         <Fragment>
-            <h3>{keyName}</h3>
+            <h3>{findCurrentDir(keyName)}</h3>
             <div className={read_file_module}>{data}</div>
         </Fragment>
     )

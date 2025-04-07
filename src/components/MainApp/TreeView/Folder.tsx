@@ -1,8 +1,8 @@
-import { useState, memo, MouseEvent, useEffect, KeyboardEvent } from 'react'
+import { useState, memo, useEffect, KeyboardEvent } from 'react'
 import classes from './Folder.module.css'
 import { darkFolderIcon } from '../../../utils/svgIcons'
 import NestedFolders from './NestedFolders'
-import { useAdaptData, useFindOpenDirParents, useRemoveFiles } from '../../../utils/hooks'
+import { useAdaptData, useClickPrevention, useFindOpenDirParents, useRemoveFiles } from '../../../utils/hooks'
 import { BucketItemType } from '../../../utils/types'
 import { useDirContext } from '../../../context/dirContext'
 import { _Object } from '@aws-sdk/client-s3'
@@ -25,13 +25,14 @@ const {
     triangle,
     folder_icon,
     clicked_btn,
-    loading_btn
+    loading_btn,
+    show_btn_placeholder
 } = classes
 
 const Folder = ({ currentDir, content, root, renderChild }: Props) => {
 
     const [showFolders, setShowFolders] = useState(root ? true : false)
-
+    
     const {
         setCurrentDir,
         setCurrentDirItems,
@@ -39,9 +40,10 @@ const Folder = ({ currentDir, content, root, renderChild }: Props) => {
         loadingObj,
         currentDir: openedDir
     } = useDirContext()
-
+    
     const dirContent = useAdaptData(content, currentDir)
     const { foldersInDirectory, shouldRender } = useRemoveFiles(dirContent)
+    const isParentOfOpenDir = useFindOpenDirParents(foldersInDirectory)
 
     useEffect(() => {
         const key = root ? '/' : currentDir
@@ -51,23 +53,28 @@ const Folder = ({ currentDir, content, root, renderChild }: Props) => {
                 [key]: dirContent
             }
         })
+        
+    }, [ currentDir, root, dirContent, setDirMap])
+
+    useEffect(()=>{
         if (root && !openedDir) {
             setCurrentDir(currentDir)
             setCurrentDirItems(dirContent)
         }
+    },[root, openedDir, setCurrentDir, currentDir, setCurrentDirItems, dirContent])
 
-    }, [openedDir, currentDir, root, dirContent, setCurrentDir, setCurrentDirItems, setDirMap])
 
-    const onCLickTriangleHandler = (e: MouseEvent<HTMLButtonElement>) => {
-        e.stopPropagation()
-        if(shouldRender){
+    const onCLickTriangleHandler = () => {
+        if(shouldRender && !isParentOfOpenDir){
             setShowFolders(prevState => !prevState)
         }
     }
 
     const onEnterPress = (e: KeyboardEvent) => {
         if(e.key === 'Enter' && e.target === e.currentTarget){
+            e.preventDefault()
             setCurrentDir(currentDir)
+            setShowFolders(true)
         }
     }
 
@@ -75,42 +82,23 @@ const Folder = ({ currentDir, content, root, renderChild }: Props) => {
         setCurrentDir(currentDir)
     }
 
+    const {handleClick, handleDoubleClick} = useClickPrevention(onCLickTriangleHandler, onDoubleClickHandler, 300)
+
     const currentDirArr = currentDir.split('/')
     const currentDirName = currentDirArr.length > 1 ? currentDirArr[currentDirArr.length - 1] : currentDir
     
     
     const loading = loadingObj.some( name => name === currentDir+'/')
 
-    const isParentOfOpenDir = useFindOpenDirParents(foldersInDirectory)
     
-    const isChildOpen = 
-        root 
-        ? true 
-        : currentDir === openedDir 
-        ? true 
-        : isParentOfOpenDir
+    const isChildOpen = root ? true : isParentOfOpenDir
 
 
     return (
         <li className={folder_container} >
             <div className={folder_box}>
-                <div className={folder_icon}>
-                    {darkFolderIcon}
-                </div>
-                <div className={folder_name_container}>
-                    <button
-                        className={`${folder_name} ${currentDir === openedDir ? clicked_btn : ''} ${loading ? loading_btn : ''}`}
-                        // onClick={onCLickTriangleHandler}
-                        onDoubleClick={onDoubleClickHandler}
-                        onKeyDown={onEnterPress}
-                        disabled={loading}
-                        inert={loading}
-                        aria-label={root ? 'root' : currentDirName}
-                    >
-                        {root ? 'root' : currentDirName}
-                    </button>
-                        {
-                            shouldRender
+            {
+                            shouldRender && !root
                                 ? <button
                                     className={show_btn}
                                     onClick={onCLickTriangleHandler}
@@ -121,8 +109,24 @@ const Folder = ({ currentDir, content, root, renderChild }: Props) => {
                                         className={`${triangle} ${showFolders || isChildOpen ? rotate_btn : ''}`}>
                                     </div>
                                 </button>
-                                : []
+                                : <div className={show_btn_placeholder}></div>
                         }
+                <div className={folder_icon}>
+                    {darkFolderIcon}
+                </div>
+                <div className={folder_name_container}>
+                    <button
+                        className={`${folder_name} ${currentDir === openedDir ? clicked_btn : ''} ${loading ? loading_btn : ''}`}
+                        onClick={handleClick}
+                        onDoubleClick={handleDoubleClick}
+                        onKeyDown={onEnterPress}
+                        disabled={loading}
+                        inert={loading}
+                        aria-label={root ? 'root' : currentDirName}
+                    >
+                        {root ? 'root' : currentDirName}
+                    </button>
+                        
                 </div>
             </div>
             {renderChild

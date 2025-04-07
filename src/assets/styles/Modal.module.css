@@ -12,7 +12,8 @@
 }
 
 .dialog:focus-visible{
-    outline: var(--outline-focus);
+    box-shadow: var(--outline-box-shadow);
+    outline: none;
 }
 
 .dialog::backdrop{
@@ -50,7 +51,8 @@
 }
 
 .close_btn:focus-visible{
-    outline: var(--outline-focus);
+    box-shadow: var(--outline-box-shadow);
+    outline: none;
 }
 
 .close_btn::after, .close_btn::before{

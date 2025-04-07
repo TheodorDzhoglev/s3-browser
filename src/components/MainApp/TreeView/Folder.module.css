@@ -1,9 +1,9 @@
 .folder_container{
     padding-left: 1rem;
+    width:max-content;
 }
 
 .nested_folders{
-    overflow: hidden;
     display: grid;
     grid-template-rows: 0fr;
     transition: grid-template-rows var(--transition-duration);
@@ -22,8 +22,9 @@
 }
 
 .folder_box{
+    width:max-content;
     display: flex;
-    align-items: center;
+    align-items: center;;
 }
 
 .show_btn{
@@ -36,16 +37,21 @@
     align-items: center;
 }
 
+.show_btn_placeholder{
+    height: 2rem;
+    width: 2.2rem;
+}
+
 .triangle{
     width: 1rem;
     height: 1rem;
     background-color: var(--color-gray);
-    clip-path: polygon(50% 100%, 0 50%, 50% 0);
+    clip-path: polygon(50% 0%, 50% 100%, 100% 50%);
     transition: transform var(--transition-duration);
 }
 
 .rotate_btn{
-    transform: rotate(-90deg);
+    transform: rotate(90deg);
 }
 
 .collapsable .folder_name{
@@ -69,8 +75,8 @@
 }
 
 .folder_name:focus-visible, .folder_name:hover, .show_btn:focus-visible{
-    outline: var(--outline-focus);
-    outline-offset: -2px;
+    box-shadow: var(--outline-box-shadow);
+    outline: none;
 }
 
 .collapsable .folder_name{
@@ -83,7 +89,7 @@
 }
 
 .folder_icon{
-    width: 2rem;
+    flex: 0 0 2rem;
     height: 2rem;
     margin-right: .5rem;
 }

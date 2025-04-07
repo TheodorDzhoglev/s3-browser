@@ -7,6 +7,7 @@ export type s3DataType = {
 export type BucketItemType = {
     Key: string[] | undefined,
     LastModified: Date | undefined
+    BucketItemType? : string
 }
 
 export type Dir = Record<string, BucketItemType[] | Date | undefined>

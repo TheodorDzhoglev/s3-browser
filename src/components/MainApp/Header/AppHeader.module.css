@@ -29,7 +29,8 @@
 }
 
 .header_logout:focus-visible{
-    outline: var(--outline-focus);
+    box-shadow: var(--outline-box-shadow);
+    outline: none;
 }
 
 .header_logout svg{
