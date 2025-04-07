@@ -153,7 +153,7 @@ export const useFindOpenDirParents = (foldersInDirectory: Record<string, BucketI
     return isParentOfOpenDir
 }
 
-//Request 
+//Request Animation frame to mimic setTimout in order to use onClick and onDoubleClick 
 
 const noop = () => {};
 
@@ -186,7 +186,7 @@ const newNoop = () => {}
 
 const useCancelableScheduledWork = () => {
   const cancelCallback = useRef(newNoop);
-  const registerCancel = (fn: ()=>void) => (cancelCallback.current = fn);
+  const registerCancel = (fn: ()=>void) => cancelCallback.current = fn;
   const cancelScheduledWork = () => cancelCallback.current();
 
   useEffect(() => {
