@@ -19,6 +19,7 @@
 .btn_container{
     display: flex;
     gap: 1rem;
+    align-items: center;
 }
 
 .btn_container button{
@@ -60,15 +61,11 @@
 .back_btn, .back_btn:disabled:hover{
     border: none;
     background: transparent;
-    position: absolute;
-    left: -10rem;
-    top: 0;
-    width: 3.5rem;
-    height: 3.5rem;
+    width: 4rem;
+    height: 4rem;
     padding: 4px;
     border-radius: var(--border-radius-sm);
     transition: background-color var(--transition-duration);
-    box-shadow: var(--btn-box-shadow);
 }
 
 .back_btn:hover{
@@ -81,7 +78,7 @@
 
 }
 
-.back_btn svg {
+.btn_container .back_btn svg {
     width: 100%;
     height: 100%;
     fill: #fff;

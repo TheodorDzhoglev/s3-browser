@@ -57,13 +57,13 @@ const CurrentDirectoryHeader = ({ selectedFile }: Props) => {
     console.log(currentDir)
     return (
         <div className={directory_header}>
-            <button className={back_btn} onClick={onBackClickHandler} aria-label='previous directory' title='previous directory' disabled={currentDir === '/'}>
-                {backIcon}
-            </button>
             <h2 className={current_directory}>
                 Current Directory: {findCurrentDir(currentDir)}
             </h2>
             <div className={btn_container}>
+                <button className={back_btn} onClick={onBackClickHandler} aria-label='previous directory' title='previous directory' disabled={currentDir === '/'}>
+                    {backIcon}
+                </button>
                 <button className={button} onClick={onOpenAddNewFileHandler} aria-label='Add file'>
                     <div className={svg_icon}>
                         {plusIcon}
