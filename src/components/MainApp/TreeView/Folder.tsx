@@ -17,6 +17,7 @@ type Props = {
 
 const {
     folder_container,
+    folder_name_container,
     folder_name,
     folder_box,
     show_btn,
@@ -59,11 +60,13 @@ const Folder = ({ currentDir, content, root, renderChild }: Props) => {
 
     const onCLickTriangleHandler = (e: MouseEvent<HTMLButtonElement>) => {
         e.stopPropagation()
-        setShowFolders(prevState => !prevState)
+        if(shouldRender){
+            setShowFolders(prevState => !prevState)
+        }
     }
 
     const onEnterPress = (e: KeyboardEvent) => {
-        if(e.key === 'Enter'){
+        if(e.key === 'Enter' && e.target === e.currentTarget){
             setCurrentDir(currentDir)
         }
     }
@@ -77,12 +80,6 @@ const Folder = ({ currentDir, content, root, renderChild }: Props) => {
     
     
     const loading = loadingObj.some( name => name === currentDir+'/')
-
-    if(currentDir === 'qwe'){
-        console.log(loading)
-        console.log(loadingObj)
-        console.log(currentDir)
-    }
 
     const isParentOfOpenDir = useFindOpenDirParents(foldersInDirectory)
     
@@ -100,21 +97,33 @@ const Folder = ({ currentDir, content, root, renderChild }: Props) => {
                 <div className={folder_icon}>
                     {darkFolderIcon}
                 </div>
-                <button
-                    className={`${folder_name} ${currentDir === openedDir ? clicked_btn : ''} ${loading ? loading_btn : ''}`}
-                    onClick={onCLickTriangleHandler}
-                    onDoubleClick={onDoubleClickHandler}
-                    onKeyDown={onEnterPress}
-                    disabled={loading}
-                    inert={loading}
-                >
-                    {root ? 'root' : currentDirName}
-                {
-                    shouldRender
-                        ? <div className={show_btn}><div className={`${triangle} ${showFolders || isChildOpen  ? rotate_btn : ''}`}></div></div>
-                        : []
-                }
-                </button>
+                <div className={folder_name_container}>
+                    <button
+                        className={`${folder_name} ${currentDir === openedDir ? clicked_btn : ''} ${loading ? loading_btn : ''}`}
+                        // onClick={onCLickTriangleHandler}
+                        onDoubleClick={onDoubleClickHandler}
+                        onKeyDown={onEnterPress}
+                        disabled={loading}
+                        inert={loading}
+                        aria-label={root ? 'root' : currentDirName}
+                    >
+                        {root ? 'root' : currentDirName}
+                    </button>
+                        {
+                            shouldRender
+                                ? <button
+                                    className={show_btn}
+                                    onClick={onCLickTriangleHandler}
+                                    aria-label={`${showFolders ? 'hide' : 'show'} nested folders`}
+                                    title={`${showFolders ? 'hide' : 'show'} nested folders`}
+                                    >
+                                    <div
+                                        className={`${triangle} ${showFolders || isChildOpen ? rotate_btn : ''}`}>
+                                    </div>
+                                </button>
+                                : []
+                        }
+                </div>
             </div>
             {renderChild
                 && <NestedFolders

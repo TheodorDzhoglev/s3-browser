@@ -30,7 +30,7 @@ const MainAppError = () => {
                 <div className={message_modal}>
                     <h2 className={modal_header}>An error occurred!</h2>
                     <p>Please try to reconnect to your bucket</p>
-                    <button className={button} onClick={onLogoutHandler}>Back</button>
+                    <button className={button} onClick={onLogoutHandler} aria-label='back'>Back</button>
                 </div>
             </div>
         </div>

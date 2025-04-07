@@ -15,7 +15,7 @@ export type DirMap = Record<string, Record<string, BucketItemType[] | Date | und
 
 export type SelectItemType = { 
     name: string, 
-    type: 'file' | 'folder' 
+    type: 'file' | 'folder' | ''; 
 }
 
 export type ObjectType = {

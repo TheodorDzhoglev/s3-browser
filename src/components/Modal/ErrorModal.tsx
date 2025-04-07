@@ -24,7 +24,7 @@ const ErrorModal = ({text}: Props) => {
                     <h2 className={modal_header}>An error occurred</h2>
                     <p>{text}</p>
                     <p>Please try again</p>
-                    <button className={button}>Back</button>
+                    <button className={button} aria-label='back'>Back</button>
                 </div>
         </Fragment>
     )

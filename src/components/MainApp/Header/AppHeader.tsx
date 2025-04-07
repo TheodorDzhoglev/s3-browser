@@ -20,8 +20,8 @@ const AppHeader = () => {
 
     return (
         <div className={app_header}>
-            <div className={header_content}>Filespace dashboard</div>
-            <button className={header_logout} onClick={onLogoutHandler}>{logoutIcon}</button>
+            <h1 className={header_content}>Filespace dashboard</h1>
+            <button className={header_logout} onClick={onLogoutHandler} aria-label="disconnect from bucket" title="disconnect from bucket">{logoutIcon}</button>
         </div>
     )
 }

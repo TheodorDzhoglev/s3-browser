@@ -2,23 +2,21 @@
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    background-color: transparent;
-    border: none;
-    padding: 0;
+    padding: var(--pd-box);
+    border-radius: var(--border-radius-box);
+    border: var(--border-box);
+    z-index: 10;
+    background-color: var(--bg-main);
+    color: var(--color-gray);
+    position: relative;
+}
+
+.dialog:focus-visible{
+    outline: var(--outline-focus);
 }
 
 .dialog::backdrop{
     background-color: rgba(0, 0, 0, 0.2);
-}
-
-.modal_box{
-    z-index: 10;
-    padding: var(--pd-box);
-    border: var(--border-box);
-    border-radius: var(--border-radius-box);
-    background-color: var(--bg-main);
-    color: var(--color-gray);
-    position: relative;
 }
 
 .modal_header {
@@ -83,6 +81,7 @@
     height: 60vh;
     min-width: 48rem;
     overflow-y: scroll;
+    margin-top: 1.2rem;
 }
 
 .error_modal{

@@ -3,8 +3,7 @@ import { folderIcon } from '../../../utils/svgIcons'
 import { BucketItemType } from '../../../utils/types'
 import { findCurrentDir } from '../../../utils/dataTransformUtls'
 import { useDirContext } from '../../../context/dirContext'
-import { memo } from 'react'
-
+import { memo, KeyboardEvent } from 'react'
 type Props = {
     name: string | undefined,
     lastModified?: Date | undefined,
@@ -24,8 +23,7 @@ const {
 
 const FolderRow = ({ name, lastModified, selected, onCLickHandler }: Props) => {
 
-    const { setCurrentDirItems, setCurrentDir, dirMap } = useDirContext()
-    const { loadingObj } = useDirContext()
+    const { setCurrentDirItems, setCurrentDir, dirMap, loadingObj } = useDirContext()
 
     if (!name) return
 
@@ -33,17 +31,32 @@ const FolderRow = ({ name, lastModified, selected, onCLickHandler }: Props) => {
         setCurrentDir(name)
         setCurrentDirItems(dirMap[name])
     }
-    const loading = loadingObj.some(loadName => loadName === name+'/')
+
+    const onEnterPress = (e: KeyboardEvent) => {
+        if (e.key === 'Enter' && selected) {
+            setCurrentDir(name)
+            setCurrentDirItems(dirMap[name])
+        }
+    }
+
+    const loading = loadingObj.some(loadName => loadName === name + '/')
 
     return (
-        <li className={icon_li}>
+        <li className={icon_li} title={name}>
             <button
                 className={`${icon_container} ${selected ? selected_file : ''} ${loading ? 'animate_bg' : ''}`}
                 type='button'
                 onDoubleClick={onDoubleClickHandler}
                 onClick={() => onCLickHandler(name, 'folder')}
+                onKeyDown={onEnterPress}
                 disabled={loading}
                 inert={loading}
+                aria-label={
+                    `Folder name: ${findCurrentDir(name)} created on ${lastModified
+                        ? `${lastModified.toLocaleDateString()} ${lastModified.toLocaleTimeString()}`
+                        : ''
+                    }`
+                }
             >
                 <div className={icon_svg}>
                     {folderIcon}

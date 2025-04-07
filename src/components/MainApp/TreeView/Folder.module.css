@@ -52,11 +52,15 @@
     border-left: var(--tree-line-hight) solid var(--color-gray);
 }
 
+.folder_name_container{
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
 .folder_name{
     padding: 3px 1rem;
     border-radius: 8px;
-    display: flex;
-    gap: 1rem;
     position: relative;
     font-weight: var(--fw-bold);
     color: inherit;

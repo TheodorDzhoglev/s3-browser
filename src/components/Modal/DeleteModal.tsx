@@ -6,6 +6,10 @@ import { useQueryClient } from '@tanstack/react-query'
 import { useDirContext } from '../../context/dirContext'
 import { deleteObjects } from '../../utils/s3API'
 import { ListObjectsV2Output } from '@aws-sdk/client-s3'
+import { openDialog, useCurrDirContext } from '../../context/currDirContext'
+import ErrorModal from './ErrorModal'
+import { SelectItemType } from '../../utils/types'
+import { findCurrentDir } from '../../utils/dataTransformUtls'
 
 
 const {
@@ -17,12 +21,13 @@ const {
 } = modalClasses
 
 type Props = {
-    selectedFile: { name: string, type: 'file' | 'folder' } | undefined
+    selectedFile: SelectItemType
 }
 
 const DeleteModal = ({ selectedFile }: Props) => {
     const { s3client, credentials } = useAppContext()
     const { currentDir, setLoadingObj } = useDirContext()
+    const { setModalElement, dialogRef } = useCurrDirContext()
     const queryClient = useQueryClient()
     const { Contents } = queryClient.getQueryData(['list']) as ListObjectsV2Output
 
@@ -58,6 +63,8 @@ const DeleteModal = ({ selectedFile }: Props) => {
         }
         else {
             setLoadingObj(prevState => prevState.filter(name => name !== deletedName))
+            setModalElement(<ErrorModal key={Math.random()} text={`Something went wrong while deleting '${selectedFile.name}'.`} />)
+            openDialog(dialogRef)
         }
     }
 
@@ -66,8 +73,8 @@ const DeleteModal = ({ selectedFile }: Props) => {
         <Fragment>
             <div className={message_modal}>
                 <h1>Delete</h1>
-                <p>Are you sure you want to delete: {selectedFile?.name}</p>
-                <button className={button} onClick={onCLickHandler}>Delete</button>
+                <p>Are you sure you want to delete: {selectedFile.type === 'file' ? selectedFile?.name : findCurrentDir(selectedFile?.name)}</p>
+                <button className={button} onClick={onCLickHandler} aria-label='delete'>Delete</button>
             </div>
         </Fragment>
     )

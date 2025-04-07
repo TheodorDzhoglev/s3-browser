@@ -57,7 +57,7 @@
     fill: #fff;
 }
 
-.back_btn{
+.back_btn, .back_btn:disabled:hover{
     border: none;
     background: transparent;
     position: absolute;
@@ -85,4 +85,9 @@
     width: 100%;
     height: 100%;
     fill: #fff;
+}
+
+.back_btn:disabled{
+    opacity: .7;
+    cursor: auto;
 }

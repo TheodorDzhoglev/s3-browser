@@ -18,6 +18,7 @@ const MainApp = () => {
 
     if (error) return  <MainAppError/>
 
+
     return (
         <Fragment>
             <AppHeader />

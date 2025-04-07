@@ -6,11 +6,10 @@ type Props = {
     children: ReactNode
 }
 
-const { 
+const {
     dialog,
-    modal_box,
     close_btn
- } = modalClasses
+} = modalClasses
 
 const Dialog = forwardRef<HTMLDialogElement, Props>(({ toggleDialog, children}, ref) => {
     
@@ -22,12 +21,10 @@ const Dialog = forwardRef<HTMLDialogElement, Props>(({ toggleDialog, children}, 
 
 
     return (
-            <dialog className={dialog} ref={ref} onClick={onCloseModalHandler}>
-                <div className={modal_box}>
-                    <button className={close_btn} type="button"></button>
-                    {children}
-                </div>
-            </dialog>
+        <dialog className={dialog} ref={ref} onClick={onCloseModalHandler} >
+            <button className={close_btn} type="button" title="close modal" aria-label="close-modal"></button>
+            {children}
+        </dialog>
     )
 })
 

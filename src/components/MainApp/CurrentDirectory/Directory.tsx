@@ -3,11 +3,12 @@ import FolderRow from './FolderRow'
 import { BucketItemType, SelectItemType } from '../../../utils/types'
 import FileRow from './FileRow'
 import { useSort } from '../../../utils/hooks'
+import { useEffect } from 'react'
 
 type Props = {
     dirContent: Record<string, BucketItemType[] | Date | undefined> | undefined;
-    selectedFile: SelectItemType | undefined;
-    setSelectedFile: React.Dispatch<React.SetStateAction<SelectItemType | undefined>>;
+    selectedFile: SelectItemType;
+    setSelectedFile: React.Dispatch<React.SetStateAction<SelectItemType>>;
 }
 
 const {
@@ -20,12 +21,16 @@ const {
 
 const Directory = ({ dirContent, selectedFile, setSelectedFile }: Props) => {
 
-    const onCLickHandler = (name: string, type: 'file' | 'folder') => {
+    const onCLickHandler = (name: string, type: 'file' | 'folder' | '') => {
         setSelectedFile({
             name: name === selectedFile?.name ? '' : name,
             type: type
         })
     }
+
+    useEffect(() => {
+        setSelectedFile({name: '', type: ''})
+    }, [dirContent, setSelectedFile])
 
     const {
         sortedContent,
@@ -36,19 +41,17 @@ const Directory = ({ dirContent, selectedFile, setSelectedFile }: Props) => {
     
     if (!sortedContent) return
 
-    console.log(sortedContent)
-
     return (
         <div className={directory_container}>
             <div className={directory_nav}>
                 <div className={button_container}>
-                    <button onClick={sortByType}>Type</button>
+                    <button onClick={sortByType} title='sort by type' aria-label='sort by type'>Type</button>
                 </div>
                 <div className={button_container}>
-                    <button onClick={sortByName}>Name</button>
+                    <button onClick={sortByName} title='sort by name' aria-label='sort by name'>Name</button>
                 </div>
                 <div className={button_container}>
-                    <button onClick={sortByDate}>Date</button>
+                    <button onClick={sortByDate} title='sort by date' aria-label='sort by date' >Date</button>
                 </div>
             </div>
             <div className={directory_grid_container}>

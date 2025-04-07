@@ -21,7 +21,7 @@
     border-color: transparent;
 }
 
-.button {
+.button, .button:disabled:hover {
     border: none;
     background-color: transparent;
     box-shadow: var(--btn-box-shadow);
@@ -30,8 +30,14 @@
     transition: background-color var(--transition-duration);
 }
 
+
 .button:hover{
     background-color: var(--bg-btn-hover);
+}
+
+.button:disabled{
+    opacity: .6;
+    cursor: auto;
 }
 
 .button:focus-visible{

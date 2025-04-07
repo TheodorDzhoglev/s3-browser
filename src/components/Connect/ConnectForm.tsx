@@ -33,8 +33,9 @@ const ConnectForm = () => {
     return (
         <form className={form} onSubmit={onSubmitHandler}>
             <div className={input_container}>
-                <label>Bucket</label>
+                <label htmlFor='bucket'>Bucket</label>
                 <input
+                    id='bucket'
                     className={input}
                     name='bucket'
                     required
@@ -43,8 +44,9 @@ const ConnectForm = () => {
                 />
             </div>
             <div className={input_container}>
-                <label>Access Key</label>
+                <label htmlFor='key'>Access Key</label>
                 <input
+                    id='key'
                     className={input}
                     name='key'
                     required
@@ -53,8 +55,9 @@ const ConnectForm = () => {
                 />
             </div>
             <div className={input_container}>
-                <label>Secret Access Key</label>
+                <label htmlFor='secret key'>Secret Access Key</label>
                 <input
+                    id='secret key'
                     className={input}
                     name='secret'
                     required
@@ -63,7 +66,7 @@ const ConnectForm = () => {
                     value={secret}
                 />
             </div>
-            <button className={button}>Connect</button>
+            <button className={button} aria-label='submit form'>Connect</button>
         </form>
     )
 }

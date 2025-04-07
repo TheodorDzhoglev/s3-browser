@@ -88,3 +88,11 @@ export const sortDate = (type: boolean, data: ObjectType[]) => {
         })
     }
 }
+
+export const uriEncode = (key: string) => {
+    return key.replace(/[&$@=;:+,?]/g, match => encodeURIComponent(match)).trim()
+}   
+
+export const sanitize = (key: string) => {
+    return key.replace(/[\\{}^%`"[\]<>|#~\x80-\xFF]|\.$/, '')
+}   

@@ -8,6 +8,7 @@ import { findCurrentDir, findParentDir } from '../../../utils/dataTransformUtls'
 import NewFolderModal from '../../Modal/NewFolderModal'
 import DeleteModal from '../../Modal/DeleteModal'
 import { toggleDialog, useCurrDirContext } from '../../../context/currDirContext'
+import { SelectItemType } from '../../../utils/types'
 
 const {
     directory_header,
@@ -22,7 +23,7 @@ const {
 } = uiClasses
 
 type Props = {
-    selectedFile: { name: string, type: 'file' | 'folder' } | undefined
+    selectedFile: SelectItemType
 }
 
 const CurrentDirectoryHeader = ({ selectedFile }: Props) => {
@@ -53,29 +54,29 @@ const CurrentDirectoryHeader = ({ selectedFile }: Props) => {
             setCurrentDirItems(dirMap[parentDir])
         }
     }
-
+    console.log(currentDir)
     return (
         <div className={directory_header}>
-            <button className={back_btn} onClick={onBackClickHandler}>
+            <button className={back_btn} onClick={onBackClickHandler} aria-label='previous directory' title='previous directory' disabled={currentDir === '/'}>
                 {backIcon}
             </button>
-            <h3 className={current_directory}>
+            <h2 className={current_directory}>
                 Current Directory: {findCurrentDir(currentDir)}
-            </h3>
+            </h2>
             <div className={btn_container}>
-                <button className={button} onClick={onOpenAddNewFileHandler}>
+                <button className={button} onClick={onOpenAddNewFileHandler} aria-label='Add file'>
                     <div className={svg_icon}>
                         {plusIcon}
                     </div>
                     Add File
                 </button>
-                <button className={button} onClick={onOpenAddNewFolderHandler}>
+                <button className={button} onClick={onOpenAddNewFolderHandler} aria-label='Add folder'>
                     <div className={svg_icon}>
                         {newFolderIcon}
                     </div>
                     Add Folder
                 </button>
-                <button className={button} onClick={onOpenDeleteHandler}>
+                <button className={button} onClick={onOpenDeleteHandler} disabled={!selectedFile.name} aria-label='delete'>
                     <div className={svg_icon}>
                         {binIcon}
                     </div>

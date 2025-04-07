@@ -1,3 +1,4 @@
+import { Fragment } from 'react/jsx-runtime';
 import classes from '../../assets/styles/Modal.module.css'
 import { useFetchObj } from '../../utils/customQueryHooks'
 import ErrorModal from './ErrorModal'
@@ -11,15 +12,20 @@ const {
 } = classes
 
 const ReadFileModal = ({ keyName }: Props) => {
-    
-    const {isLoading, data, error} = useFetchObj(keyName)
+
+    const { isLoading, data, error } = useFetchObj(keyName)
 
 
-    if(isLoading) return <div className={read_file_module}>Your file is on its way!</div>
+    if (isLoading) return <div className={read_file_module}>Your file is on its way!</div>
 
-    if(error) return <ErrorModal text="Something went wrong while opening the file."/>
+    if (error) return <ErrorModal text="We couldn't open the file. Please try again." />
 
-    return (<div className={read_file_module}>{data}</div>)
+    return (
+        <Fragment>
+            <h3>{keyName}</h3>
+            <div className={read_file_module}>{data}</div>
+        </Fragment>
+    )
 }
 
 export default ReadFileModal

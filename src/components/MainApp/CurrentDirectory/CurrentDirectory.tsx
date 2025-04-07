@@ -18,7 +18,7 @@ const {
 
 const CurrentDirectory = ({ className, isLoading }: Props) => {
 
-    const [selectedFile, setSelectedFile] = useState<SelectItemType>()
+    const [selectedFile, setSelectedFile] = useState<SelectItemType>({name: '', type: ''})
     const { dirMap, currentDir } = useDirContext()
 
     return (
