@@ -42,16 +42,15 @@ const NewFileModal = () => {
         setPlaceholder('')
     }
 
-    if (!dirMap[currentDir]) return
-
     const folderObjects = dirMap[currentDir]
-    const sameKey = (Object.keys(folderObjects)).some(obj => folderObjects[obj] instanceof Date ? fullName === obj : false)
+
+    const sameKey = folderObjects && (Object.keys(folderObjects)).some(obj => folderObjects[obj] instanceof Date ? fullName === obj : false)
 
 
     return (
         <Fragment>
             <h3 className={modal_header}>Create a new file</h3>
-            <p className={modal_content}>Create file in {currentFolder ? currentFolder : 'root'}</p>
+            <p className={modal_content}>Create file in <span className='text-bold'>{currentFolder ? currentFolder : 'root'}</span></p>
             <form className={form} onSubmit={(e) => createNewObject(e, name, uriEncode(fullName), text)}>
                 <div className={input_container}>
                     <label htmlFor="new-file-name">Name</label>

@@ -24,8 +24,8 @@ const NewFolderModal = () => {
     const [placeholder, setPlaceholder] = useState('')
     const { currentDir, dirMap } = useDirContext()
     const currentFolder = findCurrentDir(currentDir)
-    const fullName = currentDir === '/' ? name + '/' : `${currentDir}/${name}/`
-
+    const fullName = currentDir === '/' ?  `/${name}/`  : `${currentDir}/${name}/`
+    console.log(fullName)
     const { createNewObject } = useAddObject()
 
     const onCLickHandler = (e: MouseEvent<HTMLButtonElement>) => {
@@ -41,16 +41,14 @@ const NewFolderModal = () => {
             setName(((sanitize(e.target.value))))
             setPlaceholder('')
         }
-
-    if(!dirMap[currentDir]) return 
-        
+    
     const folderObjects = dirMap[currentDir]
-    const sameKey = (Object.keys(folderObjects)).some(obj => folderObjects[obj] instanceof Array ? fullName.replace(/\/$/, '') === obj : false)
+    const sameKey = folderObjects && (Object.keys(folderObjects)).some(obj => folderObjects[obj] instanceof Array ? fullName.replace(/\/$/, '') === obj : false)
 
     return (
         <Fragment>
             <h3 className={modal_header}>Create a new folder</h3>
-            <p className={modal_content}>Create new folder in {currentFolder ? currentFolder : 'root'}</p>
+            <p className={modal_content}>Create new folder in <span className='text-bold'>{currentFolder ? currentFolder : 'root'}</span></p>
             <form className={form} onSubmit={(e) => createNewObject(e, name, uriEncode(fullName), '')}>
                 <div className={input_container}>
                     <label htmlFor="new-file-name">Name</label>

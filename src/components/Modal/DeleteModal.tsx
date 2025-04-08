@@ -40,6 +40,9 @@ const DeleteModal = ({ selectedFile }: Props) => {
         let deletedName = selectedFile?.name + '/'
 
         let removeObjArr: { Key: string | undefined }[] = []
+        // const removeObjArr: { Key: string | undefined }[] = [
+        //     {Key:  'folder/'},
+        //     ]
 
         if (selectedFile.type === 'file') {
             deletedName = currentDir === '/' ? selectedFile.name : `${currentDir}/${selectedFile.name}`
@@ -48,7 +51,7 @@ const DeleteModal = ({ selectedFile }: Props) => {
         else {
             removeObjArr = Contents.filter(obj => obj.Key?.startsWith(deletedName)).map(obj => { return { Key: obj.Key } })
         }
-
+        console.log(removeObjArr)
         setLoadingObj(prevState => [...prevState, deletedName])
         const data = await deleteObjects(s3client, removeObjArr, credentials.bucket)
 

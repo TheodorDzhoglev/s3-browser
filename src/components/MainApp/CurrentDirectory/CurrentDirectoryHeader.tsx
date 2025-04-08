@@ -56,6 +56,7 @@ const CurrentDirectoryHeader = ({ selectedFile }: Props) => {
 
     const onBackClickHandler = () => {
         const parentDir = findParentDir(currentDir)
+        console.log(parentDir)
         if (parentDir) {
             setCurrentDir(parentDir)
             setCurrentDirItems(dirMap[parentDir])

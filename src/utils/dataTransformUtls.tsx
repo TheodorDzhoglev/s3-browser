@@ -8,7 +8,7 @@ export const adaptData = (contents: _Object[] | BucketItemType[] | undefined, di
         let pathArr: string[] = [];
 
         if ('ChecksumType' in c && c.Key) {
-            pathArr = c.Key.split('/')
+            pathArr = c.Key.replace('/', '').split('/')
         }
         else {
             if (c.Key && c.Key instanceof Array) {
@@ -19,7 +19,7 @@ export const adaptData = (contents: _Object[] | BucketItemType[] | undefined, di
         if (pathArr.length > 1) {
             const cloneArr = structuredClone(pathArr)
             const folderKey = cloneArr.shift()
-            const fullPath = dir === '/' ? `${folderKey}` : `${dir}/${folderKey}`
+            const fullPath = dir === '/' ? `/${folderKey}` : `${dir}/${folderKey}`
             if (folderKey && !(obj[fullPath] instanceof Date)) {
                 if (obj[fullPath]) {
                     obj[fullPath].push({ Key: cloneArr, LastModified: c.LastModified })
@@ -48,7 +48,7 @@ export const removeFiles = (data: Record<string, Date | BucketItemType[] | undef
 export const findParentDir = (dir: string) => {
     const dirArr = dir.split('/')
     dirArr.pop()
-    const parentDir = dirArr.length > 0 ? dirArr.join('/') : '/'
+    const parentDir = dirArr.length > 1 ? dirArr.join('/') : '/'
     return parentDir
 }
 

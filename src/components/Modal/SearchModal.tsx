@@ -32,9 +32,6 @@ const SearchModal = () => {
         const filteredData = structuredClone((dirMap[currentDir] as Dir | undefined))
         for (const key in filteredData) {
             const objKey = findCurrentDir(key)
-            console.log(search)
-            console.log(!key.includes(search))
-            console.log(typeof search)
             
             if (objKey && !objKey.includes(search)) delete filteredData[key]
         }

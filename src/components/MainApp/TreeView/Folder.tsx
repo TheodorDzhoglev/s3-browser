@@ -93,7 +93,6 @@ const Folder = ({ currentDir, content, root, renderChild }: Props) => {
     
     const isChildOpen = root ? true : isParentOfOpenDir
 
-
     return (
         <li className={folder_container} >
             <div className={folder_box}>

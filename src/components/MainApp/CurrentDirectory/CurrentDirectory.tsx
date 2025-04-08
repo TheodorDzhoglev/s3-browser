@@ -19,8 +19,10 @@ const {
 const CurrentDirectory = ({ className, isLoading }: Props) => {
 
     const [selectedFile, setSelectedFile] = useState<SelectItemType>({name: '', type: ''})
-    const { dirMap, currentDir } = useDirContext()
-    
+    const { dirMap, currentDir } = useDirContext() 
+    console.log(dirMap)
+    console.log(currentDir)
+    console.log(dirMap[currentDir])
     return (
         <div className={className}>
             <div className={`${main_container} ${isLoading ? 'animate_bg' : ''} `}>

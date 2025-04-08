@@ -17,7 +17,7 @@ const MainApp = () => {
     const { isLoading, error, data } = useFetchList()
 
     if (error) return  <MainAppError/>
-
+    console.log(data)
     return (
         <Fragment>
             <AppHeader />

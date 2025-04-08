@@ -17,14 +17,12 @@ const ReadFileModal = ({ keyName }: Props) => {
     const { isLoading, data, error } = useFetchObj(keyName)
 
 
-    if (isLoading) return <div className={read_file_module}>Your file is on its way!</div>
-
     if (error) return <ErrorModal text="We couldn't open the file. Please try again." />
 
     return (
         <Fragment>
             <h3>{findCurrentDir(keyName)}</h3>
-            <div className={read_file_module}>{data}</div>
+            <div className={read_file_module}>{isLoading ? <span className='text-bold'>Your file is on its way!</span> : data}</div>
         </Fragment>
     )
 }

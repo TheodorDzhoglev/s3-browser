@@ -29,6 +29,10 @@ button{
     outline: none;
 }
 
+.text-bold{
+    font-weight: var(--fw-bold);
+}
+
 @keyframes shimmer {
     to{
         background-position: -100% 0;
