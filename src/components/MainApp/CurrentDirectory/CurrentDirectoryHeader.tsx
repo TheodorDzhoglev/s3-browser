@@ -62,11 +62,11 @@ const CurrentDirectoryHeader = ({ selectedFile }: Props) => {
             setCurrentDirItems(dirMap[parentDir])
         }
     }
-    
+    console.log(findCurrentDir(currentDir))
     return (
         <div className={directory_header}>
             <h2 className={current_directory}>
-                Current Directory: {findCurrentDir(currentDir)}
+                Current Directory: {currentDir === '/' ? 'root' : findCurrentDir(currentDir)}
             </h2>
             <div className={btn_container}>
                 <div className={header_icon_container}>

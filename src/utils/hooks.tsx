@@ -11,7 +11,7 @@ type FlagsType = {
     date: 'asc' | 'desc' | '';
 }
 
-type useSortType = (content: Dir | undefined) => {
+type useSortType = (content: Dir | undefined | null) => {
     sortedContent: ObjectType[] | undefined;
     sortByType: () => void;
     sortByName: () => void;

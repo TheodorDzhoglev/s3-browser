@@ -19,7 +19,7 @@ const MainAppError = () => {
     const { setCredentials } = useAppContext()
 
     const onLogoutHandler = () => {
-        setCredentials(undefined)
+        setCredentials(null)
         removeFromLocalStorage()
     }
 

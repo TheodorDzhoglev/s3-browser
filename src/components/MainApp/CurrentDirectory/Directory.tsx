@@ -38,7 +38,7 @@ const Directory = ({ dirContent, selectedFile, setSelectedFile }: Props) => {
         if(virtuosoRef.current){
             virtuosoRef.current.scrollToIndex(0);
         }
-        setFilteredContent(undefined)
+        setFilteredContent(null)
     }, [dirContent, setSelectedFile, setFilteredContent])
 
     const {

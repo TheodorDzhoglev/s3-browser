@@ -5,8 +5,8 @@ import { S3Client } from "@aws-sdk/client-s3";
 type StateSetter<T> = React.Dispatch<React.SetStateAction<T | undefined>>;
 
 type ContextType = {
-    credentials: s3DataType | undefined;
-    setCredentials: StateSetter<s3DataType>;
+    credentials: s3DataType | null;
+    setCredentials: React.Dispatch<React.SetStateAction<s3DataType | null>>
     s3client: S3Client | undefined;
     sets3Client: StateSetter<S3Client>;
     error: Error | undefined;

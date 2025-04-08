@@ -6,7 +6,7 @@ import { S3Client } from "@aws-sdk/client-s3"
 
 const AppContext = ({ children }: PropsWithChildren) => {
 
-    const [credentials, setCredentials] = useState<s3DataType>()
+    const [credentials, setCredentials] = useState<s3DataType | null>(null)
     const [s3client, sets3Client] = useState<S3Client>()
     const [error, setError] = useState<Error>()
 

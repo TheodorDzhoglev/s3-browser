@@ -7,8 +7,8 @@ type ContextType = {
     modalElement: ReactNode;
     setModalElement: StateSetter<ReactNode>;
     dialogRef: RefObject<HTMLDialogElement | null>;
-    filteredContent: Dir | undefined;
-    setFilteredContent: StateSetter<Dir>;
+    filteredContent: Dir | null;
+    setFilteredContent: React.Dispatch<React.SetStateAction<Dir | null>>
 }
 export const CurrDirContext = createContext<ContextType | null>(null)
 

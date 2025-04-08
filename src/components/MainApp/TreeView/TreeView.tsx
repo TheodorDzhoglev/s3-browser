@@ -21,7 +21,7 @@ const TreeView = ({ className, content, isLoading }: TreeViewType) => {
                 <ul className={folder_tree}>
                     {
                         isLoading
-                            ? 'Loading bucket data...'
+                            ? <li className="text-bold">Loading bucket data...</li>
                             : <Folder
                                 key={'root'}
                                 content={content}

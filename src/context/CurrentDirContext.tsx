@@ -8,7 +8,7 @@ const CurrentDirectoryContext = ({ children }: PropsWithChildren) => {
 
     const [modalElement, setModalElement] = useState<ReactNode>();
     const dialogRef = useRef<HTMLDialogElement>(null);
-    const [filteredContent, setFilteredContent] = useState<Dir | undefined>()
+    const [filteredContent, setFilteredContent] = useState<Dir | null>(null)
 
     const value = {
         modalElement,
