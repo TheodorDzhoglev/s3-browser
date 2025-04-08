@@ -63,7 +63,7 @@ export const useAddObject = () => {
                 Contents: [
                     ...(data.Contents || []), 
                     { Key: fullName, LastModified: new Date, ChecksumType: "FULL_OBJECT" }
-                ].sort((a, b) => a.Key && b.Key && a.Key > b.Key ? 1 : -1),
+                ].sort((a, b) => a.Key && b.Key && a.Key.toLocaleLowerCase() > b.Key.toLocaleLowerCase() ? 1 : -1),
                     
             }
         })

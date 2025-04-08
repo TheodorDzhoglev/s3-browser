@@ -35,27 +35,32 @@ export const useSort: useSortType = (content) => {
         let refactoredRows: ObjectType[] = [];
 
         if (content) {
-            refactoredRows = Object.keys(content).map(objKey => {
-                if (content[objKey] instanceof Date) {
-                    const file: ObjectType = {
-                        key: objKey,
-                        type: 'file',
-                        LastModified: content[objKey]
+            refactoredRows = Object.keys(content).reduce((obj: ObjectType[], objKey) => {
+                if(objKey){
+                    if (content[objKey] instanceof Date) {
+                        const file: ObjectType = {
+                            key: objKey,
+                            type: 'file',
+                            LastModified: content[objKey]
+                        }
+                        files.push(file);
+                        obj.push(file)
+                        return obj;
                     }
-                    files.push(file);
-                    return file;
-                }
-                else {
-                    const folder: ObjectType = {
-                        key: objKey,
-                        type: 'folder',
-                        LastModified: content[objKey] ? content[objKey][0]['LastModified'] : undefined,
-                        data: content[objKey] ? content[objKey] : undefined
+                    else {
+                        const folder: ObjectType = {
+                            key: objKey,
+                            type: 'folder',
+                            LastModified: content[objKey] ? content[objKey][0]['LastModified'] : undefined,
+                            data: content[objKey] ? content[objKey] : undefined
+                        }
+                        folders.push(folder);
+                        obj.push(folder)
+                        return obj;
                     }
-                    folders.push(folder);
-                    return folder;
                 }
-            })
+                return obj
+            }, [])
         }
 
         setAdaptContent(refactoredRows)

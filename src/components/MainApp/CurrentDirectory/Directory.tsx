@@ -55,7 +55,7 @@ const Directory = ({ dirContent, selectedFile, setSelectedFile }: Props) => {
         sortByDate: sortFilByDate
     } = useSort(filteredContent)
 
-    if (!sortedContent) return
+    if (!sortedContent?.length) return
 
     return (
         <div className={directory_container}>
