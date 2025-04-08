@@ -25,7 +25,7 @@ const NewFolderModal = () => {
     const { currentDir, dirMap } = useDirContext()
     const currentFolder = findCurrentDir(currentDir)
     const fullName = currentDir === '/' ?  `/${name}/`  : `${currentDir}/${name}/`
-    console.log(fullName)
+
     const { createNewObject } = useAddObject()
 
     const onCLickHandler = (e: MouseEvent<HTMLButtonElement>) => {

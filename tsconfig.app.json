@@ -24,5 +24,6 @@
     "noUncheckedSideEffectImports": true,
     "noImplicitAny": true
   },
-  "include": ["src", "test/ConnectForm.test.tsx"]
+  "include": ["src", "test/ConnectForm.test.tsx"],
+  "exclude": ["test"]
 }

@@ -1,4 +1,4 @@
-import  { ReactNode, useEffect } from 'react'
+import React,  { ReactNode, useEffect } from 'react'
 import AppContext from '../src/context/AppContext'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import CurrentDirectoryContext from '../src/context/CurrentDirContext'

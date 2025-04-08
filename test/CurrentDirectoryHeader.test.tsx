@@ -5,8 +5,6 @@ import TestProviders from './TestProviders';
 import { SelectItemType } from '../src/utils/types';
 import CurrentDirectoryHeader from '../src/components/MainApp/CurrentDirectory/CurrentDirectoryHeader';
 
-
-
 describe('Renders Current Dir Header', () => {
     it('Render buttons', () => {
 

@@ -48,7 +48,7 @@ const DeleteModal = ({ selectedFile }: Props) => {
         else {
             removeObjArr = Contents.filter(obj => obj.Key?.startsWith(deletedName)).map(obj => { return { Key: obj.Key } })
         }
-        console.log(removeObjArr)
+        
         setLoadingObj(prevState => [...prevState, deletedName])
         const data = await deleteObjects(s3client, removeObjArr, credentials.bucket)
 

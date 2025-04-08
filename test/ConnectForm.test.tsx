@@ -1,3 +1,4 @@
+import React from 'react';
 import { render, screen } from '@testing-library/react'
 import ConnectForm from '../src/components/Connect/ConnectForm'
 import '@testing-library/jest-dom/vitest'
