@@ -40,9 +40,6 @@ const DeleteModal = ({ selectedFile }: Props) => {
         let deletedName = selectedFile?.name + '/'
 
         let removeObjArr: { Key: string | undefined }[] = []
-        // const removeObjArr: { Key: string | undefined }[] = [
-        //     {Key:  'folder/'},
-        //     ]
 
         if (selectedFile.type === 'file') {
             deletedName = currentDir === '/' ? selectedFile.name : `${currentDir}/${selectedFile.name}`

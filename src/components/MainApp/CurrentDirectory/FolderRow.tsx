@@ -1,13 +1,11 @@
 import classes from './Rows.module.css'
 import { folderIcon } from '../../../utils/svgIcons'
-import { BucketItemType } from '../../../utils/types'
 import { findCurrentDir } from '../../../utils/dataTransformUtls'
 import { useDirContext } from '../../../context/dirContext'
 import { memo, KeyboardEvent } from 'react'
 type Props = {
     name: string | undefined,
     lastModified?: Date | undefined,
-    content: BucketItemType[] | undefined
     selected: boolean;
     onCLickHandler: (name: string, type: 'file' | 'folder') => void
 }

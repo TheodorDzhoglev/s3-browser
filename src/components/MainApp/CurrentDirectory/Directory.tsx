@@ -77,7 +77,7 @@ const Directory = ({ dirContent, selectedFile, setSelectedFile }: Props) => {
                         totalCount={filteredContent ? sortedFilContent?.length : sortedContent.length}
                         data={filteredContent ? sortedFilContent : sortedContent}
                         ref={virtuosoRef}
-                        itemContent={(_, { key, data, LastModified, type }) =>
+                        itemContent={(_, { key, LastModified, type }) =>
                             type === 'file'
                                 ? <FileRow
                                     name={key}
@@ -91,7 +91,6 @@ const Directory = ({ dirContent, selectedFile, setSelectedFile }: Props) => {
                                     key={key}
                                     lastModified={LastModified}
                                     selected={selectedFile?.name === key}
-                                    content={data}
                                     onCLickHandler={onCLickHandler}
                                 />
                         }

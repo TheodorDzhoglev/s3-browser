@@ -5,7 +5,7 @@ export type s3DataType = {
 }
 
 export type BucketItemType = {
-    Key: string[] | undefined,
+    Key: string[] | string | undefined,
     LastModified: Date | undefined
     BucketItemType? : string
 }

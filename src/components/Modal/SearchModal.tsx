@@ -34,7 +34,7 @@ const SearchModal = () => {
         for (const key in filteredData) {
             const objKey = findCurrentDir(key)
 
-            if (objKey && !objKey.includes(search)) delete filteredData[key]
+            if (objKey && !objKey.toLocaleLowerCase().includes(search)) delete filteredData[key]
         }
         setFilteredContent(filteredData)
     }
@@ -60,16 +60,18 @@ const SearchModal = () => {
                 <div className={input_container}>
                     <div className={reset_header}>
                         <label htmlFor="new-file-name" className='text-bold'>Filter</label>
-                        <button
-                            className={''}
-                            onClick={onResetHandler}
-                            type='button'
-                            aria-label='reset filter'
-                            disabled={!filteredContent}
-                            autoFocus={!!filteredContent}
-                        >
-                            Reset filter
-                        </button>
+                        {
+                            filteredContent &&
+                            <button
+                                onClick={onResetHandler}
+                                type='button'
+                                className={button}
+                                aria-label='reset filter'
+                                autoFocus={!!filteredContent}
+                            >
+                                Reset
+                            </button>
+                        }
                     </div>
                     <input
                         className={input}
