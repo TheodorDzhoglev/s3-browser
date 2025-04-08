@@ -58,7 +58,7 @@ const NewFileModal = () => {
 
     const folderObjects = dirMap[currentDir]
 
-    const sameKey = folderObjects && (Object.keys(folderObjects)).some(obj => !/\/$/.test(obj) ? fullName === obj : false)
+    const sameKey = folderObjects && (Object.keys(folderObjects)).some(obj => !/\/$/.test(obj) ? name.trim() === obj : false)
     
     return (
         <Fragment>

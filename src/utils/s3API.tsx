@@ -1,5 +1,24 @@
 import { S3Client, ListObjectsV2Command, PutObjectCommand, GetObjectCommand, DeleteObjectsCommand } from "@aws-sdk/client-s3"
 import { s3DataType } from "./types"
+import { Upload } from "@aws-sdk/lib-storage";
+
+const newObject = async (client: S3Client, Bucket: string, Key: string, Body: string )  => {
+    try {
+        const upload = new Upload({
+            client: client,
+            params: { Bucket, Key, Body },
+        });
+
+        upload.on("httpUploadProgress", (progress) => {
+            console.log(progress);
+        });
+
+        return await upload.done();
+    } catch (e) {
+        console.log(e);
+        return e
+    }
+}
 
 export const createS3Client = (credentials: s3DataType) => {
     const { key, secret } = credentials
@@ -13,18 +32,19 @@ export const createS3Client = (credentials: s3DataType) => {
     return s3
 }
 
-export const listBucket = async (client: S3Client, bucket: string, dir: string = '') => {    
-    try{
+export const listBucket = async (client: S3Client, bucket: string, dir: string = '') => {
+    try {
         const command = new ListObjectsV2Command({ Bucket: bucket, Prefix: dir })
         return await client.send(command)
     }
-    catch(error){
+    catch (error) {
         console.log(error)
     }
 }
 
 export const createObject = async (client: S3Client, body: string, key: string, bucket: string) => {
-    try{
+    return await newObject(client, bucket, key, body)
+    try {
         const command = new PutObjectCommand({
             Body: body,
             Bucket: bucket,
@@ -32,14 +52,14 @@ export const createObject = async (client: S3Client, body: string, key: string, 
         })
         return await client.send(command)
     }
-    catch(error){
+    catch (error) {
         console.log(error)
         return error
     }
 }
 
 export const getObject = async (client: S3Client, key: string, bucket: string) => {
-    try{
+    try {
         const command = new GetObjectCommand({
             Bucket: bucket,
             Key: key
@@ -47,13 +67,13 @@ export const getObject = async (client: S3Client, key: string, bucket: string) =
         const response = await client.send(command)
         return response.Body ? response.Body.transformToString() : '';
     }
-    catch(error){
+    catch (error) {
         console.log(error)
         return error
     }
 }
 export const deleteObjects = async (client: S3Client, items: { Key: string | undefined }[], bucket: string) => {
-    try{
+    try {
         const command = new DeleteObjectsCommand({
             Bucket: bucket,
             Delete: {
@@ -62,7 +82,7 @@ export const deleteObjects = async (client: S3Client, items: { Key: string | und
         })
         return await client.send(command)
     }
-    catch(error){
+    catch (error) {
         console.log(error)
     }
 }
