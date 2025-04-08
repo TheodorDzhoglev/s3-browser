@@ -61,12 +61,16 @@ export const sortType = (type: boolean, fol: ObjectType[], fil:ObjectType[]) => 
     return type  ? [...fil, ...fol] : [...fol, ...fil]
 }
 
+const rmSlash = (string: string) => {
+    return  /^\//.test(string) ? string.replace('/', '') : string
+}
+
 export const sortName = (type: boolean, data: ObjectType[]) => {
     if (type) {
-        return data.sort((a, b) => a.key.toLocaleLowerCase() > b.key.toLocaleLowerCase() ? 1 : -1)
+        return data.sort((a, b) => rmSlash(a.key).toLocaleLowerCase() > rmSlash(b.key).toLocaleLowerCase() ? 1 : -1)
     }
     else {
-        return data.sort((a, b) => a.key.toLocaleLowerCase() > b.key.toLocaleLowerCase() ? -1 : 1)
+        return data.sort((a, b) => rmSlash(a.key).toLocaleLowerCase() > rmSlash(b.key).toLocaleLowerCase() ? -1 : 1)
     }
 }
 
@@ -94,5 +98,5 @@ export const uriEncode = (key: string) => {
 }   
 
 export const sanitize = (key: string) => {
-    return key.replace(/[\\{}^%`"[\]<>|#~\x80-\xFF]|\.$/, '')
+    return key.replace(/[\\/{}^%`"[\]<>|#~\x80-\xFF]|\.$/g, '')
 }   

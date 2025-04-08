@@ -21,43 +21,56 @@ const {
 const NewFileModal = () => {
     const [name, setName] = useState('')
     const [placeholder, setPlaceholder] = useState('')
+    const [textPlaceholder, setTextPlaceholder] = useState('')
     const [text, setText] = useState('')
     const { currentDir, dirMap } = useDirContext()
     const currentFolder = findCurrentDir(currentDir)
-    const fullName = currentDir === '/' ? name : `${currentDir}/${name}`
+    const fullName = currentDir === '/' ? name.trim() : `${currentDir}/${name.trim()}`
 
     const { createNewObject } = useAddObject()
 
     const onCLickHandler = (e: MouseEvent<HTMLButtonElement>) => {
-        if (!name || !text || sameKey) e.stopPropagation()
+        if (!name || !text || sameKey || !name.trim() || !text.trim()) e.stopPropagation()
         if (sameKey) {
             e.preventDefault()
             setName('')
             setPlaceholder('A file with the same name already exists')
         }
+        if (!name.trim()) {
+            setName('')
+            setPlaceholder('Please provide a valid name')
+        }
+        if (!text.trim()) {
+            setText('')
+            setTextPlaceholder('Please provide a valid text')
+        }
     }
 
-    const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    const onChangeNameHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setName(((sanitize(e.target.value))))
         setPlaceholder('')
     }
 
+    const onChangeTextHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        setText(((sanitize(e.target.value))))
+        setTextPlaceholder('')
+    }
+
     const folderObjects = dirMap[currentDir]
 
-    const sameKey = folderObjects && (Object.keys(folderObjects)).some(obj => folderObjects[obj] instanceof Date ? fullName === obj : false)
-
-
+    const sameKey = folderObjects && (Object.keys(folderObjects)).some(obj => !/\/$/.test(obj) ? fullName === obj : false)
+    
     return (
         <Fragment>
             <h3 className={modal_header}>Create a new file</h3>
             <p className={modal_content}>Create file in <span className='text-bold'>{currentFolder ? currentFolder : 'root'}</span></p>
-            <form className={form} onSubmit={(e) => createNewObject(e, name, uriEncode(fullName), text)}>
+            <form className={form} onSubmit={(e) => createNewObject(e, name.trim(), uriEncode(fullName), text)}>
                 <div className={input_container}>
                     <label htmlFor="new-file-name">Name</label>
                     <input
                         className={input}
                         value={name}
-                        onChange={onChangeHandler}
+                        onChange={onChangeNameHandler}
                         name="name"
                         id="new-file-name"
                         required
@@ -70,11 +83,12 @@ const NewFileModal = () => {
                     <textarea
                         className={input}
                         value={text}
-                        onChange={(e) => setText(e.target.value)}
+                        onChange={onChangeTextHandler}
                         name="text"
                         id="new-file-text"
                         rows={10}
                         required
+                        placeholder={textPlaceholder}
                     />
                 </div>
                 <button className={button} onClick={onCLickHandler} aria-label='create new file'>Create new file</button>

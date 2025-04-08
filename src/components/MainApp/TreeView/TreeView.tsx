@@ -14,7 +14,7 @@ const {
 } = classes
 
 const TreeView = ({ className, content, isLoading }: TreeViewType) => {
-    
+    console.log(content)
     return (
         <div className={className}>
             <div className={main_container}>

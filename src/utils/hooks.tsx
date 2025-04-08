@@ -19,9 +19,9 @@ type useSortType = (content: Dir | undefined | null) => {
 }
 
 const defaultFlags: FlagsType = {
-    type: 'file',
+    type: '',
     name: 'asc',
-    date: 'asc'
+    date: ''
 }
 
 export const useSort: useSortType = (content) => {

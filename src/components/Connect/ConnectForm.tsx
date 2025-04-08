@@ -24,7 +24,7 @@ const ConnectForm = () => {
 
     const onSubmitHandler = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        const data = { bucket, key, secret, }
+        const data = { bucket: bucket.trim(), key: key.trim(), secret: secret.trim(), }
         addToLocalStorage(data)
         setCredentials(data)
         sets3Client(createS3Client(data))
