@@ -16,9 +16,9 @@ describe('Credentials check', () => {
                     <MainApp />
                 </CheckCredentials>
             </TestProviders>
-        )
+        );
 
-        expect(screen.getByText('Filespace dashboard')).toBeInTheDocument()
+        expect(screen.getByText('Filespace dashboard')).toBeInTheDocument();
     });
 
     it('render form when credentials are unavailable', () => {
@@ -30,7 +30,7 @@ describe('Credentials check', () => {
                 </CheckCredentials>
             </TestContextPr>
         )
-        expect(screen.getByText('S3 Browser')).toBeInTheDocument()
-        screen.debug()
-    })
-})
+        expect(screen.getByText('S3 Browser')).toBeInTheDocument();
+        screen.debug();
+    });
+});

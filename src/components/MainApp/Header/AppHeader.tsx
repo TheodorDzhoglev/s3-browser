@@ -7,15 +7,15 @@ const {
     app_header,
     header_content,
     header_logout
-} = classes
+} = classes;
 
 const AppHeader = () => {
 
-    const { setCredentials } = useAppContext()
+    const { setCredentials } = useAppContext();
 
     const onLogoutHandler = () => {
-        setCredentials(null)
-        removeFromLocalStorage()
+        setCredentials(null);
+        removeFromLocalStorage();
     }
 
     return (
@@ -23,7 +23,7 @@ const AppHeader = () => {
             <h1 className={header_content}>Filespace dashboard</h1>
             <button className={header_logout} onClick={onLogoutHandler} aria-label="disconnect from bucket" title="disconnect from bucket">{logoutIcon}</button>
         </div>
-    )
-}
+    );
+};
 
-export default AppHeader
+export default AppHeader;

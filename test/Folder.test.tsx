@@ -42,7 +42,7 @@ const data: BucketItemType[] = [
         LastModified: new Date(Date.now() - Math.floor(Math.random() * 10000000000)),
         ChecksumType: "FULL_OBJECT"
     },
-]
+];
 
 describe('Render folder tree test', () => {
     it('Renders root folder ', async () => {
@@ -56,16 +56,16 @@ describe('Render folder tree test', () => {
                     renderChild={true}
                 />
             </TestProviders>
-        )
-        expect(screen.getByText('root')).toBeInTheDocument()
-        const alfaButton = screen.getByLabelText('alfa')
-        const user = userEvent.setup()
-        const buttonsNumber = screen.getAllByRole('button').length
-        await act(() => user.click(alfaButton))
-        await new Promise(resolve => setTimeout(() => resolve(''),500))
-        const buttonsNumber2 = screen.getAllByRole('button').length
-        expect(buttonsNumber2 > buttonsNumber)
-        screen.debug()
+        );
+        expect(screen.getByText('root')).toBeInTheDocument();
+        const alfaButton = screen.getByLabelText('alfa');
+        const user = userEvent.setup();
+        const buttonsNumber = screen.getAllByRole('button').length;
+        await act(() => user.click(alfaButton));
+        await new Promise(resolve => setTimeout(() => resolve(''),500));
+        const buttonsNumber2 = screen.getAllByRole('button').length;
+        expect(buttonsNumber2 > buttonsNumber);
+        screen.debug();
     })
 
     it('Expand Nested Folder ', async () => {
@@ -79,16 +79,15 @@ describe('Render folder tree test', () => {
                     renderChild={true}
                 />
             </TestProviders>
-        )
+        );
     
-        const alfaButton = screen.getByLabelText('alfa')
-        const user = userEvent.setup()
-        const buttonsNumber = screen.getAllByRole('button').length
-        await act(() => user.click(alfaButton))
-        await new Promise(resolve => setTimeout(() => resolve(''),500))
-        const buttonsNumber2 = screen.getAllByRole('button').length
-        expect(buttonsNumber2 > buttonsNumber)
-        screen.debug()
-    })
-
-})
+        const alfaButton = screen.getByLabelText('alfa');
+        const user = userEvent.setup();
+        const buttonsNumber = screen.getAllByRole('button').length;
+        await act(() => user.click(alfaButton));
+        await new Promise(resolve => setTimeout(() => resolve(''),500));
+        const buttonsNumber2 = screen.getAllByRole('button').length;
+        expect(buttonsNumber2 > buttonsNumber);
+        screen.debug();
+    });
+});

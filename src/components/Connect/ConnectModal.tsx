@@ -5,12 +5,12 @@ import modalContainer from '../../assets/styles/Modal.module.css'
 const {
     form_overlay,
     form_container,        
-} = classes
+} = classes;
 
 const {
     modal_header,
     modal_content
-} = modalContainer
+} = modalContainer;
 
 const ConnectModal = () => {
     
@@ -22,7 +22,7 @@ const ConnectModal = () => {
                 <ConnectForm />
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default ConnectModal
+export default ConnectModal;

@@ -5,10 +5,10 @@ import { DirMap, Dir } from "../utils/types"
 
 const DirectoryContext = ({ children }: PropsWithChildren) => {
 
-    const [currentDirItems, setCurrentDirItems] = useState<Dir>()
-    const [dirMap, setDirMap] = useState<DirMap>({})
-    const [currentDir, setCurrentDir] = useState('')
-    const [loadingObj, setLoadingObj] = useState<string[]>([])
+    const [currentDirItems, setCurrentDirItems] = useState<Dir>();
+    const [dirMap, setDirMap] = useState<DirMap>({});
+    const [currentDir, setCurrentDir] = useState('');
+    const [loadingObj, setLoadingObj] = useState<string[]>([]);
 
     const value = {
         currentDirItems,
@@ -19,12 +19,12 @@ const DirectoryContext = ({ children }: PropsWithChildren) => {
         setDirMap,
         loadingObj,
         setLoadingObj,
-    }
+    };
 
     return (
         <DirContext.Provider value={value}>
             {children}
         </DirContext.Provider>
-    )
-}
-export default DirectoryContext
+    );
+};
+export default DirectoryContext;

@@ -16,62 +16,62 @@ const newObject = async (client: S3Client, Bucket: string, Key: string, Body: st
         return await upload.done();
     } catch (e) {
         console.log(e);
-        return e
-    }
-}
+        return e;
+    };
+};
 
 export const createS3Client = (credentials: s3DataType) => {
-    const { key, secret } = credentials
+    const { key, secret } = credentials;
     const s3 = new S3Client({
         region: 'eu-west-1',
         credentials: {
             accessKeyId: key,
             secretAccessKey: secret
         },
-    })
-    return s3
-}
+    });
+    return s3;
+};
 
 export const listBucket = async (client: S3Client, bucket: string, dir: string = '') => {
     try {
-        const command = new ListObjectsV2Command({ Bucket: bucket, Prefix: dir })
-        return await client.send(command)
+        const command = new ListObjectsV2Command({ Bucket: bucket, Prefix: dir });
+        return await client.send(command);
     }
     catch (error) {
-        console.log(error)
-    }
-}
+        console.log(error);
+    };
+};
 
 export const createObject = async (client: S3Client, body: string, key: string, bucket: string) => {
-    return await newObject(client, bucket, key, body)
+    return await newObject(client, bucket, key, body);
     try {
         const command = new PutObjectCommand({
             Body: body,
             Bucket: bucket,
             Key: key
-        })
-        return await client.send(command)
+        });
+        return await client.send(command);
     }
     catch (error) {
-        console.log(error)
-        return error
-    }
-}
+        console.log(error);
+        return error;
+    };
+};
 
 export const getObject = async (client: S3Client, key: string, bucket: string) => {
     try {
         const command = new GetObjectCommand({
             Bucket: bucket,
             Key: key
-        })
-        const response = await client.send(command)
+        });
+        const response = await client.send(command);
         return response.Body ? response.Body.transformToString() : '';
     }
     catch (error) {
-        console.log(error)
-        return error
-    }
-}
+        console.log(error);
+        return error;
+    };
+};
 export const deleteObjects = async (client: S3Client, items: { Key: string | undefined }[], bucket: string) => {
     try {
         const command = new DeleteObjectsCommand({
@@ -79,10 +79,10 @@ export const deleteObjects = async (client: S3Client, items: { Key: string | und
             Delete: {
                 Objects: items
             }
-        })
-        return await client.send(command)
+        });
+        return await client.send(command);
     }
     catch (error) {
-        console.log(error)
-    }
-}
+        console.log(error);
+    };
+};

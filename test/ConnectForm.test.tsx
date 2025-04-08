@@ -10,12 +10,11 @@ describe('Connect Form', () => {
             <TestProviders>
                 <ConnectForm />
             </TestProviders>
-        )
-            ;
+        );
 
         expect(screen.getByLabelText('Bucket')).toBeInTheDocument();
         expect(screen.getByLabelText('Access Key')).toBeInTheDocument();
         expect(screen.getByLabelText('Secret Access Key')).toBeInTheDocument();
         expect(screen.getByLabelText('submit form')).toBeInTheDocument();
-    })
-})
+    });
+});

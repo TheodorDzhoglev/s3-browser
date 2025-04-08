@@ -5,7 +5,7 @@ import CurrentDirectoryContext from '../src/context/CurrentDirContext'
 import DirectoryContext from '../src/context/DirectoryContext'
 
 type Props = {
-    children: ReactNode
+    children: ReactNode;
 }
 
 const queryClient = new QueryClient()
@@ -21,7 +21,7 @@ const TestContextPr = ({ children }: Props) => {
                 </DirectoryContext>
             </AppContext>
         </QueryClientProvider>
-    )
-}
+    );
+};
 
-export default TestContextPr
+export default TestContextPr;

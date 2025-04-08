@@ -21,17 +21,17 @@ describe('Directory window', () => {
                 {Key: ['folder2/file.txt'], LastModified: new Date(), BucketItemType: 'folder'},
                 {Key: ['folder3/file.txt'], LastModified: new Date(), BucketItemType: 'folder'}
             ],
-        }
+        };
 
         render(
             <TestProviders>
                 <Directory dirContent={data} selectedFile={{type: 'file', name: ''}} setSelectedFile={() => {}}/>
             </TestProviders>
-        )
+        );
 
-        expect(screen.getByLabelText("sort by type")).toBeInTheDocument()
-        expect(screen.getByLabelText("sort by date")).toBeInTheDocument()
-        expect(screen.getByLabelText("sort by name")).toBeInTheDocument()
+        expect(screen.getByLabelText("sort by type")).toBeInTheDocument();
+        expect(screen.getByLabelText("sort by date")).toBeInTheDocument();
+        expect(screen.getByLabelText("sort by name")).toBeInTheDocument();
 
-    })
-})
+    });
+});

@@ -12,46 +12,46 @@ const {
     button,
     input,
     input_container
-} = uiClasses
+} = uiClasses;
 
 const {
     form,
     modal_header,
     search_btns,
     reset_header
-} = modalClasses
+} = modalClasses;
 
 const SearchModal = () => {
-    const [search, setSearch] = useState('')
-    const { currentDir, dirMap } = useDirContext()
-    const { setFilteredContent, filteredContent } = useCurrDirContext()
+    const [search, setSearch] = useState('');
+    const { currentDir, dirMap } = useDirContext();
+    const { setFilteredContent, filteredContent } = useCurrDirContext();
 
 
     const onSubmitHandler = (e: FormEvent) => {
-        e.preventDefault()
+        e.preventDefault();
 
-        const filteredData = structuredClone((dirMap[currentDir] as Dir | null))
+        const filteredData = structuredClone((dirMap[currentDir] as Dir | null));
         for (const key in filteredData) {
-            const objKey = findCurrentDir(key)
+            const objKey = findCurrentDir(key);
 
-            if (objKey && !objKey.toLocaleLowerCase().includes(search.trim())) delete filteredData[key]
+            if (objKey && !objKey.toLocaleLowerCase().includes(search.trim())) delete filteredData[key];
         }
-        setFilteredContent(filteredData)
+        setFilteredContent(filteredData);
     }
 
     const onCLickHandler = (e: MouseEvent<HTMLButtonElement>) => {
-        if (!search) e.stopPropagation()
+        if (!search) e.stopPropagation();
     }
 
     const onResetHandler = () => {
-        setFilteredContent(null)
+        setFilteredContent(null);
     }
 
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        setSearch(e.target.value)
+        setSearch(e.target.value);
     }
 
-    if (!dirMap[currentDir]) return
+    if (!dirMap[currentDir]) return;
 
     return (
         <Fragment>
@@ -88,7 +88,7 @@ const SearchModal = () => {
                 </div>
             </form>
         </Fragment>
-    )
-}
+    );
+};
 
-export default SearchModal
+export default SearchModal;

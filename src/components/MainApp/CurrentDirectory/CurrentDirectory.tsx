@@ -14,12 +14,12 @@ type Props = {
 
 const {
     main_container,
-} = classes
+} = classes;
 
 const CurrentDirectory = ({ className, isLoading }: Props) => {
 
-    const [selectedFile, setSelectedFile] = useState<SelectItemType>({name: '', type: ''})
-    const { dirMap, currentDir } = useDirContext() 
+    const [selectedFile, setSelectedFile] = useState<SelectItemType>({name: '', type: ''});
+    const { dirMap, currentDir } = useDirContext() ;
     
     return (
         <div className={className}>
@@ -38,8 +38,8 @@ const CurrentDirectory = ({ className, isLoading }: Props) => {
                 }
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default CurrentDirectory
+export default CurrentDirectory;
 

@@ -5,16 +5,16 @@ import { Fragment } from 'react/jsx-runtime'
 
 const {
     button,
-} = uiClasses
+} = uiClasses;
 
 const {
     modal_header,
     message_modal
-} = modalClasses
+} = modalClasses;
 
 type Props = {
-    text: string
-}
+    text: string;
+};
 
 const ErrorModal = ({text}: Props) => {
 
@@ -27,7 +27,7 @@ const ErrorModal = ({text}: Props) => {
                     <button className={button} aria-label='back'>Back</button>
                 </div>
         </Fragment>
-    )
-}
+    );
+};
 
-export default ErrorModal
+export default ErrorModal;

@@ -14,11 +14,11 @@ type ContextType = {
     setLoadingObj:  React.Dispatch<React.SetStateAction<string[]>>;
 }
 
-export const DirContext = createContext<ContextType | null>(null)
+export const DirContext = createContext<ContextType | null>(null);
 
 export const useDirContext = () => {
-    const data = useContext(DirContext)
-    if (!data) throw new Error("useAppContext must be used within a Provider")
+    const data = useContext(DirContext);
+    if (!data) throw new Error("useAppContext must be used within a Provider");
     
-    return data
-}
+    return data;
+};

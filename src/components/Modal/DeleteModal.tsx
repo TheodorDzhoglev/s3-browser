@@ -14,57 +14,57 @@ import { findCurrentDir } from '../../utils/dataTransformUtls'
 
 const {
     button,
-} = uiClasses
+} = uiClasses;
 
 const {
     message_modal
-} = modalClasses
+} = modalClasses;
 
 type Props = {
-    selectedFile: SelectItemType
-}
+    selectedFile: SelectItemType;
+};
 
 const DeleteModal = ({ selectedFile }: Props) => {
-    const { s3client, credentials } = useAppContext()
-    const { currentDir, setLoadingObj } = useDirContext()
-    const { setModalElement, dialogRef } = useCurrDirContext()
-    const queryClient = useQueryClient()
-    const { Contents } = queryClient.getQueryData(['list']) as ListObjectsV2Output
+    const { s3client, credentials } = useAppContext();
+    const { currentDir, setLoadingObj } = useDirContext();
+    const { setModalElement, dialogRef } = useCurrDirContext();
+    const queryClient = useQueryClient();
+    const { Contents } = queryClient.getQueryData(['list']) as ListObjectsV2Output;
 
-    if (!credentials || !s3client) return
+    if (!credentials || !s3client) return;
 
 
     const onCLickHandler = async () => {
-        if (!selectedFile?.name || !Contents) return
+        if (!selectedFile?.name || !Contents) return;
 
-        let deletedName = selectedFile?.name + '/'
+        let deletedName = selectedFile?.name + '/';
 
-        let removeObjArr: { Key: string | undefined }[] = []
+        let removeObjArr: { Key: string | undefined }[] = [];
 
         if (selectedFile.type === 'file') {
-            deletedName = currentDir === '/' ? selectedFile.name : `${currentDir}/${selectedFile.name}`
-            removeObjArr = [{ Key: deletedName }]
+            deletedName = currentDir === '/' ? selectedFile.name : `${currentDir}/${selectedFile.name}`;
+            removeObjArr = [{ Key: deletedName }];
         }
         else {
-            removeObjArr = Contents.filter(obj => obj.Key?.startsWith(deletedName)).map(obj => { return { Key: obj.Key } })
-        }
+            removeObjArr = Contents.filter(obj => obj.Key?.startsWith(deletedName)).map(obj => { return { Key: obj.Key } });
+        };
         
-        setLoadingObj(prevState => [...prevState, deletedName])
-        const data = await deleteObjects(s3client, removeObjArr, credentials.bucket)
+        setLoadingObj(prevState => [...prevState, deletedName]);
+        const data = await deleteObjects(s3client, removeObjArr, credentials.bucket);
 
         if (data?.$metadata.httpStatusCode === 200) {
             queryClient.setQueryData(['list'], (data: ListObjectsV2Output) => {
-                const updatedContents = data.Contents?.filter(obj => !removeObjArr.some(rmObj => rmObj.Key === obj.Key))
+                const updatedContents = data.Contents?.filter(obj => !removeObjArr.some(rmObj => rmObj.Key === obj.Key));
                 return {
                     ...data,
                     Contents: updatedContents
-                }
-            })
+                };
+            });
         }
         else {
-            setLoadingObj(prevState => prevState.filter(name => name !== deletedName))
-            setModalElement(<ErrorModal key={Math.random()} text={`Something went wrong while deleting '${selectedFile.name}'.`} />)
-            openDialog(dialogRef)
+            setLoadingObj(prevState => prevState.filter(name => name !== deletedName));
+            setModalElement(<ErrorModal key={Math.random()} text={`Something went wrong while deleting '${selectedFile.name}'.`} />);
+            openDialog(dialogRef);
         }
     }
 
@@ -77,7 +77,7 @@ const DeleteModal = ({ selectedFile }: Props) => {
                 <button className={button} onClick={onCLickHandler} aria-label='delete'>Delete</button>
             </div>
         </Fragment>
-    )
-}
+    );
+};
 
-export default DeleteModal
+export default DeleteModal;

@@ -5,23 +5,23 @@ import { removeFromLocalStorage } from '../../utils/localStorage'
 
 const {
     button,
-} = uiClasses
+} = uiClasses;
 
 const {
     modal_header,
     error_modal,
     modal_box,
     message_modal
-} = modalClasses
+} = modalClasses;
 
 const MainAppError = () => {
 
-    const { setCredentials } = useAppContext()
+    const { setCredentials } = useAppContext();
 
     const onLogoutHandler = () => {
-        setCredentials(null)
-        removeFromLocalStorage()
-    }
+        setCredentials(null);
+        removeFromLocalStorage();
+    };
 
 
     return (
@@ -34,7 +34,7 @@ const MainAppError = () => {
                 </div>
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default MainAppError
+export default MainAppError;

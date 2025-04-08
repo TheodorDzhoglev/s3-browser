@@ -9,20 +9,20 @@ type FlagsType = {
     type: 'file' | 'folder' | '';
     name: 'asc' | 'desc' | '';
     date: 'asc' | 'desc' | '';
-}
+};
 
 type useSortType = (content: Dir | undefined | null) => {
     sortedContent: ObjectType[] | undefined;
     sortByType: () => void;
     sortByName: () => void;
     sortByDate: () => void;
-}
+};
 
 const defaultFlags: FlagsType = {
     type: '',
     name: 'asc',
     date: ''
-}
+};
 
 export const useSort: useSortType = (content) => {
 
@@ -42,9 +42,9 @@ export const useSort: useSortType = (content) => {
                             key: objKey,
                             type: 'file',
                             LastModified: content[objKey]
-                        }
+                        };
                         files.push(file);
-                        obj.push(file)
+                        obj.push(file);
                         return obj;
                     }
                     else {
@@ -53,17 +53,17 @@ export const useSort: useSortType = (content) => {
                             type: 'folder',
                             LastModified: content[objKey] ? content[objKey][0]['LastModified'] : undefined,
                             data: content[objKey] ? content[objKey] : undefined
-                        }
+                        };
                         folders.push(folder);
-                        obj.push(folder)
+                        obj.push(folder);
                         return obj;
-                    }
-                }
-                return obj
-            }, [])
-        }
+                    };
+                };
+                return obj;
+            }, []);
+        };
 
-        setAdaptContent(refactoredRows)
+        setAdaptContent(refactoredRows);
         return { folders, files };
     }, [content]);
 
@@ -72,100 +72,98 @@ export const useSort: useSortType = (content) => {
         const sort = (flags: FlagsType, data: ObjectType[]) => {
             switch (true) {
                 case flags.name === 'asc':
-                    return sortName(true, data)
+                    return sortName(true, data);
                 case flags.name === 'desc':
-                    return sortName(false, data)
+                    return sortName(false, data);
                 case flags.type === 'folder':
-                    return sortType(true, folders, files)
+                    return sortType(true, folders, files);
                 case flags.type === 'file':
-                    return sortType(false, folders, files)
+                    return sortType(false, folders, files);
                 case flags.date === 'asc':
-                    return sortDate(true, data)
+                    return sortDate(true, data);
                 case flags.date === 'desc':
-                    return sortDate(false, data)
+                    return sortDate(false, data);
 
                 default:
-                    return data
-            }
-        }
-        return sort(flags, adaptContent)
+                    return data;
+            };
+        };
+        return sort(flags, adaptContent);
 
-    }, [flags, adaptContent, folders, files])
+    }, [flags, adaptContent, folders, files]);
 
     const sortByType = () => {
         if (flags.type === 'folder') {
-            setFlags({ name: '', date: '', type: 'file' })
+            setFlags({ name: '', date: '', type: 'file' });
         }
         else {
-            setFlags({ name: '', date: '', type: 'folder' })
-        }
-
+            setFlags({ name: '', date: '', type: 'folder' });
+        };
     };
 
     const sortByName = () => {
         if (flags.name === 'asc') {
-            setFlags({ type: '', date: '', name: 'desc' })
+            setFlags({ type: '', date: '', name: 'desc' });
         }
         else {
-            setFlags({ type: '', date: '', name: 'asc' })
-        }
+            setFlags({ type: '', date: '', name: 'asc' });
+        };
     };
 
     const sortByDate = () => {
         if (flags.date === 'asc') {
-            setFlags({ type: '', name: '', date: 'desc' })
+            setFlags({ type: '', name: '', date: 'desc' });
         }
         else {
-            setFlags({ type: '', name: '', date: 'asc' })
-        }
-    }
+            setFlags({ type: '', name: '', date: 'asc' });
+        };
+    };
 
     return {
         sortedContent,
         sortByType,
         sortByName,
         sortByDate
-    }
-
-}
+    };
+};
 
 export const useAdaptData = (contents: _Object[] | BucketItemType[] | undefined, dir: string) => {
-    return useMemo(() => adaptData(contents, dir), [contents, dir])
-}
+    return useMemo(() => adaptData(contents, dir), [contents, dir]);
+};
 
 export const useRemoveFiles = (data: Record<string, Date | BucketItemType[] | undefined> | undefined) => {
-    const foldersInDirectory = useMemo(() => removeFiles(data), [data])
-    const shouldRender = foldersInDirectory ? !!Object.keys(foldersInDirectory).length : false
+    const foldersInDirectory = useMemo(() => removeFiles(data), [data]);
+    const shouldRender = foldersInDirectory ? !!Object.keys(foldersInDirectory).length : false;
 
     return {
         foldersInDirectory,
         shouldRender
-    }
-}   
+    };
+};
 
 export const useFindOpenDirParents = (foldersInDirectory: Record<string, BucketItemType[] | undefined>) => {
-    const { currentDir } = useDirContext()
+    const { currentDir } = useDirContext();
 
     const isParentOfOpenDir = useMemo(() => {
-        const childKeysArr = Object.keys(foldersInDirectory)
+        const childKeysArr = Object.keys(foldersInDirectory);
         const currentLevel = childKeysArr[0] ? childKeysArr[0].split('/').length : 0
-        const openDirArr = currentDir.split('/')
-        openDirArr.splice(currentLevel)
-        const openDirSection = openDirArr.join('/')
-        return childKeysArr.some( dir => dir === openDirSection)
-    }, [foldersInDirectory, currentDir])
+        const openDirArr = currentDir.split('/');
+        openDirArr.splice(currentLevel);
+        const openDirSection = openDirArr.join('/');
+        return childKeysArr.some( dir => dir === openDirSection);
+    }, [foldersInDirectory, currentDir]);
 
-    return isParentOfOpenDir
+    return isParentOfOpenDir;
 }
 
 //Request Animation frame to mimic setTimout in order to use onClick and onDoubleClick 
 
 const noop = () => {};
 
-type RequestTimeoutFnType = (e?: MouseEvent<HTMLButtonElement>) => void
+type RequestTimeoutFnType = (e?: MouseEvent<HTMLButtonElement>) => void;
 
-type requestTimeoutType = (fn: RequestTimeoutFnType, delay: number, registerCancel: (fn:()=>void)=> void) => void
-type useClickPreventionType = (onClick: RequestTimeoutFnType, onDoubleClick: ()=>void, delay: number) => {handleClick: (()=>void), handleDoubleClick: (()=>void)}
+type requestTimeoutType = (fn: RequestTimeoutFnType, delay: number, registerCancel: (fn:()=>void)=> void) => void;
+type useClickPreventionType = (onClick: RequestTimeoutFnType, onDoubleClick: ()=>void, delay: number) => {handleClick: (()=>void), handleDoubleClick: (()=>void)};
 
 const requestTimeout: requestTimeoutType = (fn, delay, registerCancel)  => {
   const start = new Date().getTime();
@@ -177,7 +175,7 @@ const requestTimeout: requestTimeoutType = (fn, delay, registerCancel)  => {
       fn();
       registerCancel(noop);
       return;
-    }
+    };
 
     const raf = requestAnimationFrame(loop);
     registerCancel(() => cancelAnimationFrame(raf));

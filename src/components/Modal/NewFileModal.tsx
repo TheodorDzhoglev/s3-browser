@@ -10,55 +10,55 @@ const {
     button,
     input,
     input_container
-} = uiClasses
+} = uiClasses;
 
 const {
     form,
     modal_header,
     modal_content,
-} = modalClasses
+} = modalClasses;
 
 const NewFileModal = () => {
-    const [name, setName] = useState('')
-    const [placeholder, setPlaceholder] = useState('')
-    const [textPlaceholder, setTextPlaceholder] = useState('')
-    const [text, setText] = useState('')
-    const { currentDir, dirMap } = useDirContext()
-    const currentFolder = findCurrentDir(currentDir)
-    const fullName = currentDir === '/' ? name.trim() : `${currentDir}/${name.trim()}`
+    const [name, setName] = useState('');
+    const [placeholder, setPlaceholder] = useState('');
+    const [textPlaceholder, setTextPlaceholder] = useState('');
+    const [text, setText] = useState('');
+    const { currentDir, dirMap } = useDirContext();
+    const currentFolder = findCurrentDir(currentDir);
+    const fullName = currentDir === '/' ? name.trim() : `${currentDir}/${name.trim()}`;
 
-    const { createNewObject } = useAddObject()
+    const { createNewObject } = useAddObject();
 
     const onCLickHandler = (e: MouseEvent<HTMLButtonElement>) => {
-        if (!name || !text || sameKey || !name.trim() || !text.trim()) e.stopPropagation()
+        if (!name || !text || sameKey || !name.trim() || !text.trim()) e.stopPropagation();
         if (sameKey) {
-            e.preventDefault()
-            setName('')
-            setPlaceholder('A file with the same name already exists')
+            e.preventDefault();
+            setName('');
+            setPlaceholder('A file with the same name already exists');
         }
         if (!name.trim()) {
-            setName('')
-            setPlaceholder('Please provide a valid name')
+            setName('');
+            setPlaceholder('Please provide a valid name');
         }
         if (!text.trim()) {
-            setText('')
-            setTextPlaceholder('Please provide a valid text')
+            setText('');
+            setTextPlaceholder('Please provide a valid text');
         }
     }
 
     const onChangeNameHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        setName(((sanitize(e.target.value))))
-        setPlaceholder('')
+        setName(((sanitize(e.target.value))));
+        setPlaceholder('');
     }
 
     const onChangeTextHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        setText(((sanitize(e.target.value))))
-        setTextPlaceholder('')
+        setText(((sanitize(e.target.value))));
+        setTextPlaceholder('');
     }
 
-    const folderObjects = dirMap[currentDir]
+    const folderObjects = dirMap[currentDir];
 
-    const sameKey = folderObjects && (Object.keys(folderObjects)).some(obj => !/\/$/.test(obj) ? name.trim() === obj : false)
+    const sameKey = folderObjects && (Object.keys(folderObjects)).some(obj => !/\/$/.test(obj) ? name.trim() === obj : false);
     
     return (
         <Fragment>
@@ -94,7 +94,7 @@ const NewFileModal = () => {
                 <button className={button} onClick={onCLickHandler} aria-label='create new file'>Create new file</button>
             </form>
         </Fragment>
-    )
-}
+    );
+};
 
-export default NewFileModal
+export default NewFileModal;

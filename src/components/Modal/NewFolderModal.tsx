@@ -11,44 +11,44 @@ const {
     button,
     input,
     input_container
-} = uiClasses
+} = uiClasses;
 
 const {
     form,
     modal_header,
     modal_content,
-} = modalClasses
+} = modalClasses;
 
 const NewFolderModal = () => {
-    const [name, setName] = useState('')
-    const [placeholder, setPlaceholder] = useState('')
-    const { currentDir, dirMap } = useDirContext()
-    const currentFolder = findCurrentDir(currentDir)
-    const fullName = currentDir === '/' ?  `/${name.trim()}/`  : `${currentDir}/${name.trim()}/`
+    const [name, setName] = useState('');
+    const [placeholder, setPlaceholder] = useState('');
+    const { currentDir, dirMap } = useDirContext();
+    const currentFolder = findCurrentDir(currentDir);
+    const fullName = currentDir === '/' ?  `/${name.trim()}/`  : `${currentDir}/${name.trim()}/`;
 
-    const { createNewObject } = useAddObject()
+    const { createNewObject } = useAddObject();
 
     const onCLickHandler = (e: MouseEvent<HTMLButtonElement>) => {
-        if (!name || sameKey || !name.trim()) e.stopPropagation()
+        if (!name || sameKey || !name.trim()) e.stopPropagation();
         if (sameKey) {
-            e.preventDefault()
-            setName('')
-            setPlaceholder('A folder with the same name already exists')
+            e.preventDefault();
+            setName('');
+            setPlaceholder('A folder with the same name already exists');
         }
         if(!name.trim()){
-            e.preventDefault()
-            setName('')
-            setPlaceholder('Please provide a valid name')
+            e.preventDefault();
+            setName('');
+            setPlaceholder('Please provide a valid name');
         }
     }
 
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-            setName(((sanitize(e.target.value))))
-            setPlaceholder('')
+            setName(((sanitize(e.target.value))));
+            setPlaceholder('');
         }
     
-    const folderObjects = dirMap[currentDir]
-    const sameKey = folderObjects && (Object.keys(folderObjects)).some(obj => folderObjects[obj] instanceof Array ? (fullName.replace(/\/$/, '')) === obj : false)
+    const folderObjects = dirMap[currentDir];
+    const sameKey = folderObjects && (Object.keys(folderObjects)).some(obj => folderObjects[obj] instanceof Array ? (fullName.replace(/\/$/, '')) === obj : false);
 
     return (
         <Fragment>
@@ -71,7 +71,7 @@ const NewFolderModal = () => {
                 <button className={button} onClick={onCLickHandler} aria-label='create new folder'>Create new folder</button>
             </form>
         </Fragment>
-    )
-}
+    );
+};
 
-export default NewFolderModal
+export default NewFolderModal;

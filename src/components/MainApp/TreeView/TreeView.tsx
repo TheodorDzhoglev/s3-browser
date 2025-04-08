@@ -6,12 +6,12 @@ import Folder from "./Folder"
 type TreeViewType = {
     className: string;
     content: _Object[] | undefined;
-    isLoading: boolean
-}
+    isLoading: boolean;
+};
 const {
     main_container,
     folder_tree
-} = classes
+} = classes;
 
 const TreeView = ({ className, content, isLoading }: TreeViewType) => {
     
@@ -33,7 +33,7 @@ const TreeView = ({ className, content, isLoading }: TreeViewType) => {
                 </ul>
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default TreeView
+export default TreeView;

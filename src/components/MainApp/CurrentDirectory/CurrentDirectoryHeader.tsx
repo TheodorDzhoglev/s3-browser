@@ -18,50 +18,50 @@ const {
     svg_icon,
     header_icon,
     header_icon_container
-} = classes
+} = classes;
 
 const {
     button
-} = uiClasses
+} = uiClasses;
 
 type Props = {
-    selectedFile: SelectItemType
-}
+    selectedFile: SelectItemType;
+};
 
 const CurrentDirectoryHeader = ({ selectedFile }: Props) => {
 
-    const { setCurrentDirItems, dirMap, currentDir, setCurrentDir } = useDirContext()
-    const { dialogRef, setModalElement, modalElement } = useCurrDirContext()
+    const { setCurrentDirItems, dirMap, currentDir, setCurrentDir } = useDirContext();
+    const { dialogRef, setModalElement, modalElement } = useCurrDirContext();
 
 
     const onOpenAddNewFileHandler = () => {
-        toggleDialog(dialogRef)
-        setModalElement(<NewFileModal key={Math.random()} />)
-    }
+        toggleDialog(dialogRef);
+        setModalElement(<NewFileModal key={Math.random()} />);
+    };
 
     const onOpenAddNewFolderHandler = () => {
-        toggleDialog(dialogRef)
-        setModalElement(<NewFolderModal key={Math.random()} />)
-    }
+        toggleDialog(dialogRef);
+        setModalElement(<NewFolderModal key={Math.random()} />);
+    };
 
     const onOpenDeleteHandler = () => {
-        toggleDialog(dialogRef)
-        setModalElement(<DeleteModal key={Math.random()} selectedFile={selectedFile} />)
-    }
+        toggleDialog(dialogRef);
+        setModalElement(<DeleteModal key={Math.random()} selectedFile={selectedFile} />);
+    };
 
     const onOpenSearchHandler = () => {
-        toggleDialog(dialogRef)
-        setModalElement(<SearchModal key={Math.random()}  />)
-    }
+        toggleDialog(dialogRef);
+        setModalElement(<SearchModal key={Math.random()}  />);
+    };
 
     const onBackClickHandler = () => {
-        const parentDir = findParentDir(currentDir)
+        const parentDir = findParentDir(currentDir);
     
         if (parentDir) {
-            setCurrentDir(parentDir)
-            setCurrentDirItems(dirMap[parentDir])
-        }
-    }
+            setCurrentDir(parentDir);
+            setCurrentDirItems(dirMap[parentDir]);
+        };
+    };
     
     return (
         <div className={directory_header}>
@@ -98,7 +98,7 @@ const CurrentDirectoryHeader = ({ selectedFile }: Props) => {
             </div>
             <Dialog ref={dialogRef} toggleDialog={() => toggleDialog(dialogRef)}>{modalElement}</Dialog>
         </div>
-    )
-}
+    );
+};
 
-export default CurrentDirectoryHeader
+export default CurrentDirectoryHeader;

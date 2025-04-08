@@ -8,28 +8,28 @@ type ContextType = {
     setModalElement: StateSetter<ReactNode>;
     dialogRef: RefObject<HTMLDialogElement | null>;
     filteredContent: Dir | null;
-    setFilteredContent: React.Dispatch<React.SetStateAction<Dir | null>>
+    setFilteredContent: React.Dispatch<React.SetStateAction<Dir | null>>;
 }
-export const CurrDirContext = createContext<ContextType | null>(null)
+export const CurrDirContext = createContext<ContextType | null>(null);
 
 export const useCurrDirContext = () => {
-    const data = useContext(CurrDirContext)
-    if (!data) throw new Error("useAppContext must be used within a Provider")
+    const data = useContext(CurrDirContext);
+    if (!data) throw new Error("useAppContext must be used within a Provider");
     
-    return data
+    return data;
 }
 
 export const toggleDialog = (dialog: RefObject<HTMLDialogElement | null>) => {
     if (!dialog.current) return;
     if (dialog.current.hasAttribute('open')) {
-        dialog.current.close()
+        dialog.current.close();
     }
     else {
-        dialog.current.showModal()
+        dialog.current.showModal();
     }
 }
 
 export const openDialog = (dialog: RefObject<HTMLDialogElement | null>) => {
     if (!dialog.current) return;
-    dialog.current.showModal()
+    dialog.current.showModal();
 }

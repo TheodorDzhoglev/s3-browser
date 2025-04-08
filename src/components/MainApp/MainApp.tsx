@@ -11,12 +11,12 @@ const {
     app_container,
     tree_view,
     current_directory
-} = classes
+} = classes;
 
 const MainApp = () => {
-    const { isLoading, error, data } = useFetchList()
+    const { isLoading, error, data } = useFetchList();
 
-    if (error) return  <MainAppError/>
+    if (error) return  <MainAppError/>;
     
     return (
         <Fragment>
@@ -28,7 +28,7 @@ const MainApp = () => {
                 </DirectoryContext>
             </div>
         </Fragment>
-    )
-}
+    );
+};
 
-export default MainApp
+export default MainApp;;

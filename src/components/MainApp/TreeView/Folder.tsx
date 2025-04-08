@@ -13,7 +13,7 @@ type Props = {
     currentDir: string;
     root?: boolean;
     renderChild: boolean;
-}
+};
 
 const {
     folder_container,
@@ -27,11 +27,11 @@ const {
     clicked_btn,
     loading_btn,
     show_btn_placeholder
-} = classes
+} = classes;
 
 const Folder = ({ currentDir, content, root, renderChild }: Props) => {
 
-    const [showFolders, setShowFolders] = useState(root ? true : false)
+    const [showFolders, setShowFolders] = useState(root ? true : false);
     
     const {
         setCurrentDir,
@@ -39,59 +39,59 @@ const Folder = ({ currentDir, content, root, renderChild }: Props) => {
         setDirMap,
         loadingObj,
         currentDir: openedDir
-    } = useDirContext()
+    } = useDirContext();
     
-    const dirContent = useAdaptData(content, currentDir)
-    const { foldersInDirectory, shouldRender } = useRemoveFiles(dirContent)
-    const isParentOfOpenDir = useFindOpenDirParents(foldersInDirectory)
+    const dirContent = useAdaptData(content, currentDir);
+    const { foldersInDirectory, shouldRender } = useRemoveFiles(dirContent);
+    const isParentOfOpenDir = useFindOpenDirParents(foldersInDirectory);
 
     useEffect(() => {
-        const key = root ? '/' : currentDir
+        const key = root ? '/' : currentDir;
         setDirMap(prevState => {
             return {
                 ...prevState,
                 [key]: dirContent
-            }
-        })
+            };
+        });
         
-    }, [ currentDir, root, dirContent, setDirMap])
+    }, [ currentDir, root, dirContent, setDirMap]);
 
     useEffect(()=>{
         if (root && !openedDir) {
-            setCurrentDir(currentDir)
-            setCurrentDirItems(dirContent)
-        }
-    },[root, openedDir, setCurrentDir, currentDir, setCurrentDirItems, dirContent])
+            setCurrentDir(currentDir);
+            setCurrentDirItems(dirContent);
+        };
+    },[root, openedDir, setCurrentDir, currentDir, setCurrentDirItems, dirContent]);
 
 
     const onCLickTriangleHandler = () => {
         if(shouldRender && !isParentOfOpenDir){
-            setShowFolders(prevState => !prevState)
-        }
-    }
+            setShowFolders(prevState => !prevState);
+        };
+    };
 
     const onEnterPress = (e: KeyboardEvent) => {
         if(e.key === 'Enter' && e.target === e.currentTarget){
-            e.preventDefault()
-            setCurrentDir(currentDir)
-            setShowFolders(true)
-        }
-    }
+            e.preventDefault();
+            setCurrentDir(currentDir);
+            setShowFolders(true);
+        };
+    };
 
     const onDoubleClickHandler = () => {
-        setCurrentDir(currentDir)
+        setCurrentDir(currentDir);
     }
 
-    const {handleClick, handleDoubleClick} = useClickPrevention(onCLickTriangleHandler, onDoubleClickHandler, 300)
+    const {handleClick, handleDoubleClick} = useClickPrevention(onCLickTriangleHandler, onDoubleClickHandler, 300);
 
-    const currentDirArr = currentDir.split('/')
-    const currentDirName = currentDirArr.length > 1 ? currentDirArr[currentDirArr.length - 1] : currentDir
+    const currentDirArr = currentDir.split('/');
+    const currentDirName = currentDirArr.length > 1 ? currentDirArr[currentDirArr.length - 1] : currentDir;
     
     
-    const loading = loadingObj.some( name => name === currentDir+'/')
+    const loading = loadingObj.some( name => name === currentDir+'/');
 
     
-    const isChildOpen = root ? true : isParentOfOpenDir
+    const isChildOpen = root ? true : isParentOfOpenDir;
 
     return (
         <li className={folder_container} >
@@ -137,7 +137,7 @@ const Folder = ({ currentDir, content, root, renderChild }: Props) => {
                 />
             }
         </li>
-    )
-}
+    );
+};
 
-export default memo(Folder)
+export default memo(Folder);

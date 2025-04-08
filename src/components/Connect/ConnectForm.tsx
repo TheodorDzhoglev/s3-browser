@@ -7,28 +7,28 @@ import { createS3Client } from '../../utils/s3API'
 
 const {
     form,
-} = classes
+} = classes;
 
 const {
     input_container,
     input,
     button
-} = uiClasses
+} = uiClasses;
 
 const ConnectForm = () => {
 
-    const [bucket, setBucket] = useState('')
-    const [key, setKey] = useState('')
-    const [secret, setSecret] = useState('')
-    const { setCredentials, sets3Client } = useAppContext()
+    const [bucket, setBucket] = useState('');
+    const [key, setKey] = useState('');
+    const [secret, setSecret] = useState('');
+    const { setCredentials, sets3Client } = useAppContext();
 
     const onSubmitHandler = async (e: FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        const data = { bucket: bucket.trim(), key: key.trim(), secret: secret.trim(), }
-        addToLocalStorage(data)
-        setCredentials(data)
-        sets3Client(createS3Client(data))
-    }
+        e.preventDefault();;
+        const data = { bucket: bucket.trim(), key: key.trim(), secret: secret.trim(), };
+        addToLocalStorage(data);
+        setCredentials(data);
+        sets3Client(createS3Client(data));
+    };
 
     return (
         <form className={form} onSubmit={onSubmitHandler}>
@@ -69,7 +69,7 @@ const ConnectForm = () => {
             </div>
             <button className={button} aria-label='submit form'>Connect</button>
         </form>
-    )
-}
+    );
+};
 
-export default ConnectForm
+export default ConnectForm;

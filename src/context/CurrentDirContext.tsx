@@ -8,7 +8,7 @@ const CurrentDirectoryContext = ({ children }: PropsWithChildren) => {
 
     const [modalElement, setModalElement] = useState<ReactNode>();
     const dialogRef = useRef<HTMLDialogElement>(null);
-    const [filteredContent, setFilteredContent] = useState<Dir | null>(null)
+    const [filteredContent, setFilteredContent] = useState<Dir | null>(null);
 
     const value = {
         modalElement,
@@ -16,7 +16,7 @@ const CurrentDirectoryContext = ({ children }: PropsWithChildren) => {
         dialogRef,
         filteredContent, 
         setFilteredContent
-    }
+    };
 
     return (
         <CurrDirContext.Provider value={value}>
@@ -24,4 +24,4 @@ const CurrentDirectoryContext = ({ children }: PropsWithChildren) => {
         </CurrDirContext.Provider>
     )
 }
-export default CurrentDirectoryContext
+export default CurrentDirectoryContext;

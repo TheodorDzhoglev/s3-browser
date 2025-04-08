@@ -4,7 +4,7 @@ import MainApp from "./components/MainApp/MainApp"
 import AppContext from "./context/AppContext"
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query"
 
-const queryClient = new QueryClient()
+const queryClient = new QueryClient();
 
 function App() {
 
@@ -18,7 +18,7 @@ function App() {
         </AppContext>
       </QueryClientProvider>
     </ErrorBoundary>
-  )
-}
+  );
+};
 
-export default App
+export default App;

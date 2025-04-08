@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 import AppContext from "../context/AppContext";
 
 type Props = {
-    children: ReactNode
+    children: ReactNode;
 }
 
 const TestProviders = ({children}: Props) => {
@@ -10,7 +10,7 @@ const TestProviders = ({children}: Props) => {
         <AppContext>
             {children}
         </AppContext>
-    )
-}
+    );
+};
 
-export default TestProviders
+export default TestProviders;

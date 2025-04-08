@@ -8,20 +8,19 @@ import CurrentDirectoryHeader from '../src/components/MainApp/CurrentDirectory/C
 describe('Renders Current Dir Header', () => {
     it('Render buttons', () => {
 
-        const selectedFile: SelectItemType = {name: 'file22', type: 'file'}
+        const selectedFile: SelectItemType = {name: 'file22', type: 'file'};
         
         render(
             <TestProviders>
                 <CurrentDirectoryHeader selectedFile={selectedFile}/>
             </TestProviders>
-        )
+        );
         
-        expect(screen.getByLabelText('previous directory')).toBeInTheDocument()
-        expect(screen.getByLabelText('search')).toBeInTheDocument()
-        expect(screen.getByLabelText('Add file')).toBeInTheDocument()
-        expect(screen.getByLabelText('Add folder')).toBeInTheDocument()
-        expect(screen.getByLabelText('delete')).toBeInTheDocument()
-        screen.debug()
-    })
-
-})
+        expect(screen.getByLabelText('previous directory')).toBeInTheDocument();
+        expect(screen.getByLabelText('search')).toBeInTheDocument();
+        expect(screen.getByLabelText('Add file')).toBeInTheDocument();
+        expect(screen.getByLabelText('Add folder')).toBeInTheDocument();
+        expect(screen.getByLabelText('delete')).toBeInTheDocument();
+        screen.debug();
+    });
+});

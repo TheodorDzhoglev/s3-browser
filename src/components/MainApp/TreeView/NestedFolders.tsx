@@ -7,18 +7,18 @@ type Props = {
     folderObject: Record<string, BucketItemType[] | undefined>;
     showFolders: boolean;
     shouldRender: boolean;
-    renderChild: boolean
+    renderChild: boolean;
 }
 
 const {
     nested_folders,
     collapsable,
     show_collapsable,
-} = classes
+} = classes;
 
 const NestedFolders = ({ folderObject, showFolders, shouldRender, renderChild }: Props) => {
 
-    if (!shouldRender) return []
+    if (!shouldRender) return [];
     return (
         <div className={`${nested_folders} ${showFolders? show_collapsable : ''}`} inert={!showFolders}>
             <ul className={collapsable}>
@@ -36,4 +36,4 @@ const NestedFolders = ({ folderObject, showFolders, shouldRender, renderChild }:
     )
 }
 
-export default memo(NestedFolders)
+export default memo(NestedFolders);

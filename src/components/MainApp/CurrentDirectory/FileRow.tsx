@@ -10,8 +10,8 @@ type Props = {
     name: string | undefined;
     lastModified?: Date | undefined;
     selected: boolean;
-    onCLickHandler: (name: string, type: 'file' | 'folder') => void
-}
+    onCLickHandler: (name: string, type: 'file' | 'folder') => void;
+};
 
 const {
     icon_container,
@@ -20,46 +20,46 @@ const {
     icon_date,
     icon_li,
     selected_file
-} = classes
+} = classes;
 
 const FileRow = ({ name, lastModified, selected, onCLickHandler }: Props) => {
 
-    const { s3client, credentials } = useAppContext()
-    const { currentDir, loadingObj } = useDirContext()
-    const dialogRef = useRef<HTMLDialogElement>(null)
-    const [modal, setModal] = useState<ReactNode>()
+    const { s3client, credentials } = useAppContext();
+    const { currentDir, loadingObj } = useDirContext();
+    const dialogRef = useRef<HTMLDialogElement>(null);
+    const [modal, setModal] = useState<ReactNode>();
 
-    if (!credentials) return
-    const { bucket, key } = credentials
+    if (!credentials) return;
+    const { bucket, key } = credentials;
 
-    if (!name || !s3client || !bucket || !key) return
+    if (!name || !s3client || !bucket || !key) return;
 
-    const keyName = currentDir === '/' ? name : `${currentDir}/${name}`
+    const keyName = currentDir === '/' ? name : `${currentDir}/${name}`;
 
     const toggleDialog = () => {
         if (!dialogRef.current) return;
         if (dialogRef.current.hasAttribute('open')) {
-            dialogRef.current.close()
+            dialogRef.current.close();
         }
         else {
-            dialogRef.current.showModal()
+            dialogRef.current.showModal();
         }
     }
 
     const onDoubleClickHandler = async () => {
-        toggleDialog()
-        setModal(<ReadFileModal keyName={keyName} />)
+        toggleDialog();
+        setModal(<ReadFileModal keyName={keyName} />);
     }
 
     const onEnterPress = (e: KeyboardEvent) => {
         if (e.key === 'Enter' && selected) {
-            e.preventDefault()
-            setModal(<ReadFileModal keyName={keyName} />)
-            toggleDialog()
-        }
-    }
+            e.preventDefault();
+            setModal(<ReadFileModal keyName={keyName} />);
+            toggleDialog();
+        };
+    };
 
-    const loading = loadingObj.some(name => name === keyName)
+    const loading = loadingObj.some(name => name === keyName);
 
     return (
         <li className={icon_li} title={name}>
@@ -94,7 +94,7 @@ const FileRow = ({ name, lastModified, selected, onCLickHandler }: Props) => {
             </button>
             <Dialog ref={dialogRef} toggleDialog={toggleDialog}>{modal}</Dialog>
         </li>
-    )
-}
+    );
+};
 
-export default memo(FileRow)
+export default memo(FileRow);

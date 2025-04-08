@@ -11,7 +11,7 @@ type Props = {
     dirContent: Record<string, BucketItemType[] | Date | undefined> | undefined;
     selectedFile: SelectItemType;
     setSelectedFile: React.Dispatch<React.SetStateAction<SelectItemType>>;
-}
+};
 
 const {
     directory_grid_container,
@@ -19,43 +19,43 @@ const {
     directory_grid,
     directory_nav,
     button_container
-} = classes
+} = classes;
 
 const Directory = ({ dirContent, selectedFile, setSelectedFile }: Props) => {
 
     const virtuosoRef = useRef<VirtuosoHandle>(null);
-    const { filteredContent, setFilteredContent } = useCurrDirContext()
+    const { filteredContent, setFilteredContent } = useCurrDirContext();
 
     const onCLickHandler = (name: string, type: 'file' | 'folder' | '') => {
         setSelectedFile({
             name: name === selectedFile?.name ? '' : name,
             type: type
-        })
-    }
+        });
+    };
 
     useEffect(() => {
-        setSelectedFile({ name: '', type: '' })
+        setSelectedFile({ name: '', type: '' });
         if(virtuosoRef.current){
             virtuosoRef.current.scrollToIndex(0);
-        }
-        setFilteredContent(null)
-    }, [dirContent, setSelectedFile, setFilteredContent])
+        };
+        setFilteredContent(null);
+    }, [dirContent, setSelectedFile, setFilteredContent]);
 
     const {
         sortedContent,
         sortByType,
         sortByName,
         sortByDate
-    } = useSort(dirContent)
+    } = useSort(dirContent);
 
     const {
         sortedContent: sortedFilContent,
         sortByType: sortFilByType,
         sortByName: sortFilByName,
         sortByDate: sortFilByDate
-    } = useSort(filteredContent)
+    } = useSort(filteredContent);
 
-    if (!sortedContent?.length) return
+    if (!sortedContent?.length) return;
 
     return (
         <div className={directory_container}>
@@ -98,7 +98,7 @@ const Directory = ({ dirContent, selectedFile, setSelectedFile }: Props) => {
                 </ul>
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default Directory
+export default Directory;

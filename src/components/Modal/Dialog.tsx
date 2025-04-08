@@ -2,23 +2,23 @@ import { forwardRef, ReactNode, MouseEvent } from "react"
 import modalClasses from '../../assets/styles/Modal.module.css'
 
 type Props = {
-    toggleDialog: () => void
-    children: ReactNode
-}
+    toggleDialog: () => void;
+    children: ReactNode;
+};
 
 const {
     dialog,
     close_btn,
     dialog_container
-} = modalClasses
+} = modalClasses;
 
 const Dialog = forwardRef<HTMLDialogElement, Props>(({ toggleDialog, children }, ref) => {
 
     const onCloseModalHandler = (e: MouseEvent<HTMLDialogElement>) => {
         if (((e.target === e.currentTarget) || e.target instanceof HTMLButtonElement)) {
-            toggleDialog()
-        }
-    }
+            toggleDialog();
+        };
+    };
 
 
     return (
@@ -28,7 +28,7 @@ const Dialog = forwardRef<HTMLDialogElement, Props>(({ toggleDialog, children },
                 {children}
             </div>
         </dialog>
-    )
-})
+    );
+});
 
-export default Dialog
+export default Dialog;

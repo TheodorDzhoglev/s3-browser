@@ -8,25 +8,25 @@ import { createS3Client } from '../src/utils/s3API'
 import { addToLocalStorage } from '../src/utils/localStorage'
 
 type Props = {
-    children: ReactNode
-}
+    children: ReactNode;
+};
 
-const credential = { bucket: 'asdasdw', key: 'asdasdasd', secret: 'asdasdasd' }
+const credential = { bucket: 'asdasdw', key: 'asdasdasd', secret: 'asdasdasd' };
 
 const ParentComponent = ({ children }: Props) => {
 
-    const { setCredentials, sets3Client } = useAppContext()
+    const { setCredentials, sets3Client } = useAppContext();
     useEffect(() => {
-        setCredentials(credential)
-        sets3Client(createS3Client(credential))
-    }, [setCredentials, sets3Client])
+        setCredentials(credential);
+        sets3Client(createS3Client(credential));
+    }, [setCredentials, sets3Client]);
 
-    return (children)
+    return (children);
 }
 
-const queryClient = new QueryClient()
+const queryClient = new QueryClient();
 const TestProviders = ({ children }: Props) => {
-    addToLocalStorage(credential)
+    addToLocalStorage(credential);
     return (
         <QueryClientProvider client={queryClient}>
             <AppContext>
@@ -39,7 +39,7 @@ const TestProviders = ({ children }: Props) => {
                 </DirectoryContext>
             </AppContext>
         </QueryClientProvider>
-    )
-}
+    );
+};
 
-export default TestProviders
+export default TestProviders;

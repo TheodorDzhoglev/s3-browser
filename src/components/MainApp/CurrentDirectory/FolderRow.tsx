@@ -4,11 +4,11 @@ import { findCurrentDir } from '../../../utils/dataTransformUtls'
 import { useDirContext } from '../../../context/dirContext'
 import { memo, KeyboardEvent } from 'react'
 type Props = {
-    name: string | undefined,
-    lastModified?: Date | undefined,
+    name: string | undefined;
+    lastModified?: Date | undefined;
     selected: boolean;
-    onCLickHandler: (name: string, type: 'file' | 'folder') => void
-}
+    onCLickHandler: (name: string, type: 'file' | 'folder') => void;
+};
 
 const {
     icon_container,
@@ -17,27 +17,27 @@ const {
     icon_date,
     icon_li,
     selected_file
-} = classes
+} = classes;
 
 const FolderRow = ({ name, lastModified, selected, onCLickHandler }: Props) => {
 
-    const { setCurrentDirItems, setCurrentDir, dirMap, loadingObj } = useDirContext()
+    const { setCurrentDirItems, setCurrentDir, dirMap, loadingObj } = useDirContext();
 
-    if (!name) return
+    if (!name) return;
 
     const onDoubleClickHandler = () => {
-        setCurrentDir(name)
-        setCurrentDirItems(dirMap[name])
-    }
+        setCurrentDir(name);
+        setCurrentDirItems(dirMap[name]);
+    };
 
     const onEnterPress = (e: KeyboardEvent) => {
         if (e.key === 'Enter' && selected) {
-            setCurrentDir(name)
-            setCurrentDirItems(dirMap[name])
-        }
-    }
+            setCurrentDir(name);
+            setCurrentDirItems(dirMap[name]);
+        };
+    };
 
-    const loading = loadingObj.some(loadName => loadName === name + '/')
+    const loading = loadingObj.some(loadName => loadName === name + '/');
 
     return (
         <li className={icon_li} title={name}>
@@ -65,7 +65,7 @@ const FolderRow = ({ name, lastModified, selected, onCLickHandler }: Props) => {
                 <p className={icon_date}>{lastModified ? `${lastModified.toLocaleDateString()} ${lastModified.toLocaleTimeString()}` : ''}</p>
             </button>
         </li>
-    )
-}
+    );
+};
 
-export default memo(FolderRow)
+export default memo(FolderRow);
