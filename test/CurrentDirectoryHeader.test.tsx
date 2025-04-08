@@ -1,15 +1,10 @@
-import React, { act, useState } from 'react';
+import React from 'react';
 import '@testing-library/jest-dom/vitest'
 import { render, screen } from '@testing-library/react'
 import TestProviders from './TestProviders';
 import { SelectItemType } from '../src/utils/types';
-import FileRow from '../src/components/MainApp/CurrentDirectory/FileRow';
-import userEvent from '@testing-library/user-event';
 import CurrentDirectoryHeader from '../src/components/MainApp/CurrentDirectory/CurrentDirectoryHeader';
 
-type Props = {
-    selectedFile: SelectItemType
-}
 
 
 describe('Renders Current Dir Header', () => {
