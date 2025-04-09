@@ -32,7 +32,6 @@
     display: flex;
     gap: 1rem;
     font-weight: var(--fw-bold);
-    /* flex: 0 0 max-content; */
 }
 
 .btn_container button svg{

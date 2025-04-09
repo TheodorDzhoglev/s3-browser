@@ -73,7 +73,7 @@ const DeleteModal = ({ selectedFile }: Props) => {
         <Fragment>
             <div className={message_modal}>
                 <h2>Delete</h2>
-                <p>Are you sure you want to delete: {selectedFile.type === 'file' ? selectedFile?.name : findCurrentDir(selectedFile?.name)}</p>
+                <p>Are you sure you want to delete: <span className='text-bold'>{selectedFile.type === 'file' ? selectedFile?.name : findCurrentDir(selectedFile?.name)}</span></p>
                 <button className={button} onClick={onCLickHandler} aria-label='delete'>Delete</button>
             </div>
         </Fragment>
