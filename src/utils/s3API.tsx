@@ -61,7 +61,7 @@ export const getObject = async (client: S3Client, key: string, bucket: string) =
 export const deleteObjects = async (client: S3Client, items: { Key: string | undefined }[], bucket: string) => {
     try {
         const command = new DeleteObjectsCommand({
-            Bucket: 'bucket',
+            Bucket: bucket,
             Delete: {
                 Objects: items
             }
