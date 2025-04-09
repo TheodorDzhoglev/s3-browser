@@ -1,4 +1,5 @@
 import React, { Component, ErrorInfo } from 'react';
+import MainAppError from './Modal/MainAppError';
 
 interface Props {
   children: React.ReactNode;
@@ -22,7 +23,9 @@ class ErrorBoundary extends Component<Props, State> {
 
   render() {
     if (this.state.hasError) {
-      return <h1>Something went wrong. {this.state.error?.message}</h1>;
+      return (
+        <MainAppError reload={true} msg={this.state.error ? this.state.error.message : ''}/>
+      )
     }
 
     return this.props.children;

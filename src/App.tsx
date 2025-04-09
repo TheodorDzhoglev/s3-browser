@@ -9,15 +9,15 @@ const queryClient = new QueryClient();
 function App() {
 
   return (
-    <ErrorBoundary>
-      <QueryClientProvider client={queryClient}>
-        <AppContext>
+    <AppContext>
+      <ErrorBoundary>
+        <QueryClientProvider client={queryClient}>
           <CheckCredentials>
             <MainApp />
           </CheckCredentials>
-        </AppContext>
-      </QueryClientProvider>
-    </ErrorBoundary>
+        </QueryClientProvider>
+      </ErrorBoundary>
+    </AppContext>
   );
 };
 

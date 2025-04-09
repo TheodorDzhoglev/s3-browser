@@ -14,13 +14,19 @@ const {
     message_modal
 } = modalClasses;
 
-const MainAppError = () => {
+type Props = {
+    msg: string;
+    reload?: boolean
+};
+
+const MainAppError = ({msg, reload}: Props) => {
 
     const { setCredentials } = useAppContext();
 
     const onLogoutHandler = () => {
         setCredentials(null);
         removeFromLocalStorage();
+        if(reload) window.location.reload()
     };
 
 
@@ -29,7 +35,7 @@ const MainAppError = () => {
             <div className={modal_box}>
                 <div className={message_modal}>
                     <h2 className={modal_header}>An error occurred!</h2>
-                    <p>Please try to reconnect to your bucket</p>
+                    <p>{msg}</p>
                     <button className={button} onClick={onLogoutHandler} aria-label='back'>Back</button>
                 </div>
             </div>
