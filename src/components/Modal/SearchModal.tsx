@@ -34,7 +34,7 @@ const SearchModal = () => {
         for (const key in filteredData) {
             const objKey = findCurrentDir(key);
 
-            if (objKey && !objKey.toLocaleLowerCase().includes(search.trim())) delete filteredData[key];
+            if (objKey && !objKey.toLocaleLowerCase().includes(search.toLocaleLowerCase().trim())) delete filteredData[key];
         }
         setFilteredContent(filteredData);
     }

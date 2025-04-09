@@ -40,7 +40,7 @@ const FolderRow = ({ name, lastModified, selected, onCLickHandler }: Props) => {
     const loading = loadingObj.some(loadName => loadName === name + '/');
 
     return (
-        <li className={icon_li} title={name}>
+        <li className={icon_li}>
             <button
                 className={`${icon_container} ${selected ? selected_file : ''} ${loading ? 'animate_bg' : ''}`}
                 type='button'

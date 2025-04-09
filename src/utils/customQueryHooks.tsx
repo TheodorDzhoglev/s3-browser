@@ -75,7 +75,7 @@ export const useAddObject = () => {
         setLoadingObj(prevState => prevState.filter(name => name !== fullName));
         
         if (data instanceof Error) {
-            setModalElement(<ErrorModal key={Math.random()} text={`Something went wrong while creating '${name}'.`} />);
+            setModalElement(<ErrorModal key={Math.random()} text={`Something went wrong while creating '${name}'. Please try again.`} />);
             openDialog(dialogRef);
             queryClient.setQueryData(['list'], (data: ListObjectsV2Output) => {
                 return {
