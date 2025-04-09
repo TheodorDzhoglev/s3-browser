@@ -21,10 +21,17 @@ class ErrorBoundary extends Component<Props, State> {
     this.setState({ hasError: true, error });
   }
 
+  resetError = () => {
+    this.setState({
+      hasError: false,
+      error: null
+    });
+  }
+
   render() {
     if (this.state.hasError) {
       return (
-        <MainAppError reload={true} msg={this.state.error ? this.state.error.message : ''}/>
+        <MainAppError resetError={this.resetError} msg={this.state.error ? this.state.error.message : ''}/>
       )
     }
 

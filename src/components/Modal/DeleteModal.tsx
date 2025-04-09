@@ -63,7 +63,7 @@ const DeleteModal = ({ selectedFile }: Props) => {
         }
         else {
             setLoadingObj(prevState => prevState.filter(name => name !== deletedName));
-            setModalElement(<ErrorModal key={Math.random()} text={`Something went wrong while deleting '${selectedFile.name}'.`} />);
+            setModalElement(<ErrorModal key={Math.random()} text={`Something went wrong while deleting '${selectedFile.name}'. Please try again.`} />);
             openDialog(dialogRef);
         }
     }
@@ -72,7 +72,7 @@ const DeleteModal = ({ selectedFile }: Props) => {
     return (
         <Fragment>
             <div className={message_modal}>
-                <h1>Delete</h1>
+                <h2>Delete</h2>
                 <p>Are you sure you want to delete: {selectedFile.type === 'file' ? selectedFile?.name : findCurrentDir(selectedFile?.name)}</p>
                 <button className={button} onClick={onCLickHandler} aria-label='delete'>Delete</button>
             </div>

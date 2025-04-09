@@ -48,7 +48,7 @@ const FileRow = ({ name, lastModified, selected, onCLickHandler }: Props) => {
 
     const onDoubleClickHandler = async () => {
         toggleDialog();
-        setModal(<ReadFileModal keyName={keyName} />);
+        setModal(<ReadFileModal keyName={keyName} key={Math.random()}/>);
     }
 
     const onEnterPress = (e: KeyboardEvent) => {

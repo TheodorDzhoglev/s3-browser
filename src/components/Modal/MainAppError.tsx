@@ -16,17 +16,17 @@ const {
 
 type Props = {
     msg: string;
-    reload?: boolean
+    resetError?: () => void
 };
 
-const MainAppError = ({msg, reload}: Props) => {
+const MainAppError = ({msg, resetError}: Props) => {
 
     const { setCredentials } = useAppContext();
 
     const onLogoutHandler = () => {
         setCredentials(null);
         removeFromLocalStorage();
-        if(reload) window.location.reload()
+        if(resetError) resetError()
     };
 
 

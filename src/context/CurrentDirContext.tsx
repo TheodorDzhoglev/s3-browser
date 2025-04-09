@@ -6,7 +6,7 @@ import { Dir } from "../utils/types"
 
 const CurrentDirectoryContext = ({ children }: PropsWithChildren) => {
 
-    const [modalElement, setModalElement] = useState<ReactNode>();
+    const [modalElement, setModalElement] = useState<ReactNode>(null);
     const dialogRef = useRef<HTMLDialogElement>(null);
     const [filteredContent, setFilteredContent] = useState<Dir | null>(null);
 

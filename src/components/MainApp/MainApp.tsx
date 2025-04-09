@@ -14,9 +14,9 @@ const {
 } = classes;
 
 const MainApp = () => {
-    const { isLoading, error, data } = useFetchList();
-
-    if (error) return  <MainAppError msg={'Please try to reconnect to your bucket'}/>;
+    const { isLoading, error, data, isRefetching } = useFetchList();
+    
+    if (error && !isRefetching) return  <MainAppError msg={'Please try to reconnect to your bucket'}/>;
     
     return (
         <Fragment>

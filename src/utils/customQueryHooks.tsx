@@ -14,7 +14,7 @@ export const useFetchList = () => {
     if (!s3client || !credentials) throw new Error('Use useCustomQuery only in Main App');
     const { bucket } = credentials;
 
-    const { isLoading, error, data } = useQuery({
+    const { isLoading, error, data, isError, isRefetching } = useQuery({
         queryKey: ['list'],
         queryFn: () => listBucket(s3client, bucket),
 
@@ -23,7 +23,9 @@ export const useFetchList = () => {
     return {
         isLoading,
         error,
-        data
+        data,
+        isError,
+        isRefetching
     };
 };
 
@@ -41,7 +43,7 @@ export const useFetchObj = (keyName: string) => {
     return {
         isLoading,
         error,
-        data: typeof data === 'string' ? data : ''
+        data
     };
 };
 
